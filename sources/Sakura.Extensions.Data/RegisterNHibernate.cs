@@ -1,18 +1,16 @@
-namespace Fugu.Extensions.Data
+namespace Sakura.Extensions.Data
 {
     using Autofac;
 
-    using Fugu.Framework.Tasks;
-
     using NHibernate;
+
+    using Sakura.Framework.Tasks;
 
     public class RegisterNHibernate : IInitializationTask
     {
         public void Execute(InitializationTaskContext context)
         {
             var builder = context.Builder;
-
-            builder.Register(c => new SessionFactoryFactory().Create()).As<ISessionFactory>().SingleInstance();
             builder.Register(c => c.Resolve<ISessionFactory>().OpenSession()).As<ISession>().InstancePerDependency();
         }
     }

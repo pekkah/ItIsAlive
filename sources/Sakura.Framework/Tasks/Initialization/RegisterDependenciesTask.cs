@@ -1,13 +1,14 @@
-﻿namespace Fugu.Framework.Tasks.Initialization
+﻿namespace Sakura.Framework.Tasks.Initialization
 {
     using System;
     using System.Linq;
 
     using Autofac;
 
-    using Fugu.Framework.Dependencies;
-    using Fugu.Framework.ExtensionMethods;
+    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.ExtensionMethods;
 
+    [NotDiscoverable]
     public class RegisterDependenciesTask : IInitializationTask
     {
         private readonly IDependencyLocator locator;

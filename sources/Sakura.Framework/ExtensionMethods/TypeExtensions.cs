@@ -1,4 +1,4 @@
-﻿namespace Fugu.Framework.ExtensionMethods
+﻿namespace Sakura.Framework.ExtensionMethods
 {
     using System;
     using System.Linq;

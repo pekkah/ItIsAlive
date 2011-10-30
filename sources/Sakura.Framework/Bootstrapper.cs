@@ -1,4 +1,4 @@
-﻿namespace Fugu.Framework
+﻿namespace Sakura.Framework
 {
     public class Bootstrapper : AbstractBootstrapper
     {

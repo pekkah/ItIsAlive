@@ -2,26 +2,27 @@
 {
     using Autofac;
 
-    using Fugu.Framework.Tasks;
-
     using NSubstitute;
 
     using NUnit.Framework;
+
+    using Sakura.Framework;
+    using Sakura.Framework.Tasks;
 
     [TestFixture]
     public class When_initializing
     {
         private Bootstrapper bootstrapper;
 
+        private IContainer container;
+
         private IInitializationTask initializationTask1;
+
+        private IInitializationTask initializationTaskDependency;
 
         private IInitializationTaskSource initializationTaskSource;
 
         private IInitializationTask taskInTaskSource;
-
-        private IContainer container;
-
-        private IInitializationTask initializationTaskDependency;
 
         [SetUp]
         public void Setup()
@@ -60,15 +61,15 @@
         }
 
         [Test]
-        public void should_get_tasks_from_custom_sources()
-        {
-            this.initializationTaskSource.Received().GetTasks();
-        }
-
-        [Test]
         public void should_execute_tasks_with_initialization_task_context()
         {
             this.initializationTask1.Received().Execute(Arg.Any<InitializationTaskContext>());
+        }
+
+        [Test]
+        public void should_get_tasks_from_custom_sources()
+        {
+            this.initializationTaskSource.Received().GetTasks();
         }
     }
 }

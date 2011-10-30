@@ -2,11 +2,12 @@ namespace Fugu.Framework.Tests.Booting
 {
     using Autofac;
 
-    using Fugu.Framework.Tasks;
-
     using NSubstitute;
 
     using NUnit.Framework;
+
+    using Sakura.Framework;
+    using Sakura.Framework.Tasks;
 
     [TestFixture]
     public class When_starting
@@ -26,7 +27,7 @@ namespace Fugu.Framework.Tests.Booting
             testInitializationTask.Execute(
                 Arg.Do<InitializationTaskContext>(
                     context => context.Builder.RegisterInstance(this.startupTask).As<IStartupTask>()));
-            
+
             // initialize and start
             this.bootstrapper = new Bootstrapper();
             this.bootstrapper.AddTask(testInitializationTask);
@@ -40,6 +41,5 @@ namespace Fugu.Framework.Tests.Booting
         {
             this.startupTask.Received().Execute();
         }
-
     }
 }

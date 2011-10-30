@@ -12,32 +12,14 @@
 
     using NUnit.Framework;
 
+    using Sakura.Framework;
+
     [TestFixture]
     public class When_booting
     {
         [SetUp]
         public void Setup()
         {
-            
-        }
-
-        [Test]
-        public void should_register_dependencies_from_assemblies()
-        {
-            IContainer container = null;
-
-            var currentAssembly = Assembly.GetExecutingAssembly();
-
-            var bootstrapper = new SetupBoot()
-                .DependenciesFrom(currentAssembly)
-                .ExposeContainer(exposedContainer => container = exposedContainer)
-                .Start();
-
-            var registration =
-                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
-                    SingleOrDefault();
-
-            registration.Should().NotBeNull();
         }
 
         [Test]
@@ -47,12 +29,29 @@
 
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            var bootstrapper = new SetupBoot()
-                .DependenciesFrom(currentAssembly)
-                .ExposeContainer(exposedContainer => container = exposedContainer)
-                .Start();
+            var bootstrapper =
+                new SetupBoot().DependenciesFrom(currentAssembly).ExposeContainer(
+                    exposedContainer => container = exposedContainer).Start();
 
             container.Should().NotBeNull();
+        }
+
+        [Test]
+        public void should_register_dependencies_from_assemblies()
+        {
+            IContainer container = null;
+
+            var currentAssembly = Assembly.GetExecutingAssembly();
+
+            var bootstrapper =
+                new SetupBoot().DependenciesFrom(currentAssembly).ExposeContainer(
+                    exposedContainer => container = exposedContainer).Start();
+
+            var registration =
+                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
+                    SingleOrDefault();
+
+            registration.Should().NotBeNull();
         }
     }
 }

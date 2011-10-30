@@ -1,13 +1,13 @@
-namespace Fugu.Framework.Tasks.Initialization
+namespace Sakura.Framework.Tasks.Initialization
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
 
-    using Fugu.Framework.Dependencies;
-    using Fugu.Framework.ExtensionMethods;
-    using Fugu.Framework.Internal;
+    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.ExtensionMethods;
+    using Sakura.Framework.Internal;
 
     public class DependencyLocatorSource : IInitializationTaskSource
     {
@@ -40,7 +40,9 @@ namespace Fugu.Framework.Tasks.Initialization
             if (constructorInfo == null)
             {
                 throw new InvalidOperationException(
-                    string.Format("The type '{0}' implementing IInitializationTask does not have a empty constructor.", taskType.FullName));
+                    string.Format(
+                        "The type '{0}' implementing IInitializationTask does not have a empty constructor.", 
+                        taskType.FullName));
             }
         }
     }

@@ -1,4 +1,4 @@
-namespace Fugu.Framework
+namespace Sakura.Framework
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@ namespace Fugu.Framework
 
     using Autofac;
 
-    using Fugu.Framework.Dependencies;
-    using Fugu.Framework.Tasks;
-    using Fugu.Framework.Tasks.Initialization;
+    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Initialization;
 
     public class SetupBoot : ISetupBootstrapper
     {

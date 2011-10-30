@@ -1,4 +1,4 @@
-namespace Fugu.Framework.Dependencies
+namespace Sakura.Framework.Dependencies
 {
     using System;
     using System.Collections.Generic;

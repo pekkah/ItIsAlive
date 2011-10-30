@@ -105,8 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitializeServiceDependencies.cs" />
-    <Compile Include="StartApi.cs" />
-    <Compile Include="Apis\ProjectsApi.cs" />
     <Compile Include="ContainerBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApi\AutofacConfiguration.cs" />
@@ -117,10 +115,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.Data\Sakura.Extensions.Data.csproj">
-      <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
-      <Name>Sakura.Extensions.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
       <Name>Sakura.Framework</Name>

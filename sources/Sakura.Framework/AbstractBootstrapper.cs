@@ -1,11 +1,11 @@
-namespace Fugu.Framework
+namespace Sakura.Framework
 {
     using System.Collections.Generic;
     using System.Linq;
 
     using Autofac;
 
-    using Fugu.Framework.Tasks;
+    using Sakura.Framework.Tasks;
 
     public abstract class AbstractBootstrapper
     {

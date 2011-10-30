@@ -1,8 +1,8 @@
-﻿namespace Fugu.Extensions.Api
+﻿namespace Sakura.Extensions.Api
 {
     using Autofac.Builder;
 
-    using Fugu.Extensions.Api.WebApi;
+    using Sakura.Extensions.Api.WebApi;
 
     public static class RegistrationBuilderExtensions
     {

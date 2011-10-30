@@ -1,10 +1,10 @@
-namespace Fugu.Framework.Tasks
+namespace Sakura.Framework.Tasks
 {
     using System.Collections.Generic;
 
     public class InitializationTaskSource : IInitializationTaskSource
     {
-        private List<IInitializationTask> taskList;
+        private readonly List<IInitializationTask> taskList;
 
         public InitializationTaskSource()
         {

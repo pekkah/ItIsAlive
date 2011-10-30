@@ -1,4 +1,4 @@
-﻿namespace Fugu.Framework.Internal
+﻿namespace Sakura.Framework.Internal
 {
     using System;
     using System.Reflection;

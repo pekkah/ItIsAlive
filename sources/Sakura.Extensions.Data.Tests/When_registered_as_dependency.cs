@@ -1,4 +1,4 @@
-﻿namespace Fugu.Extensions.Data.Tests
+﻿namespace Sakura.Extensions.Data.Tests
 {
     using System.Linq;
 
@@ -8,14 +8,15 @@
 
     using FluentAssertions;
 
-    using Fugu.Framework;
-
     using NHibernate;
 
     using NUnit.Framework;
 
+    using Sakura.Extensions.Data;
+    using Sakura.Framework;
+
     [TestFixture]
-    public class When_register_as_dependency
+    public class When_registered_as_dependency
     {
         private IContainer container;
 
@@ -25,7 +26,7 @@
         public void Setup()
         {
             this.bootstrapper = new SetupBoot()
-                .DependenciesFrom(typeof(SessionFactoryFactory))
+                .DependenciesFrom(typeof(RegisterNHibernate))
                 .ExposeContainer(exposed => this.container = exposed)
                 .Start();
         }
@@ -38,16 +39,6 @@
 
             registration.Should().NotBeNull();
             registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
-        }
-
-        [Test]
-        public void should_register_session_factory()
-        {
-            var registration =
-                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(ISessionFactory))).SingleOrDefault();
-
-            registration.Should().NotBeNull();
-            registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
         }
     }
 }

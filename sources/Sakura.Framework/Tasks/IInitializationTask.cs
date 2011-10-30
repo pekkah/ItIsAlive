@@ -1,6 +1,6 @@
-﻿namespace Fugu.Framework.Tasks
+﻿namespace Sakura.Framework.Tasks
 {
-    using Fugu.Framework.Dependencies;
+    using Sakura.Framework.Dependencies;
 
     public interface IInitializationTask : ITransientDependency
     {

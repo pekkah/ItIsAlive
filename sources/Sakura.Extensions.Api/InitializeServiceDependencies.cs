@@ -1,10 +1,10 @@
-﻿namespace Fugu.Extensions.Api
+﻿namespace Sakura.Extensions.Api
 {
     using System.Web.Routing;
 
     using Autofac;
 
-    using Fugu.Framework.Tasks;
+    using Sakura.Framework.Tasks;
 
     public class InitializeServiceDependencies : IInitializationTask
     {

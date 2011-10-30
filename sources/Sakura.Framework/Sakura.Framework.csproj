@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="AbstractBootstrapper.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Dependencies\NotDiscoverable.cs" />
     <Compile Include="SetupBoot.cs" />
     <Compile Include="Dependencies\DependencyLocator.cs" />
     <Compile Include="Dependencies\IDependency.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Tasks\InitializationTaskSource.cs" />
     <Compile Include="Tasks\Initialization\DependencyLocatorSource.cs" />
     <Compile Include="Tasks\Initialization\RegisterDependenciesTask.cs" />
-    <Compile Include="Tasks\Initialization\RegisterSystemDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

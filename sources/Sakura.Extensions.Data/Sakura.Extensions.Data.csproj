@@ -78,10 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\AbstractEntity.cs" />
-    <Compile Include="Model\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterNHibernate.cs" />
-    <Compile Include="SessionFactoryFactory.cs" />
+    <Compile Include="InitializeSessionFactory.cs" />
+    <Compile Include="SetupBootExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

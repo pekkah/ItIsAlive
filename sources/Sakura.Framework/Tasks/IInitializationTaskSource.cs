@@ -1,4 +1,4 @@
-namespace Fugu.Framework.Tasks
+namespace Sakura.Framework.Tasks
 {
     using System.Collections.Generic;
 

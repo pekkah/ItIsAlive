@@ -1,11 +1,11 @@
-namespace Fugu.Framework.Dependencies
+namespace Sakura.Framework.Dependencies
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
-    using Fugu.Framework.ExtensionMethods;
+    using Sakura.Framework.ExtensionMethods;
 
     public class DependencyLocator : IDependencyLocator
     {
@@ -18,12 +18,21 @@ namespace Fugu.Framework.Dependencies
 
         public IEnumerable<Type> GetDependencies()
         {
-            foreach (var assembly in assemblies)
+            foreach (var assembly in this.assemblies)
             {
-                var dependencyTypes = assembly.GetExportedTypes().Where(type => TypeExtensions.HasInterface(type, typeof(IDependency)) && type.IsClass && !type.IsAbstract);
+                var dependencyTypes =
+                    assembly.GetExportedTypes().Where(
+                        type =>
+                        type.HasInterface(typeof(IDependency)) && type.IsClass && !type.IsAbstract);
 
                 foreach (var dependencyType in dependencyTypes)
                 {
+                    // skip non discoverable dependencies
+                    if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
+                    {
+                        continue;
+                    }
+
                     yield return dependencyType;
                 }
             }

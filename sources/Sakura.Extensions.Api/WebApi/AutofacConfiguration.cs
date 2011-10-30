@@ -1,4 +1,4 @@
-﻿namespace Fugu.Extensions.Api.WebApi
+﻿namespace Sakura.Extensions.Api.WebApi
 {
     using System;
     using System.Collections.Generic;
@@ -54,6 +54,15 @@
             this.lifetimeScope = lifetimeScope;
         }
 
+        public void Attach(InstanceContext owner)
+        {
+        }
+
+        public void Detach(InstanceContext owner)
+        {
+            this.Dispose();
+        }
+
         public void Dispose()
         {
             if (this.isDisposed)
@@ -63,15 +72,6 @@
 
             this.lifetimeScope.Dispose();
             this.isDisposed = true;
-        }
-
-        public void Attach(InstanceContext owner)
-        {
-        }
-
-        public void Detach(InstanceContext owner)
-        {
-            this.Dispose();
         }
     }
 }

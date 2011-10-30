@@ -1,4 +1,4 @@
-namespace Fugu.Extensions.Api.WebApi
+namespace Sakura.Extensions.Api.WebApi
 {
     using System.Web.Routing;
 
@@ -13,7 +13,11 @@ namespace Fugu.Extensions.Api.WebApi
             this.routes = routes;
         }
 
-        public void MapServiceRoute<TService>(string routePrefix, HttpConfiguration configuration =null, object constraints = null, bool useMethodPrefixForHttpMethod = true)
+        public void MapServiceRoute<TService>(
+            string routePrefix, 
+            HttpConfiguration configuration = null, 
+            object constraints = null, 
+            bool useMethodPrefixForHttpMethod = true)
         {
             this.routes.MapServiceRoute<TService>(routePrefix, configuration, constraints, useMethodPrefixForHttpMethod);
         }
