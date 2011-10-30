@@ -55,6 +55,13 @@ namespace Sakura.Framework
             return this.DependenciesFrom(assembly);
         }
 
+        public ISetupBootstrapper Dependencies(params Type[] dependencyTypes)
+        {
+            var locator = new DependencyListLocator(dependencyTypes);
+
+            return this.Task(new RegisterDependenciesTask(locator));
+        }
+
         public ISetupBootstrapper ExposeContainer(Action<IContainer> exposeTo)
         {
             if (exposeTo == null)

@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="AbstractBootstrapper.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Dependencies\DependencyListLocator.cs" />
     <Compile Include="Dependencies\NotDiscoverable.cs" />
     <Compile Include="SetupBoot.cs" />
     <Compile Include="Dependencies\DependencyLocator.cs" />

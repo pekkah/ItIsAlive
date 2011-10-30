@@ -21,5 +21,7 @@ namespace Sakura.Framework
         Bootstrapper Start();
 
         ISetupBootstrapper Task(IInitializationTask task);
+
+        ISetupBootstrapper Dependencies(params Type[] dependencyTypes);
     }
 }

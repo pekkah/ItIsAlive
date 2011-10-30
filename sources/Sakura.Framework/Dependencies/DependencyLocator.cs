@@ -20,21 +20,29 @@ namespace Sakura.Framework.Dependencies
         {
             foreach (var assembly in this.assemblies)
             {
-                var dependencyTypes =
-                    assembly.GetExportedTypes().Where(
-                        type =>
-                        type.HasInterface(typeof(IDependency)) && type.IsClass && !type.IsAbstract);
+                foreach (var type1 in FilterDependencyTypes(assembly.GetExportedTypes())) yield return type1;
+            }
+        }
 
-                foreach (var dependencyType in dependencyTypes)
+        internal static IEnumerable<Type> FilterDependencyTypes(IEnumerable<Type> types)
+        {
+            if (types == null)
+            {
+                throw new ArgumentNullException("types");
+            }
+
+            var dependencyTypes = types.Where(
+                    type => type.HasInterface(typeof(IDependency)) && type.IsClass && !type.IsAbstract);
+
+            foreach (var dependencyType in dependencyTypes)
+            {
+                // skip non discoverable dependencies
+                if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
                 {
-                    // skip non discoverable dependencies
-                    if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
-                    {
-                        continue;
-                    }
-
-                    yield return dependencyType;
+                    continue;
                 }
+
+                yield return dependencyType;
             }
         }
     }

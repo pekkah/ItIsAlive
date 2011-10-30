@@ -6,7 +6,7 @@
 
     using Sakura.Framework.Tasks;
 
-    public class InitializeServiceDependencies : IInitializationTask
+    public class InitializeHttpDependencies : IInitializationTask
     {
         public void Execute(InitializationTaskContext context)
         {

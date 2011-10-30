@@ -42,9 +42,6 @@
     <Reference Include="EntityDataModel">
       <HintPath>..\packages\WebApi.OData.0.5.0\lib\40-Full\EntityDataModel.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ApplicationServer.Http">
       <HintPath>..\packages\WebApi.0.5.0\lib\40-Full\Microsoft.ApplicationServer.Http.dll</HintPath>
     </Reference>
@@ -79,9 +76,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -104,10 +98,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InitializeServiceDependencies.cs" />
+    <Compile Include="InitializeHttpDependencies.cs" />
     <Compile Include="ContainerBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebApi\AutofacConfiguration.cs" />
+    <Compile Include="SetupBootExtensions.cs" />
+    <Compile Include="WebApi\ApiConfiguration.cs" />
+    <Compile Include="WebApi\AutofacLifetimeExtension.cs" />
     <Compile Include="WebApi\IRouting.cs" />
     <Compile Include="WebApi\Routing.cs" />
   </ItemGroup>
