@@ -12,7 +12,7 @@
         {
             var initializationTask = new InitializeSessionFactory(configure);
 
-            return setup.Task(initializationTask);
+            return setup.DependenciesFrom(typeof(RegisterNHibernate)).Task(initializationTask);
         }
     }
 }

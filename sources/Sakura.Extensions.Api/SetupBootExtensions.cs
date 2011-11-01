@@ -16,7 +16,7 @@
         {
             var task = new InitializeWebApi(configure);
 
-            return setup.Task(task);
+            return setup.DependenciesFrom(typeof(InitializeHttpDependencies)).Task(task);
         }
     }
 

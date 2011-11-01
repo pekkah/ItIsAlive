@@ -35,7 +35,6 @@
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
             this.bootstrapper = new SetupBoot()
-                .DependenciesFrom(typeof(InitializeHttpDependencies))
                 .Dependencies(typeof(PersonApi))
                 .Task(initializeTest)
                 .ConfigureWebApi((router, config) =>
