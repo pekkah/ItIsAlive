@@ -11,19 +11,19 @@ namespace Sakura.Framework
     {
         private readonly List<IInitializationTaskSource> initializationTaskSources;
 
-        private readonly InitializationTaskSource initializationTasks;
+        private readonly InitializationTaskSource manualTasks;
 
         private IContainer container;
 
         protected AbstractBootstrapper()
         {
-            this.initializationTasks = new InitializationTaskSource();
-            this.initializationTaskSources = new List<IInitializationTaskSource> { this.initializationTasks };
+            this.manualTasks = new InitializationTaskSource();
+            this.initializationTaskSources = new List<IInitializationTaskSource> { this.manualTasks };
         }
 
         public void AddTask(IInitializationTask task)
         {
-            this.initializationTasks.AddTask(task);
+            this.manualTasks.AddTask(task);
         }
 
         public void AddTaskSource(IInitializationTaskSource taskSource)
@@ -55,6 +55,14 @@ namespace Sakura.Framework
             foreach (var task in tasks)
             {
                 task.Execute();
+            }
+        }
+
+        public void Shutdown()
+        {
+            if (this.container != null)
+            {
+                this.container.Dispose();
             }
         }
     }

@@ -29,7 +29,7 @@
         public void Setup()
         {
             var initializeTest = Substitute.For<IInitializationTask>();
-            var routes = Substitute.For<IRouting>();
+            var routes = Substitute.For<IWebApiRouter>();
 
             initializeTest.Execute(
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));

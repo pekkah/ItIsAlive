@@ -126,14 +126,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InitializeHttpDependencies.cs" />
     <Compile Include="ContainerBuilderExtensions.cs" />
+    <Compile Include="InitializeWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupBootExtensions.cs" />
+    <Compile Include="StartWebApi.cs" />
     <Compile Include="WebApi\ApiConfiguration.cs" />
     <Compile Include="WebApi\AutofacLifetimeExtension.cs" />
-    <Compile Include="WebApi\IRouting.cs" />
-    <Compile Include="WebApi\Routing.cs" />
+    <Compile Include="WebApi\IWebApiRouter.cs" />
+    <Compile Include="WebApi\WebApiRouter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

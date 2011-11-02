@@ -67,6 +67,15 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=2.5.2.830, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration, Version=2.5.2.830, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.5.2.830\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
@@ -205,6 +214,10 @@
     <ProjectReference Include="..\Sakura.Extensions.Data\Sakura.Extensions.Data.csproj">
       <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
       <Name>Sakura.Extensions.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
+      <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
+      <Name>Sakura.Extensions.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
