@@ -2,7 +2,7 @@
 
 using WebActivator;
 
-[assembly: PreApplicationStartMethod(typeof(Boot), "Start")]
+[assembly: PostApplicationStartMethod(typeof(Boot), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(Boot), "Shutdown")]
 
 namespace Sakura.Framework.Samples.ContactsWeb.App_Start
@@ -49,9 +49,9 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
                     {
                         db.Dialect<SQLiteDialect>();
                         db.Driver<SQLite20Driver>();
-                        db.SchemaAction = SchemaAutoAction.Recreate;
+                        db.SchemaAction = SchemaAutoAction.Create;
                         db.ConnectionString = "Data Source=:memory:;Version=3;New=True;";
-                    }).SetProperty(Environment.CurrentSessionContextClass, "thread_static");
+                    });
 
             var mapper = new ConventionModelMapper();
 
