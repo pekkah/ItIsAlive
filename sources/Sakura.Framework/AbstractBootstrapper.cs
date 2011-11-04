@@ -1,7 +1,6 @@
 namespace Sakura.Framework
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     using Autofac;
 
@@ -9,40 +8,29 @@ namespace Sakura.Framework
 
     public abstract class AbstractBootstrapper
     {
-        private readonly List<IInitializationTaskSource> initializationTaskSources;
-
-        private readonly InitializationTaskSource manualTasks;
-
         private IContainer container;
+
+        private TaskEngine taskEngine;
 
         protected AbstractBootstrapper()
         {
-            this.manualTasks = new InitializationTaskSource();
-            this.initializationTaskSources = new List<IInitializationTaskSource> { this.manualTasks };
+            this.taskEngine = new TaskEngine();
         }
 
-        public void AddTask(IInitializationTask task)
+        public TaskEngine Tasks
         {
-            this.manualTasks.AddTask(task);
-        }
-
-        public void AddTaskSource(IInitializationTaskSource taskSource)
-        {
-            this.initializationTaskSources.Add(taskSource);
+            get
+            {
+                return this.taskEngine;
+            }
         }
 
         public IContainer Initialize()
         {
             var builder = new ContainerBuilder();
 
-            var tasks = this.initializationTaskSources.SelectMany(source => source.GetTasks());
-
             var context = new InitializationTaskContext(builder);
-
-            foreach (var task in tasks)
-            {
-                task.Execute(context);
-            }
+            this.taskEngine.Execute(context);
 
             return this.container = builder.Build();
         }

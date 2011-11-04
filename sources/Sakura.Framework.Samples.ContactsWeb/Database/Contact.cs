@@ -4,7 +4,7 @@
 
     public class Contact : AbstractEntity
     {
-        public string Name
+        public virtual string Name
         {
             get;
             set;

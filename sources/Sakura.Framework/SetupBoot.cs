@@ -16,12 +16,15 @@ namespace Sakura.Framework
 
         private readonly List<IInitializationTask> taskList;
 
+        private readonly List<IInitializationTask> tryAdddingTasksList; 
+
         private Action<IContainer> exposeContainer;
 
         public SetupBoot()
         {
             this.assemblyList = new List<Assembly>();
             this.taskList = new List<IInitializationTask>();
+            this.tryAdddingTasksList = new List<IInitializationTask>();
         }
 
         public ISetupBootstrapper DependenciesFrom(Assembly assembly)
@@ -62,6 +65,13 @@ namespace Sakura.Framework
             return this.Task(new RegisterDependenciesTask(locator));
         }
 
+        public ISetupBootstrapper TryTask(IInitializationTask http)
+        {
+            this.tryAdddingTasksList.Add(http);
+
+            return this;
+        }
+
         public ISetupBootstrapper ExposeContainer(Action<IContainer> exposeTo)
         {
             if (exposeTo == null)
@@ -81,13 +91,16 @@ namespace Sakura.Framework
             var bootstrapper = new Bootstrapper();
 
             // load dependencies from locator
-            bootstrapper.AddTask(new RegisterDependenciesTask(locator));
+            bootstrapper.Tasks.AddTask(new RegisterDependenciesTask(locator));
 
             // load initialization tasks from locator
-            bootstrapper.AddTaskSource(new DependencyLocatorSource(locator));
+            bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(locator));
 
             // add tasks
-            this.taskList.ForEach(bootstrapper.AddTask);
+            this.taskList.ForEach(bootstrapper.Tasks.AddTask);
+
+            // try adding tasks. Will only add tasks once.
+            this.tryAdddingTasksList.ForEach(task => bootstrapper.Tasks.TryAddTask(task));
 
             // execute initialization tasks
             var container = bootstrapper.Initialize();

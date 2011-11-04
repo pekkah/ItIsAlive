@@ -9,7 +9,7 @@ namespace Sakura.Framework.Tasks.Initialization
     using Sakura.Framework.ExtensionMethods;
     using Sakura.Framework.Internal;
 
-    public class DependencyLocatorSource : IInitializationTaskSource
+    public class DependencyLocatorSource : ITaskSource
     {
         private readonly IDependencyLocator locator;
 

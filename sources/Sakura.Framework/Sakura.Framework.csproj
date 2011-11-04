@@ -165,9 +165,11 @@
     <Compile Include="ISetupBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\IInitializationTask.cs" />
-    <Compile Include="Tasks\IInitializationTaskSource.cs" />
+    <Compile Include="Tasks\IStartupTask.cs" />
+    <Compile Include="Tasks\ITaskSource.cs" />
     <Compile Include="Tasks\InitializationTaskContext.cs" />
-    <Compile Include="Tasks\InitializationTaskSource.cs" />
+    <Compile Include="Tasks\TaskEngine.cs" />
+    <Compile Include="Tasks\TaskListSource.cs" />
     <Compile Include="Tasks\Initialization\DependencyLocatorSource.cs" />
     <Compile Include="Tasks\Initialization\RegisterDependenciesTask.cs" />
   </ItemGroup>

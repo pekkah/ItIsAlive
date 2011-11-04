@@ -30,7 +30,7 @@ namespace Fugu.Framework.Tests.Booting
 
             // initialize and start
             this.bootstrapper = new Bootstrapper();
-            this.bootstrapper.AddTask(testInitializationTask);
+            this.bootstrapper.Tasks.AddTask(testInitializationTask);
 
             this.bootstrapper.Initialize();
             this.bootstrapper.Start();

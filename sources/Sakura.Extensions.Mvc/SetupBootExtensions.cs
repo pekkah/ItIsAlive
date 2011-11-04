@@ -14,7 +14,7 @@
 
             return setup
                 .DependenciesFrom(typeof(InitializeHttpDependencies))
-                .Task(new InitializeHttpDependencies())
+                .TryTask(new InitializeHttpDependencies())
                 .Task(initializeMvc);
         }
     }

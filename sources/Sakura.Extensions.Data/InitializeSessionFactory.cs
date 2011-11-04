@@ -11,7 +11,7 @@ namespace Sakura.Extensions.Data
     using Sakura.Framework.Tasks;
 
     [NotDiscoverable]
-    public class InitializeSessionFactory : IInitializationTask
+    public class InitializeSessionFactory : IInitializationTask, ISingleInstanceDependency
     {
         private readonly Func<Configuration> configure;
 

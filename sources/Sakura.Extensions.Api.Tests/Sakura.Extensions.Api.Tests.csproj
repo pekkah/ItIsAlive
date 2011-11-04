@@ -139,7 +139,7 @@
     <Compile Include="Apis\PersonApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="When_configuring_web_api.cs" />
-    <Compile Include="When_registered_as_dependency.cs" />
+    <Compile Include="When_configuring_web_api_with_mvc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -148,6 +148,10 @@
     <ProjectReference Include="..\Sakura.Extensions.Api\Sakura.Extensions.Api.csproj">
       <Project>{4D4CAF1C-94BB-4711-B8B5-6F48173E6746}</Project>
       <Name>Sakura.Extensions.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
+      <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
+      <Name>Sakura.Extensions.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>

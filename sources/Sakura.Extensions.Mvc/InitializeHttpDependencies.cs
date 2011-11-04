@@ -4,9 +4,10 @@
 
     using Autofac;
 
+    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Tasks;
 
-    public class InitializeHttpDependencies : IInitializationTask
+    public class InitializeHttpDependencies : IInitializationTask, ISingleInstanceDependency
     {
         public void Execute(InitializationTaskContext context)
         {

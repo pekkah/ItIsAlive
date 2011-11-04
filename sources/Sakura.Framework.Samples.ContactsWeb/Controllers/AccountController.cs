@@ -4,18 +4,26 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
+    using NHibernate;
+
+    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Samples.ContactsWeb.Database;
     using Sakura.Framework.Samples.ContactsWeb.Models;
 
-    public class AccountController : Controller
+    public class AccountController : Controller, ITransientDependency
     {
-        // GET: /Account/LogOn
+        private readonly ISession session;
+
+        public AccountController(ISession session)
+        {
+            this.session = session;
+        }
+
         [Authorize]
         public ActionResult ChangePassword()
         {
             return this.View();
         }
-
-        // POST: /Account/ChangePassword
 
         [Authorize]
         [HttpPost]
@@ -23,18 +31,7 @@
         {
             if (this.ModelState.IsValid)
             {
-                // ChangePassword will throw an exception rather
-                // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
-                try
-                {
-                    MembershipUser currentUser = Membership.GetUser(this.User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
-                }
-                catch (Exception)
-                {
-                    changePasswordSucceeded = false;
-                }
+                bool changePasswordSucceeded = false;
 
                 if (changePasswordSucceeded)
                 {
@@ -51,7 +48,6 @@
             return View(model);
         }
 
-        // GET: /Account/ChangePasswordSuccess
         public ActionResult ChangePasswordSuccess()
         {
             return this.View();
@@ -68,8 +64,6 @@
         {
             return this.View();
         }
-
-        // POST: /Account/LogOn
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
@@ -99,82 +93,30 @@
             return View(model);
         }
 
-        // GET: /Account/LogOff
-
-        // GET: /Account/Register
         public ActionResult Register()
         {
             return this.View();
         }
-
-        // POST: /Account/Register
 
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             if (this.ModelState.IsValid)
             {
-                // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(
-                    model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
+                using (var tx = this.session.BeginTransaction())
+                {
+                    var user = new User();
+                    user.Name = model.UserName;
+                    user.Password = model.Password; // todo (pekka): hashing
+                    user.Email = model.Email;
 
-                if (createStatus == MembershipCreateStatus.Success)
-                {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return this.RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    this.ModelState.AddModelError(string.Empty, ErrorCodeToString(createStatus));
+                    this.session.Save(user);
+                    tx.Commit();
                 }
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        // GET: /Account/ChangePassword
-
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
-        {
-            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
-            // a full list of status codes.
-            switch (createStatus)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return
-                        "A user name for that e-mail address already exists. Please enter a different e-mail address.";
-
-                case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.ProviderError:
-                    return
-                        "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-
-                case MembershipCreateStatus.UserRejected:
-                    return
-                        "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-                default:
-                    return
-                        "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-            }
         }
     }
 }

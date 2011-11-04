@@ -2,7 +2,7 @@ namespace Sakura.Framework.Tasks
 {
     using System.Collections.Generic;
 
-    public interface IInitializationTaskSource
+    public interface ITaskSource
     {
         IEnumerable<IInitializationTask> GetTasks();
     }

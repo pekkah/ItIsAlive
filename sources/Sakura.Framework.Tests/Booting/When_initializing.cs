@@ -20,7 +20,7 @@
 
         private IInitializationTask initializationTaskDependency;
 
-        private IInitializationTaskSource initializationTaskSource;
+        private ITaskSource taskSource;
 
         private IInitializationTask taskInTaskSource;
 
@@ -29,20 +29,20 @@
         {
             this.initializationTask1 = Substitute.For<IInitializationTask>();
             this.taskInTaskSource = Substitute.For<IInitializationTask>();
-            this.initializationTaskSource = Substitute.For<IInitializationTaskSource>();
+            this.taskSource = Substitute.For<ITaskSource>();
             this.initializationTaskDependency = Substitute.For<IInitializationTask>();
 
             // initialization task source
-            this.initializationTaskSource.GetTasks().Returns(new[] { this.taskInTaskSource });
+            this.taskSource.GetTasks().Returns(new[] { this.taskInTaskSource });
 
             // initialize bootstrapper
             this.bootstrapper = new Bootstrapper();
 
             // manually added initialization tasks
-            this.bootstrapper.AddTask(this.initializationTask1);
+            this.bootstrapper.Tasks.AddTask(this.initializationTask1);
 
             // initialization tasks discovery
-            this.bootstrapper.AddTaskSource(this.initializationTaskSource);
+            this.bootstrapper.Tasks.AddTaskSource(this.taskSource);
 
             // executes initialization tasks
             this.container = this.bootstrapper.Initialize();
@@ -69,7 +69,7 @@
         [Test]
         public void should_get_tasks_from_custom_sources()
         {
-            this.initializationTaskSource.Received().GetTasks();
+            this.taskSource.Received().GetTasks();
         }
     }
 }

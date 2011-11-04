@@ -2,7 +2,7 @@
 
 using WebActivator;
 
-[assembly: PostApplicationStartMethod(typeof(Boot), "Start")]
+[assembly: PreApplicationStartMethod(typeof(Boot), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(Boot), "Shutdown")]
 
 namespace Sakura.Framework.Samples.ContactsWeb.App_Start

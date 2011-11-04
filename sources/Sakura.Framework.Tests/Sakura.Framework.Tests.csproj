@@ -98,6 +98,8 @@
     <Compile Include="Booting\Tasks\Mocks\MockSingleInstanceDependency.cs" />
     <Compile Include="Booting\Tasks\Mocks\MockTransientDependency.cs" />
     <Compile Include="Booting\Tasks\When_registering_dependencies.cs" />
+    <Compile Include="Booting\Whan_adding_tasks.cs" />
+    <Compile Include="Booting\Whan_executing_tasks.cs" />
     <Compile Include="Booting\When_booting.cs" />
     <Compile Include="Booting\When_initializing.cs" />
     <Compile Include="Booting\When_starting.cs" />

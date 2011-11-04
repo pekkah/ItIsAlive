@@ -1,4 +1,4 @@
-﻿namespace Sakura.Extensions.Api.Tests
+namespace Sakura.Extensions.Api.Tests
 {
     using System.Linq;
     using System.Web.Routing;
@@ -15,11 +15,12 @@
 
     using Sakura.Extensions.Api.Tests.Apis;
     using Sakura.Extensions.Api.WebApi;
+    using Sakura.Extensions.Mvc;
     using Sakura.Framework;
     using Sakura.Framework.Tasks;
 
     [TestFixture]
-    public class When_registered_as_dependency
+    public class When_configuring_web_api_with_mvc
     {
         private Bootstrapper bootstrapper;
 
@@ -34,13 +35,16 @@
             initializeTest.Execute(
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
-            this.bootstrapper = new SetupBoot() 
+            this.bootstrapper = new SetupBoot()
+                .Dependencies(typeof(PersonApi))
                 .Task(initializeTest)
-                .ConfigureWebApi((router, config) =>
-                    {
-                        router.MapServiceRoute<PersonApi>("api/person", config);
-                    })
-                .ExposeContainer(exposed => this.container = exposed).Start();
+                .ConfigureMvc(router => { ; })
+                .ConfigureWebApi(
+                    (router, config) =>
+                        {
+                            router.MapServiceRoute<PersonApi>("api/person", config);
+                        }).
+                ExposeContainer(exposed => this.container = exposed).Start();
         }
 
         [Test]
@@ -51,7 +55,16 @@
                     SingleOrDefault();
 
             registration.Should().NotBeNull();
-            registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
+        }
+
+        [Test]
+        public void should_register_api()
+        {
+            var registration =
+                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(PersonApi))).SingleOrDefault();
+
+            registration.Should().NotBeNull();
+            registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
         }
     }
 }

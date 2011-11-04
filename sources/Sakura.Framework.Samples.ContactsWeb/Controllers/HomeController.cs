@@ -2,7 +2,9 @@
 {
     using System.Web.Mvc;
 
-    public class HomeController : Controller
+    using Sakura.Framework.Dependencies;
+
+    public class HomeController : Controller, ITransientDependency
     {
         public ActionResult About()
         {

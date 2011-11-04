@@ -2,16 +2,16 @@ namespace Sakura.Framework.Tasks
 {
     using System.Collections.Generic;
 
-    public class InitializationTaskSource : IInitializationTaskSource
+    public class TaskListSource : ITaskSource
     {
         private readonly List<IInitializationTask> taskList;
 
-        public InitializationTaskSource()
+        public TaskListSource()
         {
             this.taskList = new List<IInitializationTask>();
         }
 
-        public void AddTask(IInitializationTask task)
+        public void Add(IInitializationTask task)
         {
             this.taskList.Add(task);
         }

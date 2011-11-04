@@ -36,24 +36,30 @@
 
             this.bootstrapper = new SetupBoot()
                 .Dependencies(typeof(PersonApi))
-                .Task(initializeTest)
-                .ConfigureWebApi((router, config) =>
-                    {
-                        router.MapServiceRoute<PersonApi>("api/person", config);
-                    })
-                    .ExposeContainer(exposed => this.container = exposed)
-                    .Start();
+                .Task(initializeTest)  
+                .ConfigureWebApi((router, config) => router.MapServiceRoute<PersonApi>("api/person", config))
+                        .ExposeContainer(exposed => this.container = exposed).Start();
         }
 
         [Test]
         public void should_register_api()
         {
             var registration =
-                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(PersonApi))).
-                    SingleOrDefault();
+                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(PersonApi))).SingleOrDefault();
 
             registration.Should().NotBeNull();
             registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
+        }
+
+        [Test]
+        public void should_register_http_dependencies()
+        {
+            var registration =
+                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(RouteCollection))).
+                    SingleOrDefault();
+
+            registration.Should().NotBeNull();
+            registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
         }
     }
 }

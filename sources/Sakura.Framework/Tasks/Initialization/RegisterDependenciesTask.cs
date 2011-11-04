@@ -9,7 +9,7 @@
     using Sakura.Framework.ExtensionMethods;
 
     [NotDiscoverable]
-    public class RegisterDependenciesTask : IInitializationTask
+    public class RegisterDependenciesTask : IInitializationTask, ITransientDependency
     {
         private readonly IDependencyLocator locator;
 

@@ -4,9 +4,10 @@ namespace Sakura.Extensions.Data
 
     using NHibernate;
 
+    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Tasks;
 
-    public class RegisterNHibernate : IInitializationTask
+    public class RegisterNHibernate : IInitializationTask, ISingleInstanceDependency
     {
         public void Execute(InitializationTaskContext context)
         {
