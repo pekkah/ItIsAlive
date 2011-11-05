@@ -7,8 +7,10 @@ using WebActivator;
 
 namespace Sakura.Framework.Samples.ContactsWeb.App_Start
 {
+    using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
     using System.Web.Mvc;
 
     using NHibernate.Cfg;
@@ -42,15 +44,22 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
 
         private static Configuration ConfigureNHibernate()
         {
+
             var config = new Configuration();
+
+            var appDataFolder = HttpContext.Current.Server.MapPath("~/App_Data");
+            var databaseFilePath = Path.Combine(appDataFolder, "Data.sdf");
+
+            var connectionString = string.Format("Data Source={0}; Persist Security Info=False;", databaseFilePath);
 
             config.DataBaseIntegration(
                 db =>
                     {
-                        db.Dialect<SQLiteDialect>();
-                        db.Driver<SQLite20Driver>();
-                        db.SchemaAction = SchemaAutoAction.Create;
-                        db.ConnectionString = "Data Source=:memory:;Version=3;New=True;";
+                        db.Dialect<MsSqlCe40Dialect>();
+                        db.Driver<SqlServerCeDriver>();
+                        db.SchemaAction = SchemaAutoAction.Recreate;
+                        db.ConnectionString = connectionString;
+                        db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
                     });
 
             var mapper = new ConventionModelMapper();

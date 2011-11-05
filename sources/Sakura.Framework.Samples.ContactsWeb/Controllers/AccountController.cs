@@ -105,10 +105,12 @@
             {
                 using (var tx = this.session.BeginTransaction())
                 {
-                    var user = new User();
-                    user.Name = model.UserName;
-                    user.Password = model.Password; // todo (pekka): hashing
-                    user.Email = model.Email;
+                    var user = new User
+                    {
+                        Name = model.UserName,
+                        Password = model.Password,
+                        Email = model.Email
+                    };
 
                     this.session.Save(user);
                     tx.Commit();
