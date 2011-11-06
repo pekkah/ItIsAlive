@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework.Samples.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.Mvc", "Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj", "{8AF928C5-B468-4080-BA07-CFFA28796D64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework.Samples.Contacts", "Sakura.Framework.Samples.Contacts\Sakura.Framework.Samples.Contacts.csproj", "{515745CC-8205-474F-9564-13419EEA5F54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,12 @@ Global
 		{8AF928C5-B468-4080-BA07-CFFA28796D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AF928C5-B468-4080-BA07-CFFA28796D64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8AF928C5-B468-4080-BA07-CFFA28796D64}.Release|x64.ActiveCfg = Release|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{515745CC-8205-474F-9564-13419EEA5F54}.Release|x64.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +127,6 @@ Global
 		{87A36C5E-1AA8-4750-8514-3749DD4D0482} = {B3E70DDA-D523-4C57-9242-6B4FD57BC4CF}
 		{BEF9DFB7-D240-4C2D-945B-C245D0F9CB6A} = {B3E70DDA-D523-4C57-9242-6B4FD57BC4CF}
 		{9F312989-46B7-4956-8717-6D580191B2C2} = {A1DCE8CB-6EEF-4958-8209-CAFFE78C17A3}
+		{515745CC-8205-474F-9564-13419EEA5F54} = {A1DCE8CB-6EEF-4958-8209-CAFFE78C17A3}
 	EndGlobalSection
 EndGlobal

@@ -124,12 +124,11 @@
     <Compile Include="App_Start\Boot.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Database\Contact.cs" />
-    <Compile Include="Database\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Net4Collections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +217,10 @@
     <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
       <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
       <Name>Sakura.Extensions.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakura.Framework.Samples.Contacts\Sakura.Framework.Samples.Contacts.csproj">
+      <Project>{515745CC-8205-474F-9564-13419EEA5F54}</Project>
+      <Name>Sakura.Framework.Samples.Contacts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>

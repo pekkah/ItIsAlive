@@ -1,13 +1,12 @@
 ﻿namespace Sakura.Framework.Samples.ContactsWeb.Controllers
 {
-    using System;
     using System.Web.Mvc;
     using System.Web.Security;
 
     using NHibernate;
 
     using Sakura.Framework.Dependencies;
-    using Sakura.Framework.Samples.ContactsWeb.Database;
+    using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.ContactsWeb.Models;
 
     public class AccountController : Controller, ITransientDependency
@@ -33,15 +32,26 @@
             {
                 bool changePasswordSucceeded = false;
 
+                using (var tx = this.session.BeginTransaction())
+                {
+                    var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
+
+                    var user = this.session.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
+
+                    if (user != null)
+                    {
+                        user.Password = model.ConfirmPassword;
+                        tx.Commit();
+                        changePasswordSucceeded = true;
+                    }
+                }
+
                 if (changePasswordSucceeded)
                 {
                     return this.RedirectToAction("ChangePasswordSuccess");
                 }
-                else
-                {
-                    this.ModelState.AddModelError(
-                        string.Empty, "The current password is incorrect or the new password is invalid.");
-                }
+
+                this.ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -70,7 +80,7 @@
         {
             if (this.ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (this.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (this.Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -93,6 +103,30 @@
             return View(model);
         }
 
+        private bool ValidateUser(string userName, string password)
+        {
+            using (var tx = this.session.BeginTransaction())
+            {
+                var user = this.session.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                // todo password hashing
+                var hashedPassword = password;
+
+                if (user.Password != hashedPassword)
+                {
+                    return false;
+                }
+
+                tx.Commit();
+                return true;
+            }
+        }
+
         public ActionResult Register()
         {
             return this.View();
@@ -112,9 +146,13 @@
                         Email = model.Email
                     };
 
+                    user.AddContact("Somebody");
+
                     this.session.Save(user);
                     tx.Commit();
                 }
+
+                return this.RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form

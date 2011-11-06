@@ -1,7 +1,5 @@
-﻿namespace Sakura.Framework.Samples.ContactsWeb.Database
+﻿namespace Sakura.Framework.Samples.Contacts.Database.Entities
 {
-    using Sakura.Extensions.Data.Model;
-
     public class Contact : AbstractEntity
     {
         public virtual string Name

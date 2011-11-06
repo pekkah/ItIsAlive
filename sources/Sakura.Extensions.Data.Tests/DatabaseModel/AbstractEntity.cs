@@ -1,11 +1,9 @@
-﻿namespace Sakura.Extensions.Data.Model
+﻿namespace Sakura.Extensions.Data.Tests.DatabaseModel
 {
     using System;
 
     public abstract class AbstractEntity
     {
         public virtual Guid Id { get; set; }
-
-        public virtual int Version { get; set; }
     }
 }

@@ -105,7 +105,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AbstractEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterNHibernate.cs" />
     <Compile Include="InitializeSessionFactory.cs" />

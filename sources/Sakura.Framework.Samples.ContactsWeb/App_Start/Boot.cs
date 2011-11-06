@@ -19,32 +19,32 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
     using NHibernate.Mapping.ByCode;
 
     using Sakura.Extensions.Data;
-    using Sakura.Extensions.Data.Model;
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.Mvc.Web;
-    using Sakura.Framework.Samples.ContactsWeb.Database;
+    using Sakura.Framework.Samples.Contacts.Database.Entities;
+    using Sakura.Framework.Samples.Contacts.Database.Schema;
 
     public class Boot
     {
         private static Bootstrapper bootstrapper;
-
-        public static void Start()
-        {
-            bootstrapper = new SetupBoot()
-                .DependenciesFrom(Assembly.GetExecutingAssembly())
-                .ConfigureMvc(ConfigureRoutes)
-                .ConfigureNHibernate(ConfigureNHibernate)
-                .Start();
-        }
 
         public static void Shutdown()
         {
             bootstrapper.Shutdown();
         }
 
+        public static void Start()
+        {
+            bootstrapper = new SetupBoot()
+                .DependenciesFrom(Assembly.GetExecutingAssembly())
+                .DependenciesFrom(typeof(User))
+                .ConfigureMvc(ConfigureRoutes)
+                .ConfigureNHibernate(ConfigureNHibernate)
+                .Start();
+        }
+
         private static Configuration ConfigureNHibernate()
         {
-
             var config = new Configuration();
 
             var appDataFolder = HttpContext.Current.Server.MapPath("~/App_Data");
@@ -62,30 +62,20 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
                         db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
                     });
 
-            var mapper = new ConventionModelMapper();
+            // allow using .NET ISet<T> instead of Iesi ISet<T>
+            config.CollectionTypeFactory<Net4CollectionTypeFactory>();
+            var mapper = new ModelMapper();
 
-            // filter entities
-            var baseEntityType = typeof(AbstractEntity);
-            mapper.IsEntity(
-                (t, declared) => baseEntityType.IsAssignableFrom(t) && baseEntityType != t && !t.IsInterface);
-            mapper.IsRootEntity((t, declared) => baseEntityType.Equals(t.BaseType));
-
-            // override base properties
-            mapper.Class<AbstractEntity>(map => { map.Id(x => x.Id, m => m.Generator(Generators.GuidComb)); });
-
-            mapper.BeforeMapProperty += (modelinspector, member, propertycustomizer) =>
-                {
-                    if (member.LocalMember.Name == "Name")
-                    {
-                        propertycustomizer.Unique(true);
-                    }
-                };
+            // entities
+            mapper.AddMapping<UserMap>();
+            mapper.AddMapping<ContactMap>();
 
             // compile
-            var mapping =
-                mapper.CompileMappingFor(
-                    typeof(Contact).Assembly.GetExportedTypes().Where(
-                        type => typeof(AbstractEntity).IsAssignableFrom(type)));
+            var mapping = mapper
+                .CompileMappingFor(typeof(AbstractEntity)
+                .Assembly
+                .GetExportedTypes()
+                .Where(type => typeof(AbstractEntity).IsAssignableFrom(type)));
 
             // use mappings
             config.AddMapping(mapping);
@@ -98,17 +88,9 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
             router.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             router.MapRoute(
-                "Default",
-                // Route name
-                "{controller}/{action}/{id}",
-                // URL with parameters
-                new
-                {
-                    controller = "Home",
-                    action = "Index",
-                    id = UrlParameter.Optional
-                } // Parameter defaults
-                );
+                "Default", 
+                "{controller}/{action}/{id}", 
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }
