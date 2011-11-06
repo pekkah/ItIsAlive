@@ -7,11 +7,11 @@ namespace Sakura.Framework.Dependencies
 
     using Sakura.Framework.ExtensionMethods;
 
-    public class DependencyLocator : IDependencyLocator
+    public class AssemblyLocator : IDependencyLocator
     {
         private readonly IEnumerable<Assembly> assemblies;
 
-        public DependencyLocator(IEnumerable<Assembly> assemblies)
+        public AssemblyLocator(IEnumerable<Assembly> assemblies)
         {
             this.assemblies = assemblies;
         }

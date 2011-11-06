@@ -1,73 +1,32 @@
 namespace Sakura.Framework
 {
     using System;
-    using System.Collections.Generic;
-    using System.Reflection;
+    using System.Linq;
 
     using Autofac;
 
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Registration;
     using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Initialization;
 
     public class SetupBoot : ISetupBootstrapper
     {
-        private readonly List<Assembly> assemblyList;
-
-        private readonly List<IInitializationTask> taskList;
-
-        private readonly List<IInitializationTask> tryAdddingTasksList; 
-
         private Action<IContainer> exposeContainer;
+
+        private Bootstrapper bootstrapper;
+
+        private SetupDependencies dependencySetup;
 
         public SetupBoot()
         {
-            this.assemblyList = new List<Assembly>();
-            this.taskList = new List<IInitializationTask>();
-            this.tryAdddingTasksList = new List<IInitializationTask>();
+            this.bootstrapper = new Bootstrapper();
+            this.dependencySetup = new SetupDependencies();
         }
 
-        public ISetupBootstrapper DependenciesFrom(Assembly assembly)
+        public ISetupBootstrapper TryTask(IInitializationTask task)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException("assembly");
-            }
-
-            this.assemblyList.Add(assembly);
-
-            return this;
-        }
-
-        public ISetupBootstrapper DependenciesFrom(IEnumerable<Assembly> assemblies)
-        {
-            if (assemblies == null)
-            {
-                throw new ArgumentNullException("assemblies");
-            }
-
-            this.assemblyList.AddRange(assemblies);
-
-            return this;
-        }
-
-        public ISetupBootstrapper DependenciesFrom(Type assemblyOfType)
-        {
-            var assembly = assemblyOfType.Assembly;
-
-            return this.DependenciesFrom(assembly);
-        }
-
-        public ISetupBootstrapper Dependencies(params Type[] dependencyTypes)
-        {
-            var locator = new DependencyListLocator(dependencyTypes);
-
-            return this.Task(new RegisterDependenciesTask(locator));
-        }
-
-        public ISetupBootstrapper TryTask(IInitializationTask http)
-        {
-            this.tryAdddingTasksList.Add(http);
+            this.bootstrapper.Tasks.TryAddTask(task);
 
             return this;
         }
@@ -84,26 +43,46 @@ namespace Sakura.Framework
             return this;
         }
 
+        public ISetupBootstrapper AddPolicy(IRegistrationPolicy policy)
+        {
+            if (policy == null)
+            {
+                throw new ArgumentNullException("policy");
+            }
+
+            this.bootstrapper.Policies.Add(policy);
+
+            return this;
+        }
+
+        public ISetupBootstrapper Dependencies(Action<ISetupDependencies> setupDependencies)
+        {
+            if (setupDependencies == null)
+            {
+                throw new ArgumentNullException("setupDependencies");
+            }
+
+            setupDependencies(this.dependencySetup);
+
+            return this;
+        }
+
         public Bootstrapper Start()
         {
-            var locator = new DependencyLocator(this.assemblyList);
+            var assemblies = this.dependencySetup.GetAssemblies();
+            var assemblyLocator = new AssemblyLocator(assemblies);
+            this.bootstrapper.Tasks.AddTask(new RegisterDependenciesTask(assemblyLocator));
 
-            var bootstrapper = new Bootstrapper();
-
-            // load dependencies from locator
-            bootstrapper.Tasks.AddTask(new RegisterDependenciesTask(locator));
-
+            var types = this.dependencySetup.GetTypes();
+            var typeLocator = new TypeLocator(types.ToArray());
+            this.bootstrapper.Tasks.AddTask(new RegisterDependenciesTask(typeLocator));
+            
             // load initialization tasks from locator
-            bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(locator));
-
-            // add tasks
-            this.taskList.ForEach(bootstrapper.Tasks.AddTask);
-
-            // try adding tasks. Will only add tasks once.
-            this.tryAdddingTasksList.ForEach(task => bootstrapper.Tasks.TryAddTask(task));
+            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator));
+            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(typeLocator));
 
             // execute initialization tasks
-            var container = bootstrapper.Initialize();
+            var container = this.bootstrapper.Initialize();
 
             // expose container
             if (this.exposeContainer != null)
@@ -112,14 +91,14 @@ namespace Sakura.Framework
             }
 
             // start
-            bootstrapper.Start();
+            this.bootstrapper.Start();
 
-            return bootstrapper;
+            return this.bootstrapper;
         }
 
         public ISetupBootstrapper Task(IInitializationTask task)
         {
-            this.taskList.Add(task);
+            this.bootstrapper.Tasks.AddTask(task);
 
             return this;
         }

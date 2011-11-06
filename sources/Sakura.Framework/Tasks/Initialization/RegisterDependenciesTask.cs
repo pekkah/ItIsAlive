@@ -3,10 +3,7 @@
     using System;
     using System.Linq;
 
-    using Autofac;
-
     using Sakura.Framework.Dependencies;
-    using Sakura.Framework.ExtensionMethods;
 
     [NotDiscoverable]
     public class RegisterDependenciesTask : IInitializationTask, ITransientDependency
@@ -31,24 +28,11 @@
         private static void Register(Type dependencyType, InitializationTaskContext context)
         {
             var builder = context.Builder;
+            var policies = context.Policies;
 
-            var registration = builder.RegisterType(dependencyType).AsSelf();
-
-            var dependencyInterfaces = dependencyType.GetInterfaces().Where(
-                itf => itf.HasInterface(typeof(IDependency)));
-
-            foreach (var dependencyInterface in dependencyInterfaces)
+            foreach (var policy in policies.Where(p => p.IsMatch(dependencyType)))
             {
-                registration = registration.As(dependencyInterface);
-
-                if (typeof(ISingleInstanceDependency).IsAssignableFrom(dependencyInterface))
-                {
-                    registration = registration.SingleInstance();
-                }
-                else if (typeof(ITransientDependency).IsAssignableFrom(dependencyInterface))
-                {
-                    registration = registration.InstancePerDependency();
-                }
+                policy.Apply(dependencyType, builder);
             }
         }
     }

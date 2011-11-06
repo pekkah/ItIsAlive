@@ -31,7 +31,7 @@
         public void Setup()
         {
             this.bootstrapper =
-                new SetupBoot().DependenciesFrom(typeof(InitializeSessionFactory)).ExposeContainer(
+                new SetupBoot().Dependencies(d => d.AssemblyOf<InitializeSessionFactory>()).ExposeContainer(
                     exposed => this.container = exposed).ConfigureNHibernate(
                         () =>
                             {

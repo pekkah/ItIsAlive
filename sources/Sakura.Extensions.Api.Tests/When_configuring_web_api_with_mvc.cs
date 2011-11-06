@@ -36,9 +36,9 @@ namespace Sakura.Extensions.Api.Tests
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
             this.bootstrapper = new SetupBoot()
-                .Dependencies(typeof(PersonApi))
+                .Dependencies(d => d.AssemblyOf<PersonApi>())
                 .Task(initializeTest)
-                .ConfigureMvc(router => { ; })
+                .ConfigureMvc(router => { })
                 .ConfigureWebApi(
                     (router, config) =>
                         {

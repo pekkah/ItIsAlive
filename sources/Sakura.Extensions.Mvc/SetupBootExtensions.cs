@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Sakura.Extensions.Mvc.Policies;
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework;
 
@@ -13,8 +14,9 @@
             var initializeMvc = new InitializeMvc(configure);
 
             return setup
-                .DependenciesFrom(typeof(InitializeHttpDependencies))
+                .Dependencies(d => d.AssemblyOf<InitializeHttpDependencies>())
                 .TryTask(new InitializeHttpDependencies())
+                .AddPolicy(new ControllersAsSelf())
                 .Task(initializeMvc);
         }
     }

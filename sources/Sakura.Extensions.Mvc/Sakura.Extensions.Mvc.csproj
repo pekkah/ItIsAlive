@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="InitializeHttpDependencies.cs" />
     <Compile Include="InitializeMvc.cs" />
+    <Compile Include="Policies\ControllersAsSelf.cs" />
     <Compile Include="StartMvc.cs" />
     <Compile Include="Web\IWebRouter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

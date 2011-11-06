@@ -6,7 +6,7 @@
     using Sakura.Framework.Dependencies;
 
     [ServiceContract]
-    public class PersonApi: ITransientDependency
+    public class PersonApi: ITransientDependency, IAsSelf
     {
         [WebGet] 
         public string Echo(string message)

@@ -23,6 +23,7 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.Contacts.Database.Schema;
+    using Sakura.Framework.Samples.ContactsWeb.Controllers;
 
     public class Boot
     {
@@ -36,8 +37,11 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
         public static void Start()
         {
             bootstrapper = new SetupBoot()
-                .DependenciesFrom(Assembly.GetExecutingAssembly())
-                .DependenciesFrom(typeof(User))
+                .Dependencies(setup =>
+                    {
+                        setup.AssemblyOf<AccountController>();
+                        setup.AssemblyOf<User>();
+                    })
                 .ConfigureMvc(ConfigureRoutes)
                 .ConfigureNHibernate(ConfigureNHibernate)
                 .Start();
@@ -54,13 +58,13 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
 
             config.DataBaseIntegration(
                 db =>
-                    {
-                        db.Dialect<MsSqlCe40Dialect>();
-                        db.Driver<SqlServerCeDriver>();
-                        db.SchemaAction = SchemaAutoAction.Recreate;
-                        db.ConnectionString = connectionString;
-                        db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
-                    });
+                {
+                    db.Dialect<MsSqlCe40Dialect>();
+                    db.Driver<SqlServerCeDriver>();
+                    db.SchemaAction = SchemaAutoAction.Recreate;
+                    db.ConnectionString = connectionString;
+                    db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
+                });
 
             // allow using .NET ISet<T> instead of Iesi ISet<T>
             config.CollectionTypeFactory<Net4CollectionTypeFactory>();
@@ -88,9 +92,14 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
             router.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             router.MapRoute(
-                "Default", 
-                "{controller}/{action}/{id}", 
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+                "Default",
+                "{controller}/{action}/{id}",
+                new
+                {
+                    controller = "Home",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                });
         }
     }
 }

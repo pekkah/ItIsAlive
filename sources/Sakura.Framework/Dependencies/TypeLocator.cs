@@ -3,11 +3,11 @@ namespace Sakura.Framework.Dependencies
     using System;
     using System.Collections.Generic;
 
-    public class DependencyListLocator : IDependencyLocator
+    public class TypeLocator : IDependencyLocator
     {
         private readonly Type[] dependencyTypes;
 
-        public DependencyListLocator(params Type[] dependencyTypes)
+        public TypeLocator(params Type[] dependencyTypes)
         {
             if (dependencyTypes == null)
             {
@@ -19,7 +19,7 @@ namespace Sakura.Framework.Dependencies
 
         public IEnumerable<Type> GetDependencies()
         {
-            return DependencyLocator.FilterDependencyTypes(this.dependencyTypes);
+            return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes);
         }
     }
 }

@@ -35,7 +35,7 @@
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
             this.bootstrapper = new SetupBoot()
-                .Dependencies(typeof(PersonApi))
+                .Dependencies(d => d.Types(typeof(PersonApi)))
                 .Task(initializeTest)  
                 .ConfigureWebApi((router, config) => router.MapServiceRoute<PersonApi>("api/person", config))
                         .ExposeContainer(exposed => this.container = exposed).Start();
