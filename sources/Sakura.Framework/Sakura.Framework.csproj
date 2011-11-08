@@ -159,7 +159,7 @@
     <Compile Include="Dependencies\Policies\AsSelfPolicy.cs" />
     <Compile Include="Dependencies\Policies\SingleInstancePolicy.cs" />
     <Compile Include="Dependencies\Policies\TransientPolicy.cs" />
-    <Compile Include="Fluent\SetupBoot.cs" />
+    <Compile Include="Fluent\Setup.cs" />
     <Compile Include="Dependencies\Discovery\AssemblyLocator.cs" />
     <Compile Include="Dependencies\Discovery\IDependencyLocator.cs" />
     <Compile Include="Dependencies\DefaultTypes\ISingleInstanceDependency.cs" />
