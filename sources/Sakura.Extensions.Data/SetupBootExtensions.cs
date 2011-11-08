@@ -5,6 +5,7 @@
     using NHibernate.Cfg;
 
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
 
     public static class SetupBootExtensions
     {

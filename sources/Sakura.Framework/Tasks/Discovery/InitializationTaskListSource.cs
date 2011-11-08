@@ -1,12 +1,14 @@
-namespace Sakura.Framework.Tasks
+namespace Sakura.Framework.Tasks.Discovery
 {
     using System.Collections.Generic;
 
-    public class TaskListSource : ITaskSource
+    using Sakura.Framework.Tasks.Types;
+
+    public class InitializationTaskListSource : IInitializationTaskSource
     {
         private readonly List<IInitializationTask> taskList;
 
-        public TaskListSource()
+        public InitializationTaskListSource()
         {
             this.taskList = new List<IInitializationTask>();
         }

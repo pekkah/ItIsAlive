@@ -4,19 +4,21 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.ExtensionMethods;
+    using Sakura.Framework.Tasks.Discovery;
+    using Sakura.Framework.Tasks.Types;
 
-    public class TaskEngine
+    public class InitializationTaskManager
     {
-        private readonly TaskListSource manualTasks;
+        private readonly InitializationTaskListSource manualInitializationTasks;
 
-        private readonly List<ITaskSource> sources;
+        private readonly List<IInitializationTaskSource> sources;
 
-        public TaskEngine()
+        public InitializationTaskManager()
         {
-            this.manualTasks = new TaskListSource();
-            this.sources = new List<ITaskSource>() { this.manualTasks };
+            this.manualInitializationTasks = new InitializationTaskListSource();
+            this.sources = new List<IInitializationTaskSource>() { this.manualInitializationTasks };
         }
 
         public IEnumerable<IInitializationTask> Tasks
@@ -38,9 +40,9 @@
             }
         }
 
-        public void AddTaskSource(ITaskSource taskSource)
+        public void AddTaskSource(IInitializationTaskSource initializationTaskSource)
         {
-            this.sources.Add(taskSource);
+            this.sources.Add(initializationTaskSource);
         }
 
         public void Execute(InitializationTaskContext context)
@@ -67,7 +69,7 @@
                 }
             }
 
-            this.manualTasks.Add(task);
+            this.manualInitializationTasks.Add(task);
             return true;
         }
     }

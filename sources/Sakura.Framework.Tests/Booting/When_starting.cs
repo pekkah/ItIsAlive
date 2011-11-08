@@ -8,6 +8,7 @@ namespace Fugu.Framework.Tests.Booting
 
     using Sakura.Framework;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class When_starting
@@ -30,7 +31,7 @@ namespace Fugu.Framework.Tests.Booting
 
             // initialize and start
             this.bootstrapper = new Bootstrapper();
-            this.bootstrapper.Tasks.AddTask(testInitializationTask);
+            this.bootstrapper.InitializationTasks.AddTask(testInitializationTask);
 
             this.bootstrapper.Initialize();
             this.bootstrapper.Start();

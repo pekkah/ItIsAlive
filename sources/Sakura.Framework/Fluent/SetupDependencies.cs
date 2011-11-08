@@ -1,4 +1,4 @@
-namespace Sakura.Framework
+namespace Sakura.Framework.Fluent
 {
     using System;
     using System.Collections.Generic;
@@ -43,11 +43,6 @@ namespace Sakura.Framework
             this.assemblyList.Add(assembly);
         }
 
-        public void Types(params Type[] dependencyTypes)
-        {
-            this.typeList.AddRange(dependencyTypes);
-        }
-
         public IEnumerable<Assembly> GetAssemblies()
         {
             return this.assemblyList;
@@ -56,6 +51,11 @@ namespace Sakura.Framework
         public IEnumerable<Type> GetTypes()
         {
             return this.typeList;
+        }
+
+        public void Types(params Type[] dependencyTypes)
+        {
+            this.typeList.AddRange(dependencyTypes);
         }
     }
 }

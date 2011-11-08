@@ -1,15 +1,15 @@
-namespace Sakura.Framework.Dependencies
+namespace Sakura.Framework.Dependencies.Discovery
 {
     using System;
     using System.Collections.Generic;
 
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Policies;
 
-    public class TypeLocator : IDependencyLocator
+    public class ListLocator : IDependencyLocator
     {
         private readonly Type[] dependencyTypes;
 
-        public TypeLocator(params Type[] dependencyTypes)
+        public ListLocator(params Type[] dependencyTypes)
         {
             if (dependencyTypes == null)
             {

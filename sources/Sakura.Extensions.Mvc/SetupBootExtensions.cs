@@ -5,6 +5,7 @@
     using Sakura.Extensions.Mvc.Policies;
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
 
     public static class SetupBootExtensions
     {

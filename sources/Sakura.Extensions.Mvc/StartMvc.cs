@@ -8,6 +8,7 @@ namespace Sakura.Extensions.Mvc
 
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     public class StartMvc : IStartupTask
     {

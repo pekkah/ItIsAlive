@@ -150,35 +150,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractBootstrapper.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Dependencies\IAsSelf.cs" />
-    <Compile Include="Dependencies\TypeLocator.cs" />
-    <Compile Include="Dependencies\NotDiscoverable.cs" />
-    <Compile Include="ISetupDependencies.cs" />
-    <Compile Include="Registration\IRegistrationPolicy.cs" />
-    <Compile Include="Registration\SelfPolicy.cs" />
-    <Compile Include="Registration\SingleInstancePolicy.cs" />
-    <Compile Include="Registration\TransientPolicy.cs" />
-    <Compile Include="SetupBoot.cs" />
-    <Compile Include="Dependencies\AssemblyLocator.cs" />
-    <Compile Include="Dependencies\IDependency.cs" />
-    <Compile Include="Dependencies\IDependencyLocator.cs" />
-    <Compile Include="Dependencies\ISingleInstanceDependency.cs" />
-    <Compile Include="Dependencies\ITransientDependency.cs" />
+    <Compile Include="Dependencies\DefaultTypes\IAsSelf.cs" />
+    <Compile Include="Dependencies\Discovery\ListLocator.cs" />
+    <Compile Include="Dependencies\Discovery\NotDiscoverable.cs" />
+    <Compile Include="Fluent\ISetupDependencies.cs" />
+    <Compile Include="Dependencies\Policies\IRegistrationPolicy.cs" />
+    <Compile Include="Dependencies\Policies\AsSelfPolicy.cs" />
+    <Compile Include="Dependencies\Policies\SingleInstancePolicy.cs" />
+    <Compile Include="Dependencies\Policies\TransientPolicy.cs" />
+    <Compile Include="Fluent\SetupBoot.cs" />
+    <Compile Include="Dependencies\Discovery\AssemblyLocator.cs" />
+    <Compile Include="Dependencies\Discovery\IDependencyLocator.cs" />
+    <Compile Include="Dependencies\DefaultTypes\ISingleInstanceDependency.cs" />
+    <Compile Include="Dependencies\DefaultTypes\ITransientDependency.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
-    <Compile Include="Internal\ObjectCreateMethod.cs" />
-    <Compile Include="ISetupBootstrapper.cs" />
+    <Compile Include="Fluent\ISetupBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupDependencies.cs" />
-    <Compile Include="Tasks\IInitializationTask.cs" />
-    <Compile Include="Tasks\IStartupTask.cs" />
-    <Compile Include="Tasks\ITaskSource.cs" />
-    <Compile Include="Tasks\InitializationTaskContext.cs" />
-    <Compile Include="Tasks\TaskEngine.cs" />
-    <Compile Include="Tasks\TaskListSource.cs" />
-    <Compile Include="Tasks\Initialization\DependencyLocatorSource.cs" />
-    <Compile Include="Tasks\Initialization\RegisterDependenciesTask.cs" />
+    <Compile Include="Fluent\SetupDependencies.cs" />
+    <Compile Include="Tasks\Types\IInitializationTask.cs" />
+    <Compile Include="Tasks\Types\IStartupTask.cs" />
+    <Compile Include="Tasks\Discovery\IInitializationTaskSource.cs" />
+    <Compile Include="Tasks\Types\InitializationTaskContext.cs" />
+    <Compile Include="Tasks\InitializationTaskManager.cs" />
+    <Compile Include="Tasks\Discovery\InitializationTaskListSource.cs" />
+    <Compile Include="Tasks\Discovery\DependencyLocatorSource.cs" />
+    <Compile Include="Tasks\RegisterDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

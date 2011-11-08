@@ -13,6 +13,7 @@
     using NUnit.Framework;
 
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
 
     [TestFixture]
     public class When_booting
@@ -29,7 +30,7 @@
 
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            var bootstrapper = new SetupBoot()
+            var bootstrapper = new Setup()
                 .Dependencies(setup => setup.Assembly(currentAssembly))
                 .ExposeContainer(exposedContainer => container = exposedContainer).Start();
 
@@ -43,7 +44,7 @@
 
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            var bootstrapper = new SetupBoot().Dependencies(setup => setup.Assembly(currentAssembly)).ExposeContainer(
+            var bootstrapper = new Setup().Dependencies(setup => setup.Assembly(currentAssembly)).ExposeContainer(
                     exposedContainer => container = exposedContainer).Start();
 
             var registration = container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).

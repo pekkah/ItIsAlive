@@ -17,7 +17,9 @@ namespace Sakura.Extensions.Api.Tests
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Extensions.Mvc;
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class When_configuring_web_api_with_mvc
@@ -35,7 +37,7 @@ namespace Sakura.Extensions.Api.Tests
             initializeTest.Execute(
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
-            this.bootstrapper = new SetupBoot()
+            this.bootstrapper = new Setup()
                 .Dependencies(d => d.AssemblyOf<PersonApi>())
                 .Task(initializeTest)
                 .ConfigureMvc(router => { })

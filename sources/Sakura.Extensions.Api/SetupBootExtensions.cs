@@ -5,6 +5,7 @@
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Extensions.Mvc;
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
 
     public static class SetupBootExtensions
     {

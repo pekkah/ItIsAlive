@@ -1,4 +1,4 @@
-namespace Sakura.Framework.Registration
+namespace Sakura.Framework.Dependencies.Policies
 {
     using System;
 
@@ -6,8 +6,8 @@ namespace Sakura.Framework.Registration
 
     public interface IRegistrationPolicy
     {
-        bool IsMatch(Type type);
-
         void Apply(Type dependencyType, ContainerBuilder builder);
+
+        bool IsMatch(Type type);
     }
 }

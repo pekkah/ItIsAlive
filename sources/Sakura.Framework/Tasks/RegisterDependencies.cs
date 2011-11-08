@@ -1,16 +1,18 @@
-﻿namespace Sakura.Framework.Tasks.Initialization
+﻿namespace Sakura.Framework.Tasks
 {
     using System;
     using System.Linq;
 
-    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
+    using Sakura.Framework.Dependencies.Discovery;
+    using Sakura.Framework.Tasks.Types;
 
     [NotDiscoverable]
-    public class RegisterDependenciesTask : IInitializationTask, ITransientDependency
+    public class RegisterDependencies : IInitializationTask, ITransientDependency
     {
         private readonly IDependencyLocator locator;
 
-        public RegisterDependenciesTask(IDependencyLocator locator)
+        public RegisterDependencies(IDependencyLocator locator)
         {
             this.locator = locator;
         }

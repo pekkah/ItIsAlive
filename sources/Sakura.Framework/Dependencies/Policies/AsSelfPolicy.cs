@@ -1,18 +1,13 @@
-namespace Sakura.Framework.Registration
+namespace Sakura.Framework.Dependencies.Policies
 {
     using System;
 
     using Autofac;
 
-    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
 
-    public class SelfPolicy : IRegistrationPolicy
+    public class AsSelfPolicy : IRegistrationPolicy
     {
-        public bool IsMatch(Type type)
-        {
-            return typeof(IAsSelf).IsAssignableFrom(type);
-        }
-
         public void Apply(Type dependencyType, ContainerBuilder builder)
         {
             var registration = builder.RegisterType(dependencyType).AsSelf();
@@ -25,6 +20,11 @@ namespace Sakura.Framework.Registration
             {
                 registration.InstancePerDependency();
             }
+        }
+
+        public bool IsMatch(Type type)
+        {
+            return typeof(IAsSelf).IsAssignableFrom(type);
         }
     }
 }

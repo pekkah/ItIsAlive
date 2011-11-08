@@ -3,6 +3,7 @@
     using System.Web.Mvc;
 
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
 
     public class HomeController : Controller, ITransientDependency
     {

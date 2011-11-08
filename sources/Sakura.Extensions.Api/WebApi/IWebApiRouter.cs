@@ -3,6 +3,7 @@ namespace Sakura.Extensions.Api.WebApi
     using Microsoft.ApplicationServer.Http;
 
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
 
     public interface IWebApiRouter : ISingleInstanceDependency
     {

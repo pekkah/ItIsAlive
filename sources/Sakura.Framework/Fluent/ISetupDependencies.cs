@@ -1,4 +1,4 @@
-namespace Sakura.Framework
+namespace Sakura.Framework.Fluent
 {
     using System;
     using System.Reflection;

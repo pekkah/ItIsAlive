@@ -1,9 +1,9 @@
-namespace Sakura.Framework.Dependencies
+namespace Sakura.Framework.Dependencies.Discovery
 {
     using System;
     using System.Collections.Generic;
 
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Policies;
 
     public interface IDependencyLocator
     {

@@ -1,16 +1,16 @@
-namespace Sakura.Framework.Tasks.Initialization
+namespace Sakura.Framework.Tasks.Discovery
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
 
-    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.Discovery;
+    using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.ExtensionMethods;
-    using Sakura.Framework.Internal;
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Tasks.Types;
 
-    public class DependencyLocatorSource : ITaskSource
+    public class DependencyLocatorSource : IInitializationTaskSource
     {
         private readonly IDependencyLocator locator;
 
@@ -24,15 +24,15 @@ namespace Sakura.Framework.Tasks.Initialization
 
         public IEnumerable<IInitializationTask> GetTasks()
         {
-            var taskTypes = this.locator.GetDependencies(this.policies).Where(type => type.HasInterface(typeof(IInitializationTask)));
+            var taskTypes =
+                this.locator.GetDependencies(this.policies).Where(
+                    type => type.HasInterface(typeof(IInitializationTask)));
 
             foreach (var taskType in taskTypes)
             {
                 this.VerifyTaskType(taskType);
 
-                var factory = new ObjectCreateMethod(taskType);
-
-                yield return factory.CreateInstance<IInitializationTask>();
+                yield return Activator.CreateInstance(typeof(IInitializationTask)) as IInitializationTask;
             }
         }
 

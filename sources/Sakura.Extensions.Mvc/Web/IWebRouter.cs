@@ -3,6 +3,7 @@ namespace Sakura.Extensions.Mvc.Web
     using System.Web.Routing;
 
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
 
     public interface IWebRouter : ISingleInstanceDependency
     {

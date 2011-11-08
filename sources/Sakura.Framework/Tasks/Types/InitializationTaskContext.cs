@@ -1,10 +1,10 @@
-namespace Sakura.Framework.Tasks
+namespace Sakura.Framework.Tasks.Types
 {
     using System.Collections.Generic;
 
     using Autofac;
 
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Policies;
 
     public class InitializationTaskContext
     {

@@ -1,4 +1,4 @@
-﻿namespace Sakura.Framework.Dependencies
+﻿namespace Sakura.Framework.Dependencies.Discovery
 {
     using System;
 

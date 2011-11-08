@@ -16,7 +16,9 @@
     using Sakura.Extensions.Api.Tests.Apis;
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class When_configuring_web_api
@@ -34,7 +36,7 @@
             initializeTest.Execute(
                 Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
-            this.bootstrapper = new SetupBoot()
+            this.bootstrapper = new Setup()
                 .Dependencies(d => d.Types(typeof(PersonApi)))
                 .Task(initializeTest)  
                 .ConfigureWebApi((router, config) => router.MapServiceRoute<PersonApi>("api/person", config))

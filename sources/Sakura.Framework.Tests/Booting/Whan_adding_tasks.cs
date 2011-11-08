@@ -10,17 +10,19 @@
     using NUnit.Framework;
 
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class Whan_adding_tasks
     {
-        private TaskEngine taskEngine;
+        private InitializationTaskManager initializationTaskManager;
 
         [SetUp]
         public void Setup()
         {
-            this.taskEngine = new TaskEngine();
+            this.initializationTaskManager = new InitializationTaskManager();
         }
 
         [Test]
@@ -28,9 +30,9 @@
         {
             var task = Substitute.For<IInitializationTask, ITransientDependency>();
 
-            this.taskEngine.AddTask(task);
+            this.initializationTaskManager.AddTask(task);
 
-            this.taskEngine.Tasks.Should().Contain(task);
+            this.initializationTaskManager.Tasks.Should().Contain(task);
         }
 
         [Test]
@@ -38,9 +40,9 @@
         {
             var task = Substitute.For<IInitializationTask, ISingleInstanceDependency>();
 
-            this.taskEngine.AddTask(task);
+            this.initializationTaskManager.AddTask(task);
 
-            this.taskEngine.Tasks.Should().Contain(task);
+            this.initializationTaskManager.Tasks.Should().Contain(task);
         }
 
         [Test]
@@ -48,8 +50,8 @@
         {
             var task = Substitute.For<IInitializationTask, ISingleInstanceDependency>();
 
-            this.taskEngine.AddTask(task);
-            Assert.Throws<InvalidOperationException>(() => this.taskEngine.AddTask(task));
+            this.initializationTaskManager.AddTask(task);
+            Assert.Throws<InvalidOperationException>(() => this.initializationTaskManager.AddTask(task));
         }
     }
 }

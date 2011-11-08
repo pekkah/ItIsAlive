@@ -8,6 +8,8 @@
 
     using Sakura.Framework;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Discovery;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class When_initializing
@@ -20,7 +22,7 @@
 
         private IInitializationTask initializationTaskDependency;
 
-        private ITaskSource taskSource;
+        private IInitializationTaskSource initializationTaskSource;
 
         private IInitializationTask taskInTaskSource;
 
@@ -29,20 +31,20 @@
         {
             this.initializationTask1 = Substitute.For<IInitializationTask>();
             this.taskInTaskSource = Substitute.For<IInitializationTask>();
-            this.taskSource = Substitute.For<ITaskSource>();
+            this.initializationTaskSource = Substitute.For<IInitializationTaskSource>();
             this.initializationTaskDependency = Substitute.For<IInitializationTask>();
 
             // initialization task source
-            this.taskSource.GetTasks().Returns(new[] { this.taskInTaskSource });
+            this.initializationTaskSource.GetTasks().Returns(new[] { this.taskInTaskSource });
 
             // initialize bootstrapper
             this.bootstrapper = new Bootstrapper();
 
             // manually added initialization tasks
-            this.bootstrapper.Tasks.AddTask(this.initializationTask1);
+            this.bootstrapper.InitializationTasks.AddTask(this.initializationTask1);
 
             // initialization tasks discovery
-            this.bootstrapper.Tasks.AddTaskSource(this.taskSource);
+            this.bootstrapper.InitializationTasks.AddTaskSource(this.initializationTaskSource);
 
             // executes initialization tasks
             this.container = this.bootstrapper.Initialize();
@@ -69,7 +71,7 @@
         [Test]
         public void should_get_tasks_from_custom_sources()
         {
-            this.taskSource.Received().GetTasks();
+            this.initializationTaskSource.Received().GetTasks();
         }
     }
 }

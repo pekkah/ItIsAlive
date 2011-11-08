@@ -1,6 +1,6 @@
-namespace Sakura.Framework.Tasks
+namespace Sakura.Framework.Tasks.Types
 {
-    using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.DefaultTypes;
 
     public interface IStartupTask : ITransientDependency
     {

@@ -1,12 +1,11 @@
-namespace Sakura.Framework.Dependencies
+namespace Sakura.Framework.Dependencies.Discovery
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
-    using Sakura.Framework.ExtensionMethods;
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Policies;
 
     public class AssemblyLocator : IDependencyLocator
     {
@@ -22,7 +21,8 @@ namespace Sakura.Framework.Dependencies
             return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), policies));
         }
 
-        internal static IEnumerable<Type> FilterDependencyTypes(IEnumerable<Type> types, IEnumerable<IRegistrationPolicy> policies)
+        internal static IEnumerable<Type> FilterDependencyTypes(
+            IEnumerable<Type> types, IEnumerable<IRegistrationPolicy> policies)
         {
             if (types == null)
             {

@@ -1,4 +1,4 @@
-﻿namespace Sakura.Framework.Tasks
+﻿namespace Sakura.Framework.Tasks.Types
 {
     public interface IInitializationTask
     {

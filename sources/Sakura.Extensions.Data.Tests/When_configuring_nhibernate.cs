@@ -18,6 +18,7 @@
 
     using Sakura.Extensions.Data.Tests.DatabaseModel;
     using Sakura.Framework;
+    using Sakura.Framework.Fluent;
 
     [TestFixture]
     [Explicit("This test fixture executes against inmemory database (sqllite)")]
@@ -31,7 +32,7 @@
         public void Setup()
         {
             this.bootstrapper =
-                new SetupBoot().Dependencies(d => d.AssemblyOf<InitializeSessionFactory>()).ExposeContainer(
+                new Setup().Dependencies(d => d.AssemblyOf<InitializeSessionFactory>()).ExposeContainer(
                     exposed => this.container = exposed).ConfigureNHibernate(
                         () =>
                             {

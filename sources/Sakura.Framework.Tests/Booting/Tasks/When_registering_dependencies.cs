@@ -16,9 +16,10 @@
     using NUnit.Framework;
 
     using Sakura.Framework.Dependencies;
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Discovery;
+    using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.Tasks;
-    using Sakura.Framework.Tasks.Initialization;
+    using Sakura.Framework.Tasks.Types;
 
     public class When_registering_dependencies
     {
@@ -28,7 +29,7 @@
 
         private IDependencyLocator locator;
 
-        private RegisterDependenciesTask registerDependenciesTask;
+        private RegisterDependencies registerDependencies;
 
         [SetUp]
         public void Setup()
@@ -42,11 +43,11 @@
             var policies = new IRegistrationPolicy[] { new TransientPolicy(), new SingleInstancePolicy() };
 
             this.containerBuilder = new ContainerBuilder();
-            this.registerDependenciesTask = new RegisterDependenciesTask(this.locator);
+            this.registerDependencies = new RegisterDependencies(this.locator);
 
             this.context = new InitializationTaskContext(this.containerBuilder, policies);
 
-            this.registerDependenciesTask.Execute(this.context);
+            this.registerDependencies.Execute(this.context);
         }
 
         [Test]

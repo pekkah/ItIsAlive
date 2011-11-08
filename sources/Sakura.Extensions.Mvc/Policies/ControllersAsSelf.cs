@@ -5,15 +5,15 @@
 
     using Autofac;
 
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.Policies;
 
     public class ControllersAsSelf : IRegistrationPolicy
     {
-        private SelfPolicy selfPolicy;
+        private AsSelfPolicy asSelfPolicy;
 
         public ControllersAsSelf()
         {
-            this.selfPolicy = new SelfPolicy();
+            this.asSelfPolicy = new AsSelfPolicy();
         }
 
         public bool IsMatch(Type type)
@@ -23,7 +23,7 @@
 
         public void Apply(Type dependencyType, ContainerBuilder builder)
         {
-            this.selfPolicy.Apply(dependencyType, builder);
+            this.asSelfPolicy.Apply(dependencyType, builder);
         }
     }
 }

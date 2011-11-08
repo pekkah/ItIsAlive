@@ -9,18 +9,20 @@ namespace Sakura.Framework.Tests.Booting
     using NUnit.Framework;
 
     using Sakura.Framework.Dependencies;
-    using Sakura.Framework.Registration;
+    using Sakura.Framework.Dependencies.DefaultTypes;
+    using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.Tasks;
+    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class Whan_executing_tasks
     {
-        private TaskEngine taskEngine;
+        private InitializationTaskManager initializationTaskManager;
 
         [SetUp]
         public void Setup()
         {
-            this.taskEngine = new TaskEngine();
+            this.initializationTaskManager = new InitializationTaskManager();
         }
 
         [Test]
@@ -32,9 +34,9 @@ namespace Sakura.Framework.Tests.Booting
             var builder = new ContainerBuilder();
             var context = new InitializationTaskContext(builder, policies);
 
-            this.taskEngine.AddTask(task);
+            this.initializationTaskManager.AddTask(task);
 
-            this.taskEngine.Execute(context);
+            this.initializationTaskManager.Execute(context);
 
             task.Received().Execute(context);
         }
