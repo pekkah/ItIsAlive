@@ -17,7 +17,7 @@
 
         public void Execute(InitializationTaskContext context)
         {
-            var dependencyTypes = this.locator.GetDependencies();
+            var dependencyTypes = this.locator.GetDependencies(context.Policies);
 
             foreach (var dependencyType in dependencyTypes)
             {

@@ -3,6 +3,8 @@ namespace Sakura.Framework.Dependencies
     using System;
     using System.Collections.Generic;
 
+    using Sakura.Framework.Registration;
+
     public class TypeLocator : IDependencyLocator
     {
         private readonly Type[] dependencyTypes;
@@ -17,9 +19,9 @@ namespace Sakura.Framework.Dependencies
             this.dependencyTypes = dependencyTypes;
         }
 
-        public IEnumerable<Type> GetDependencies()
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationPolicy> policies)
         {
-            return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes);
+            return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes, policies);
         }
     }
 }

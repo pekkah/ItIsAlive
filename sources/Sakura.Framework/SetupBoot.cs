@@ -78,8 +78,8 @@ namespace Sakura.Framework
             this.bootstrapper.Tasks.AddTask(new RegisterDependenciesTask(typeLocator));
             
             // load initialization tasks from locator
-            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator));
-            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(typeLocator));
+            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator, this.bootstrapper.Policies));
+            this.bootstrapper.Tasks.AddTaskSource(new DependencyLocatorSource(typeLocator, this.bootstrapper.Policies));
 
             // execute initialization tasks
             var container = this.bootstrapper.Initialize();

@@ -6,6 +6,7 @@ namespace Sakura.Framework.Dependencies
     using System.Reflection;
 
     using Sakura.Framework.ExtensionMethods;
+    using Sakura.Framework.Registration;
 
     public class AssemblyLocator : IDependencyLocator
     {
@@ -16,34 +17,30 @@ namespace Sakura.Framework.Dependencies
             this.assemblies = assemblies;
         }
 
-        public IEnumerable<Type> GetDependencies()
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationPolicy> policies)
         {
-            foreach (var assembly in this.assemblies)
-            {
-                foreach (var type1 in FilterDependencyTypes(assembly.GetExportedTypes())) yield return type1;
-            }
+            return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), policies));
         }
 
-        internal static IEnumerable<Type> FilterDependencyTypes(IEnumerable<Type> types)
+        internal static IEnumerable<Type> FilterDependencyTypes(IEnumerable<Type> types, IEnumerable<IRegistrationPolicy> policies)
         {
             if (types == null)
             {
                 throw new ArgumentNullException("types");
             }
 
-            var dependencyTypes = types.Where(
-                    type => type.HasInterface(typeof(IDependency)) && type.IsClass && !type.IsAbstract);
+            return types.Where(dependencyType => IsDependency(dependencyType, policies));
+        }
 
-            foreach (var dependencyType in dependencyTypes)
+        private static bool IsDependency(Type dependencyType, IEnumerable<IRegistrationPolicy> policies)
+        {
+            // skip non discoverable dependencies
+            if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
             {
-                // skip non discoverable dependencies
-                if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
-                {
-                    continue;
-                }
-
-                yield return dependencyType;
+                return false;
             }
+
+            return policies.Any(policy => policy.IsMatch(dependencyType));
         }
     }
 }

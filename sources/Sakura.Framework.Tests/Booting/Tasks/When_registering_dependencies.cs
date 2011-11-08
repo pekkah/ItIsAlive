@@ -1,5 +1,6 @@
 ﻿namespace Fugu.Framework.Tests.Booting.Tasks
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using Autofac;
@@ -34,7 +35,7 @@
         {
             this.locator = Substitute.For<IDependencyLocator>();
 
-            this.locator.GetDependencies().Returns(
+            this.locator.GetDependencies(Arg.Any<IEnumerable<IRegistrationPolicy>>()).Returns(
                 new[] { typeof(MockSingleInstanceDependency), typeof(MockTransientDependency) });
 
 
@@ -51,7 +52,7 @@
         [Test]
         public void should_discover_dependencies_from_locator()
         {
-            this.locator.Received().GetDependencies();
+            this.locator.Received().GetDependencies(Arg.Any<IEnumerable<IRegistrationPolicy>>());
         }
 
         [Test]
