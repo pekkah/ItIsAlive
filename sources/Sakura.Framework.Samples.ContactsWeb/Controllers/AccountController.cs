@@ -3,20 +3,16 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using NHibernate;
-
-    using Sakura.Framework.Dependencies;
+    using Sakura.Extensions.Data;
+    using Sakura.Extensions.NHibernateMvc.Filters;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.ContactsWeb.Models;
 
     public class AccountController : Controller, ITransientDependency
     {
-        private readonly ISession session;
-
-        public AccountController(ISession session)
+        public AccountController()
         {
-            this.session = session;
         }
 
         [Authorize]
@@ -31,28 +27,25 @@
         {
             if (this.ModelState.IsValid)
             {
-                bool changePasswordSucceeded = false;
+                //bool changePasswordSucceeded = false;
 
-                using (var tx = this.session.BeginTransaction())
-                {
-                    var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
+                //var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
 
-                    var user = this.session.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
+                //var user = this.context.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
 
-                    if (user != null)
-                    {
-                        user.Password = model.ConfirmPassword;
-                        tx.Commit();
-                        changePasswordSucceeded = true;
-                    }
-                }
+                //if (user != null)
+                //{
+                //    user.Password = model.ConfirmPassword;
+                //    changePasswordSucceeded = true;
+                //}
 
-                if (changePasswordSucceeded)
-                {
-                    return this.RedirectToAction("ChangePasswordSuccess");
-                }
+                //if (changePasswordSucceeded)
+                //{
+                //    return this.RedirectToAction("ChangePasswordSuccess");
+                //}
 
-                this.ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
+                //this.ModelState.AddModelError(
+                //    string.Empty, "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -104,60 +97,47 @@
             return View(model);
         }
 
-        private bool ValidateUser(string userName, string password)
-        {
-            using (var tx = this.session.BeginTransaction())
-            {
-                var user = this.session.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
-
-                if (user == null)
-                {
-                    return false;
-                }
-
-                // todo password hashing
-                var hashedPassword = password;
-
-                if (user.Password != hashedPassword)
-                {
-                    return false;
-                }
-
-                tx.Commit();
-                return true;
-            }
-        }
-
         public ActionResult Register()
         {
             return this.View();
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult Register(RegisterModel model, IWorkContext workContext)
         {
             if (this.ModelState.IsValid)
             {
-                using (var tx = this.session.BeginTransaction())
-                {
-                    var user = new User
-                    {
-                        Name = model.UserName,
-                        Password = model.Password,
-                        Email = model.Email
-                    };
+                var user = new User { Name = model.UserName, Password = model.Password, Email = model.Email };
 
-                    user.AddContact("Somebody");
+                user.AddContact("Somebody");
 
-                    this.session.Save(user);
-                    tx.Commit();
-                }
+                workContext.Save(user);
 
                 return this.RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private bool ValidateUser(string userName, string password)
+        {
+            //var user = this.context.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
+
+            //if (user == null)
+            //{
+            //    return false;
+            //}
+
+            //// todo password hashing
+            //var hashedPassword = password;
+
+            //if (user.Password != hashedPassword)
+            //{
+            //    return false;
+            //}
+
+            return true;
         }
     }
 }

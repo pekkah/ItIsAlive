@@ -1,6 +1,7 @@
 namespace Sakura.Framework.Fluent
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Autofac;
@@ -72,8 +73,7 @@ namespace Sakura.Framework.Fluent
             this.bootstrapper.InitializationTasks.AddTask(new RegisterDependencies(typeLocator));
 
             // load initialization tasks from locator
-            this.bootstrapper.InitializationTasks.AddTaskSource(
-                new DependencyLocatorSource(assemblyLocator, this.bootstrapper.RegistrationPolicies));
+            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator, this.bootstrapper.RegistrationPolicies));
             this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(typeLocator, this.bootstrapper.RegistrationPolicies));
 
             // execute initialization tasks
@@ -101,6 +101,18 @@ namespace Sakura.Framework.Fluent
         public ISetupBootstrapper TryTask(IInitializationTask task)
         {
             this.bootstrapper.InitializationTasks.TryAddTask(task);
+
+            return this;
+        }
+
+        public ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies)
+        {
+            if (policies == null)
+            {
+                throw new ArgumentNullException("policies");
+            }
+
+            policies(this.bootstrapper.RegistrationPolicies);
 
             return this;
         }

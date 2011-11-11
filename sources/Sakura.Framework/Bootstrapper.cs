@@ -17,7 +17,12 @@
         public Bootstrapper()
         {
             this.initializationTaskManager = new InitializationTaskManager();
-            this.RegistrationPolicies = new HashSet<IRegistrationPolicy> { new AsSelfPolicy(), new SingleInstancePolicy(), new TransientPolicy() };
+            this.RegistrationPolicies = new HashSet<IRegistrationPolicy>
+                {
+                    new AsSelfPolicy(), 
+                    new SingleInstancePolicy(), 
+                    new TransientPolicy()
+                };
         }
 
         public ISet<IRegistrationPolicy> RegistrationPolicies

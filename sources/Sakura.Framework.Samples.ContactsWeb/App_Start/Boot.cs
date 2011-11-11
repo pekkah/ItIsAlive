@@ -20,6 +20,7 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
     using Sakura.Extensions.Data;
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.Mvc.Web;
+    using Sakura.Extensions.NHibernateMvc;
     using Sakura.Framework.Fluent;
     using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.Contacts.Database.Schema;
@@ -41,7 +42,11 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
                     {
                         setup.AssemblyOf<AccountController>();
                         setup.AssemblyOf<User>();
-                    }).ConfigureMvc(ConfigureRoutes).ConfigureNHibernate(ConfigureNHibernate).Start();
+                    })
+                    .ConfigureMvc(ConfigureRoutes)
+                    .ConfigureNHibernate(ConfigureNHibernate)
+                    .ActivateNHibernateMvcIntegration()
+                    .Start();
         }
 
         private static Configuration ConfigureNHibernate()

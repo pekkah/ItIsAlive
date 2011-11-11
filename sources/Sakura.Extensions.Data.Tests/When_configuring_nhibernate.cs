@@ -32,7 +32,7 @@
         public void Setup()
         {
             this.bootstrapper =
-                new Setup().Dependencies(d => d.AssemblyOf<InitializeSessionFactory>()).ExposeContainer(
+                new Setup().Dependencies(d => d.AssemblyOf<RegisterNHibernate>()).ExposeContainer(
                     exposed => this.container = exposed).ConfigureNHibernate(
                         () =>
                             {

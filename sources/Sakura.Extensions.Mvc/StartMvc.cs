@@ -7,18 +7,17 @@ namespace Sakura.Extensions.Mvc
     using Autofac.Integration.Mvc;
 
     using Sakura.Extensions.Mvc.Web;
-    using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Types;
 
     public class StartMvc : IStartupTask
     {
-        private readonly ILifetimeScope container;
-
         private readonly Action<IWebRouter> configure;
+
+        private readonly ILifetimeScope container;
 
         private readonly IWebRouter router;
 
-        public StartMvc(ILifetimeScope container, IWebRouter router,  Action<IWebRouter> configure)
+        public StartMvc(ILifetimeScope container, IWebRouter router, Action<IWebRouter> configure)
         {
             this.container = container;
             this.configure = configure;

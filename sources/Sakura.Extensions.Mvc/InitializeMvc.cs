@@ -6,9 +6,7 @@ namespace Sakura.Extensions.Mvc
     using Autofac.Integration.Mvc;
 
     using Sakura.Extensions.Mvc.Web;
-    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Types;
 
     [NotDiscoverable]
@@ -23,7 +21,7 @@ namespace Sakura.Extensions.Mvc
 
         public void Execute(InitializationTaskContext context)
         {
-            var builder = context.Builder;            
+            var builder = context.Builder;
             builder.RegisterFilterProvider();
             builder.RegisterModelBinderProvider();
             builder.RegisterFilterProvider();

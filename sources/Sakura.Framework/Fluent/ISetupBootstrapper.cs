@@ -1,6 +1,7 @@
 namespace Sakura.Framework.Fluent
 {
     using System;
+    using System.Collections.Generic;
 
     using Autofac;
 
@@ -20,5 +21,7 @@ namespace Sakura.Framework.Fluent
         ISetupBootstrapper Task(IInitializationTask task);
 
         ISetupBootstrapper TryTask(IInitializationTask http);
+
+        ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies);
     }
 }

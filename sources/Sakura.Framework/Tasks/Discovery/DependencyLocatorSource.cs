@@ -32,7 +32,7 @@ namespace Sakura.Framework.Tasks.Discovery
             {
                 this.VerifyTaskType(taskType);
 
-                yield return Activator.CreateInstance(typeof(IInitializationTask)) as IInitializationTask;
+                yield return Activator.CreateInstance(taskType) as IInitializationTask;
             }
         }
 
