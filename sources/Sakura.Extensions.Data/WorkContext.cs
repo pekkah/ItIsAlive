@@ -51,11 +51,6 @@ namespace Sakura.Extensions.Data
                 throw new InvalidOperationException("Current transaction is not set.");
             }
 
-            if (!this.session.Transaction.IsActive)
-            {
-                throw new InvalidOperationException("Current transaction is not active.");
-            }
-
             this.session.Transaction.Rollback();
         }
 

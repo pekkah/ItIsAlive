@@ -8,7 +8,6 @@ namespace Sakura.Framework.Tests.Booting
 
     using NUnit.Framework;
 
-    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.Tasks;

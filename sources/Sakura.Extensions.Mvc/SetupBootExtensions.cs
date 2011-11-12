@@ -12,14 +12,18 @@
         {
             var initializeMvc = new InitializeMvc(configure);
 
-            return setup.Dependencies(d => d.AssemblyOf<InitializeHttpDependencies>()).TryTask(
-                new InitializeHttpDependencies()).RegistrationPolicies(
-                    policies =>
+            return setup.Dependencies(d => d.AssemblyOf<InitializeHttpDependencies>()).Tasks(
+                tasks =>
+                {
+                    tasks.AddTask(new InitializeHttpDependencies());
+                    tasks.AddTask(initializeMvc);
+                }).RegistrationPolicies(
+                        policies =>
                         {
                             policies.Add(new ControllersAsSelf());
                             policies.Add(new ModelBinderPolicy());
                             policies.Add(new GlobalFilterPolicy());
-                        }).Task(initializeMvc);
+                        });
         }
     }
 }

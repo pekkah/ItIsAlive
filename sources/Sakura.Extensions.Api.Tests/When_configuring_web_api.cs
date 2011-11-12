@@ -38,7 +38,7 @@
 
             this.bootstrapper = new Setup()
                 .Dependencies(d => d.Types(typeof(PersonApi)))
-                .Task(initializeTest)  
+                .Tasks(tasks => tasks.AddTask(initializeTest))  
                 .ConfigureWebApi((router, config) => router.MapServiceRoute<PersonApi>("api/person", config))
                         .ExposeContainer(exposed => this.container = exposed).Start();
         }

@@ -7,7 +7,6 @@ namespace Fugu.Framework.Tests.Booting
     using NUnit.Framework;
 
     using Sakura.Framework;
-    using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Types;
 
     [TestFixture]

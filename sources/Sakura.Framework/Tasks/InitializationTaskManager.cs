@@ -72,5 +72,19 @@
             this.manualInitializationTasks.Add(task);
             return true;
         }
+
+        public void ReplaceTask<TTarget>(IInitializationTask with) where TTarget : IInitializationTask
+        {
+            var target = this.manualInitializationTasks.GetByType<TTarget>().SingleOrDefault();
+
+            if (target == null)
+            {
+                throw new InvalidOperationException(
+                    string.Format("Task manager does not contain task with type '{0}'", typeof(TTarget).FullName));
+            }
+
+            this.manualInitializationTasks.Remove(target);
+            this.manualInitializationTasks.Add(with);
+        }
     }
 }

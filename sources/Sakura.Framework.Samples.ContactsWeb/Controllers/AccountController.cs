@@ -4,6 +4,7 @@
     using System.Web.Security;
 
     using Sakura.Extensions.Data;
+    using Sakura.Extensions.NHibernateMvc.Filters;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.ContactsWeb.Models;

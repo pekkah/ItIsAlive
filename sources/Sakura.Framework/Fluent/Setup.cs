@@ -14,9 +14,9 @@ namespace Sakura.Framework.Fluent
 
     public class Setup : ISetupBootstrapper
     {
-        private Bootstrapper bootstrapper;
+        private readonly Bootstrapper bootstrapper;
 
-        private SetupDependencies dependencySetup;
+        private readonly SetupDependencies dependencySetup;
 
         private Action<IContainer> exposeContainer;
 
@@ -24,18 +24,6 @@ namespace Sakura.Framework.Fluent
         {
             this.bootstrapper = new Bootstrapper();
             this.dependencySetup = new SetupDependencies();
-        }
-
-        public ISetupBootstrapper AddPolicy(IRegistrationPolicy policy)
-        {
-            if (policy == null)
-            {
-                throw new ArgumentNullException("policy");
-            }
-
-            this.bootstrapper.RegistrationPolicies.Add(policy);
-
-            return this;
         }
 
         public ISetupBootstrapper Dependencies(Action<ISetupDependencies> setupDependencies)
@@ -91,16 +79,14 @@ namespace Sakura.Framework.Fluent
             return this.bootstrapper;
         }
 
-        public ISetupBootstrapper Task(IInitializationTask task)
+        public ISetupBootstrapper Tasks(Action<InitializationTaskManager> tasks)
         {
-            this.bootstrapper.InitializationTasks.AddTask(task);
+            if (tasks == null)
+            {
+                throw new ArgumentNullException("tasks");
+            }
 
-            return this;
-        }
-
-        public ISetupBootstrapper TryTask(IInitializationTask task)
-        {
-            this.bootstrapper.InitializationTasks.TryAddTask(task);
+            tasks(this.bootstrapper.InitializationTasks);
 
             return this;
         }

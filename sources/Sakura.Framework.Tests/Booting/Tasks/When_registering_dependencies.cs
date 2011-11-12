@@ -15,7 +15,6 @@
 
     using NUnit.Framework;
 
-    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.Discovery;
     using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.Tasks;
@@ -38,7 +37,6 @@
 
             this.locator.GetDependencies(Arg.Any<IEnumerable<IRegistrationPolicy>>()).Returns(
                 new[] { typeof(MockSingleInstanceDependency), typeof(MockTransientDependency) });
-
 
             var policies = new IRegistrationPolicy[] { new TransientPolicy(), new SingleInstancePolicy() };
 

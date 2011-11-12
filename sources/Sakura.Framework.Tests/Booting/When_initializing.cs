@@ -7,7 +7,6 @@
     using NUnit.Framework;
 
     using Sakura.Framework;
-    using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Discovery;
     using Sakura.Framework.Tasks.Types;
 

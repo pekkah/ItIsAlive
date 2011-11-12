@@ -2,6 +2,7 @@ namespace Sakura.Extensions.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Web;
     using System.Web.Mvc;
 
     using Autofac;
@@ -31,11 +32,15 @@ namespace Sakura.Extensions.Mvc
             this.configure(this.router);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(this.container));
 
-            var globalFilters = this.container.Resolve<IEnumerable<IGlobalFilter>>();
-
-            foreach (var globalFilter in globalFilters)
+            if (HttpContext.Current != null)
             {
-                GlobalFilters.Filters.Add(globalFilter);
+                var globalFilters =
+                    AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve<IEnumerable<IGlobalFilter>>();
+
+                foreach (var globalFilter in globalFilters)
+                {
+                    GlobalFilters.Filters.Add(globalFilter);
+                }
             }
         }
     }

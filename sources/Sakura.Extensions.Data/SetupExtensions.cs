@@ -13,7 +13,11 @@
         {
             var initializationTask = new RegisterNHibernate(configure);
 
-            return setup.Dependencies(d => d.AssemblyOf<RegisterNHibernate>()).Task(initializationTask);
+            return setup.Dependencies(d => d.AssemblyOf<RegisterNHibernate>()).Tasks(tasks =>
+                {
+                    tasks.AddTask(initializationTask);
+                    tasks.AddTask(new RegisterSession());
+                });
         }
     }
 }

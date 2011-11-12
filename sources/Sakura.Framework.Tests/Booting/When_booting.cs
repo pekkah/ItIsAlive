@@ -12,7 +12,6 @@
 
     using NUnit.Framework;
 
-    using Sakura.Framework;
     using Sakura.Framework.Fluent;
 
     [TestFixture]
@@ -30,9 +29,9 @@
 
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            var bootstrapper = new Setup()
-                .Dependencies(setup => setup.Assembly(currentAssembly))
-                .ExposeContainer(exposedContainer => container = exposedContainer).Start();
+            var bootstrapper =
+                new Setup().Dependencies(setup => setup.Assembly(currentAssembly)).ExposeContainer(
+                    exposedContainer => container = exposedContainer).Start();
 
             container.Should().NotBeNull();
         }
@@ -44,10 +43,12 @@
 
             var currentAssembly = Assembly.GetExecutingAssembly();
 
-            var bootstrapper = new Setup().Dependencies(setup => setup.Assembly(currentAssembly)).ExposeContainer(
+            var bootstrapper =
+                new Setup().Dependencies(setup => setup.Assembly(currentAssembly)).ExposeContainer(
                     exposedContainer => container = exposedContainer).Start();
 
-            var registration = container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
+            var registration =
+                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
                     SingleOrDefault();
 
             registration.Should().NotBeNull();

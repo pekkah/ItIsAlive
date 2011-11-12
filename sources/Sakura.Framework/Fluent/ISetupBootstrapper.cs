@@ -6,22 +6,18 @@ namespace Sakura.Framework.Fluent
     using Autofac;
 
     using Sakura.Framework.Dependencies.Policies;
-    using Sakura.Framework.Tasks.Types;
+    using Sakura.Framework.Tasks;
 
     public interface ISetupBootstrapper
     {
-        ISetupBootstrapper AddPolicy(IRegistrationPolicy policy);
-
         ISetupBootstrapper Dependencies(Action<ISetupDependencies> setupDependencies);
 
         ISetupBootstrapper ExposeContainer(Action<IContainer> exposeTo);
 
+        ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies);
+
         Bootstrapper Start();
 
-        ISetupBootstrapper Task(IInitializationTask task);
-
-        ISetupBootstrapper TryTask(IInitializationTask http);
-
-        ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies);
+        ISetupBootstrapper Tasks(Action<InitializationTaskManager> tasks);
     }
 }

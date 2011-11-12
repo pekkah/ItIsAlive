@@ -31,11 +31,6 @@ namespace Sakura.Extensions.Data
                 handler => Trace.TraceInformation("Session factory activated")).OnRelease(
                     release => Trace.TraceInformation("Session factory released."));
 
-            // register session so that each lifetime scope will have their own instance
-            builder.Register(this.GetSession).As<ISession>().InstancePerLifetimeScope().OnActivated(
-                handler => Trace.TraceInformation("Session activated")).OnRelease(
-                    release => Trace.TraceInformation("Session released."));
-
             builder.Register(this.GetStatelessSession).As<IStatelessSession>().InstancePerLifetimeScope().OnActivated(
                 handler => Trace.TraceInformation("Stateless session factory activated")).OnRelease(
                     release => Trace.TraceInformation("Stateless session released."));
@@ -44,13 +39,6 @@ namespace Sakura.Extensions.Data
         private ISessionFactory CreateSessionFactory(IComponentContext componentContext)
         {
             return this.configure().BuildSessionFactory();
-        }
-
-        private ISession GetSession(IComponentContext componentContext)
-        {
-            var factory = componentContext.Resolve<ISessionFactory>();
-
-            return factory.OpenSession();
         }
 
         private IStatelessSession GetStatelessSession(IComponentContext componentContext)

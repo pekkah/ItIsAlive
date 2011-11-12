@@ -39,10 +39,10 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
         {
             bootstrapper = new Setup().Dependencies(
                 setup =>
-                    {
-                        setup.AssemblyOf<AccountController>();
-                        setup.AssemblyOf<User>();
-                    })
+                {
+                    setup.AssemblyOf<AccountController>();
+                    setup.AssemblyOf<User>();
+                })
                     .ConfigureMvc(ConfigureRoutes)
                     .ConfigureNHibernate(ConfigureNHibernate)
                     .ActivateNHibernateMvcIntegration()
@@ -60,13 +60,13 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
 
             config.DataBaseIntegration(
                 db =>
-                    {
-                        db.Dialect<MsSqlCe40Dialect>();
-                        db.Driver<SqlServerCeDriver>();
-                        db.SchemaAction = SchemaAutoAction.Recreate;
-                        db.ConnectionString = connectionString;
-                        db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
-                    });
+                {
+                    db.Dialect<MsSqlCe40Dialect>();
+                    db.Driver<SqlServerCeDriver>();
+                    db.SchemaAction = SchemaAutoAction.Recreate;
+                    db.ConnectionString = connectionString;
+                    db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
+                });
 
             // allow using .NET ISet<T> instead of Iesi ISet<T>
             config.CollectionTypeFactory<Net4CollectionTypeFactory>();
@@ -93,9 +93,14 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
             router.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             router.MapRoute(
-                "Default", 
-                "{controller}/{action}/{id}", 
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+                "Default",
+                "{controller}/{action}/{id}",
+                new
+                {
+                    controller = "Home",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                });
         }
     }
 }

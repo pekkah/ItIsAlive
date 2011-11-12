@@ -4,18 +4,21 @@
     using System.Web.Mvc;
 
     using Autofac;
+    using Autofac.Integration.Mvc;
 
     using NHibernate;
 
     using Sakura.Extensions.Data;
     using Sakura.Extensions.Mvc.Policies;
 
-    public class WorkContextTransactionFilterAttribute : ActionFilterAttribute, IGlobalFilter
+    public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter
     {
         public ILifetimeScope LifetimeScope
         {
-            get;
-            set;
+            get
+            {
+                return AutofacDependencyResolver.Current.RequestLifetimeScope;
+            }
         }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)

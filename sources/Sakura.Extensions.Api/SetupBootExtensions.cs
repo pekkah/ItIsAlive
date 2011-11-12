@@ -15,7 +15,12 @@
             var task = new InitializeWebApi(configure);
             var http = new InitializeHttpDependencies();
 
-            return setup.TryTask(http).Task(task);
+            return setup.Tasks(
+                tasks =>
+                    {
+                        tasks.TryAddTask(http);
+                        tasks.AddTask(task);
+                    });
         }
     }
 }

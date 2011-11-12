@@ -1,7 +1,6 @@
 ﻿namespace Sakura.Framework.Tests.Booting
 {
     using System;
-    using System.Linq;
 
     using FluentAssertions;
 
@@ -9,7 +8,6 @@
 
     using NUnit.Framework;
 
-    using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Tasks;
     using Sakura.Framework.Tasks.Types;
@@ -26,9 +24,9 @@
         }
 
         [Test]
-        public void should_add_task()
+        public void should_add_single_instance_task()
         {
-            var task = Substitute.For<IInitializationTask, ITransientDependency>();
+            var task = Substitute.For<IInitializationTask, ISingleInstanceDependency>();
 
             this.initializationTaskManager.AddTask(task);
 
@@ -36,9 +34,9 @@
         }
 
         [Test]
-        public void should_add_single_instance_task()
+        public void should_add_task()
         {
-            var task = Substitute.For<IInitializationTask, ISingleInstanceDependency>();
+            var task = Substitute.For<IInitializationTask, ITransientDependency>();
 
             this.initializationTaskManager.AddTask(task);
 
