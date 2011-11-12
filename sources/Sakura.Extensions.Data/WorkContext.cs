@@ -12,7 +12,6 @@ namespace Sakura.Extensions.Data
         public WorkContext(ISession session)
         {
             this.session = session;
-            this.session.BeginTransaction();
         }
 
         public TEntity Get<TEntity, TId>(TId id)
@@ -58,21 +57,6 @@ namespace Sakura.Extensions.Data
             }
 
             this.session.Transaction.Rollback();
-        }
-
-        public void CommitChanges()
-        {
-            if (this.session.Transaction == null)
-            {
-                throw new InvalidOperationException("Current transaction is not set.");
-            }
-
-            if (!this.session.Transaction.IsActive)
-            {
-                throw new InvalidOperationException("Current transaction is not active.");
-            }
-
-            this.session.Transaction.Commit();
         }
 
         public void Save<TEntity>(TEntity entity)

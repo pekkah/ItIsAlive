@@ -4,7 +4,6 @@
     using System.Web.Security;
 
     using Sakura.Extensions.Data;
-    using Sakura.Extensions.NHibernateMvc.Filters;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Samples.Contacts.Database.Entities;
     using Sakura.Framework.Samples.ContactsWeb.Models;
@@ -23,29 +22,29 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model)
+        public ActionResult ChangePassword(ChangePasswordModel model, IWorkContext workContext)
         {
             if (this.ModelState.IsValid)
             {
-                //bool changePasswordSucceeded = false;
+                bool changePasswordSucceeded = false;
 
-                //var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
+                var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
 
-                //var user = this.context.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
+                var user = workContext.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
 
-                //if (user != null)
-                //{
-                //    user.Password = model.ConfirmPassword;
-                //    changePasswordSucceeded = true;
-                //}
+                if (user != null)
+                {
+                    user.Password = model.ConfirmPassword;
+                    changePasswordSucceeded = true;
+                }
 
-                //if (changePasswordSucceeded)
-                //{
-                //    return this.RedirectToAction("ChangePasswordSuccess");
-                //}
+                if (changePasswordSucceeded)
+                {
+                    return this.RedirectToAction("ChangePasswordSuccess");
+                }
 
-                //this.ModelState.AddModelError(
-                //    string.Empty, "The current password is incorrect or the new password is invalid.");
+                this.ModelState.AddModelError(
+                    string.Empty, "The current password is incorrect or the new password is invalid.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -70,11 +69,11 @@
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl)
+        public ActionResult LogOn(LogOnModel model, string returnUrl, IWorkContext workContext)
         {
             if (this.ModelState.IsValid)
             {
-                if (this.ValidateUser(model.UserName, model.Password))
+                if (this.ValidateUser(model.UserName, model.Password, workContext))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (this.Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -120,22 +119,22 @@
             return View(model);
         }
 
-        private bool ValidateUser(string userName, string password)
+        private bool ValidateUser(string userName, string password, IWorkContext workContext)
         {
-            //var user = this.context.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
+            var user = workContext.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
 
-            //if (user == null)
-            //{
-            //    return false;
-            //}
+            if (user == null)
+            {
+                return false;
+            }
 
-            //// todo password hashing
-            //var hashedPassword = password;
+            // todo password hashing
+            var hashedPassword = password;
 
-            //if (user.Password != hashedPassword)
-            //{
-            //    return false;
-            //}
+            if (user.Password != hashedPassword)
+            {
+                return false;
+            }
 
             return true;
         }

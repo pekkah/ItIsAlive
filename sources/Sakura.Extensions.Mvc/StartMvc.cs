@@ -1,11 +1,13 @@
 namespace Sakura.Extensions.Mvc
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Mvc;
 
     using Autofac;
     using Autofac.Integration.Mvc;
 
+    using Sakura.Extensions.Mvc.Policies;
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework.Tasks.Types;
 
@@ -28,6 +30,13 @@ namespace Sakura.Extensions.Mvc
         {
             this.configure(this.router);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(this.container));
+
+            var globalFilters = this.container.Resolve<IEnumerable<IGlobalFilter>>();
+
+            foreach (var globalFilter in globalFilters)
+            {
+                GlobalFilters.Filters.Add(globalFilter);
+            }
         }
     }
 }

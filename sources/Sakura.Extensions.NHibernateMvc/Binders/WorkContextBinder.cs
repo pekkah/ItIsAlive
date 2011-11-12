@@ -1,4 +1,4 @@
-﻿namespace Sakura.Extensions.NHibernateMvc.Filters
+﻿namespace Sakura.Extensions.NHibernateMvc.Binders
 {
     using System.Web.Mvc;
 

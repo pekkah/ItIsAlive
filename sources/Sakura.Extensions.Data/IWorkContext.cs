@@ -24,7 +24,5 @@ namespace Sakura.Extensions.Data
         void Save<TEntity>(TEntity entity);
 
         void Update<TEntity>(TEntity entity);
-
-        void CommitChanges();
     }
 }
