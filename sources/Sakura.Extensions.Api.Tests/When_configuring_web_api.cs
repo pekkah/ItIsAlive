@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     using Sakura.Bootstrapping;
-    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Setup;
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.Tests.Apis;
     using Sakura.Extensions.Api.WebApi;

@@ -1,9 +1,9 @@
-namespace Sakura.Extensions.Data
+namespace Sakura.Extensions.NHibernate
 {
     using System;
     using System.Linq.Expressions;
 
-    using NHibernate;
+    using global::NHibernate;
 
     public interface IWorkContext
     {

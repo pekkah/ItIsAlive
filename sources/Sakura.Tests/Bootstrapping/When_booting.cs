@@ -10,7 +10,7 @@
 
     using NUnit.Framework;
 
-    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Setup;
     using Sakura.Framework.Tests.Bootstrapping.DependencyRegistration.Mocks;
 
     [TestFixture]

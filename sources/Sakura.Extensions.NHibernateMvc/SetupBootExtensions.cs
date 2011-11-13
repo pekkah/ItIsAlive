@@ -2,7 +2,7 @@
 {
     using System.Web.Mvc;
 
-    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.Data;
     using Sakura.Extensions.NHibernateMvc.Binders;
     using Sakura.Extensions.NHibernateMvc.Filters;

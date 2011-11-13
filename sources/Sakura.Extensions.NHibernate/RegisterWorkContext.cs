@@ -1,10 +1,10 @@
-namespace Sakura.Extensions.Data
+namespace Sakura.Extensions.NHibernate
 {
     using System.Diagnostics;
 
     using Autofac;
 
-    using NHibernate;
+    using global::NHibernate;
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.DefaultTypes;
@@ -13,8 +13,7 @@ namespace Sakura.Extensions.Data
     {
         public void Execute(InitializationTaskContext context)
         {
-            context.Builder.Register(this.CreateContext).As<IWorkContext>().InstancePerLifetimeScope()
-                .OnActivated(
+            context.Builder.Register(this.CreateContext).As<IWorkContext>().InstancePerLifetimeScope().OnActivated(
                 handler => Trace.TraceInformation("Work context activated")).OnRelease(
                     release => Trace.TraceInformation("Work context released."));
         }

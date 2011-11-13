@@ -1,4 +1,4 @@
-namespace Sakura.Bootstrapping.Configuration
+namespace Sakura.Bootstrapping.Setup
 {
     using System;
     using System.Reflection;

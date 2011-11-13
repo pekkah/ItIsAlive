@@ -210,10 +210,6 @@
       <Project>{4D4CAF1C-94BB-4711-B8B5-6F48173E6746}</Project>
       <Name>Sakura.Extensions.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakura.Extensions.Data\Sakura.Extensions.Data.csproj">
-      <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
-      <Name>Sakura.Extensions.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
       <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
       <Name>Sakura.Extensions.Mvc</Name>

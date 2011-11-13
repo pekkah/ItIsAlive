@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Extensions.Mvc;
     using Sakura.Framework;

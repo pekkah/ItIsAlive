@@ -1,10 +1,10 @@
-namespace Sakura.Extensions.Data
+namespace Sakura.Extensions.NHibernate
 {
     using System.Diagnostics;
 
     using Autofac;
 
-    using NHibernate;
+    using global::NHibernate;
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.DefaultTypes;

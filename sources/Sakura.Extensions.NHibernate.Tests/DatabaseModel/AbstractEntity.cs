@@ -1,4 +1,4 @@
-﻿namespace Sakura.Extensions.Data.Tests.DatabaseModel
+﻿namespace Sakura.Extensions.NHibernate.Tests.DatabaseModel
 {
     using System;
 

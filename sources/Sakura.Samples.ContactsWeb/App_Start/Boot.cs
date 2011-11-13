@@ -18,7 +18,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
     using NHibernate.Mapping.ByCode;
 
     using Sakura.Bootstrapping;
-    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.Data;
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.Mvc.Web;
