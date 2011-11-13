@@ -4,7 +4,7 @@
 
     using NHibernate.Cfg;
 
-    using Sakura.Framework.Fluent;
+    using Sakura.Bootstrapping.Configuration;
 
     public static class SetupExtensions
     {

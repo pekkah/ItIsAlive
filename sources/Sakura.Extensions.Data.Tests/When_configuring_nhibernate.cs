@@ -16,9 +16,10 @@
 
     using NUnit.Framework;
 
+    using Sakura.Bootstrapping;
+    using Sakura.Bootstrapping.Configuration;
     using Sakura.Extensions.Data.Tests.DatabaseModel;
     using Sakura.Framework;
-    using Sakura.Framework.Fluent;
 
     [TestFixture]
     [Explicit("This test fixture executes against inmemory database (sqllite)")]

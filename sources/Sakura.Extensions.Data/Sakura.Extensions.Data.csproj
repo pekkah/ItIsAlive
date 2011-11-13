@@ -117,9 +117,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
+    <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
-      <Name>Sakura.Framework</Name>
+      <Name>Sakura</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

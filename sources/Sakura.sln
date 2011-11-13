@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Framework", "1. Framewor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Tests", "3. Tests", "{B3E70DDA-D523-4C57-9242-6B4FD57BC4CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework", "Sakura.Framework\Sakura.Framework.csproj", "{CE544CB7-A422-49BC-A4E0-25414E817A0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura", "Sakura\Sakura.csproj", "{CE544CB7-A422-49BC-A4E0-25414E817A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework.Tests", "Sakura.Framework.Tests\Sakura.Framework.Tests.csproj", "{A63C9ACA-F316-448E-B673-5F5F0843EBB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Tests", "Sakura.Tests\Sakura.Tests.csproj", "{A63C9ACA-F316-448E-B673-5F5F0843EBB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.Data.Tests", "Sakura.Extensions.Data.Tests\Sakura.Extensions.Data.Tests.csproj", "{87A36C5E-1AA8-4750-8514-3749DD4D0482}"
 EndProject
@@ -21,13 +21,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.Api", "Sa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Samples", "4. Samples", "{A1DCE8CB-6EEF-4958-8209-CAFFE78C17A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework.Samples.ContactsWeb", "Sakura.Framework.Samples.ContactsWeb\Sakura.Framework.Samples.ContactsWeb.csproj", "{9F312989-46B7-4956-8717-6D580191B2C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Samples.ContactsWeb", "Sakura.Samples.ContactsWeb\Sakura.Samples.ContactsWeb.csproj", "{9F312989-46B7-4956-8717-6D580191B2C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.Mvc", "Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj", "{8AF928C5-B468-4080-BA07-CFFA28796D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Framework.Samples.Contacts", "Sakura.Framework.Samples.Contacts\Sakura.Framework.Samples.Contacts.csproj", "{515745CC-8205-474F-9564-13419EEA5F54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Samples.Contacts", "Sakura.Samples.Contacts\Sakura.Samples.Contacts.csproj", "{515745CC-8205-474F-9564-13419EEA5F54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernateMvc", "Sakura.Extensions.NHibernateMvc\Sakura.Extensions.NHibernateMvc.csproj", "{5E880304-AD94-498F-92B5-23403A0252D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. NuGet", "0. NuGet", "{6CE4987E-F026-4965-867B-43E30EC37F41}"
+	ProjectSection(SolutionItems) = preProject
+		Sakura\Sakura.nuspec = Sakura\Sakura.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,8 +6,8 @@ namespace Sakura.Extensions.Data
 
     using NHibernate;
 
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Tasks.Types;
 
     public class RegisterWorkContext : IInitializationTask, ISingleInstanceDependency
     {

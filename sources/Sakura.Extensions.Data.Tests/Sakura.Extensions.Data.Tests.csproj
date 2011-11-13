@@ -114,9 +114,9 @@
       <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
       <Name>Sakura.Extensions.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
+    <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
-      <Name>Sakura.Framework</Name>
+      <Name>Sakura</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

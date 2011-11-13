@@ -4,11 +4,10 @@ namespace Sakura.Extensions.Api
 
     using Autofac;
 
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Tasks;
-    using Sakura.Framework.Tasks.Types;
 
     public class InitializeWebApi : IInitializationTask, ITransientDependency
     {

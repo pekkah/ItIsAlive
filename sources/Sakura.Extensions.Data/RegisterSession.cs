@@ -6,9 +6,9 @@ namespace Sakura.Extensions.Data
 
     using NHibernate;
 
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Tasks.Types;
 
     [NotDiscoverable]
     public class RegisterSession : IInitializationTask, ISingleInstanceDependency

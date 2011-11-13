@@ -2,10 +2,10 @@
 {
     using System.Web.Mvc;
 
+    using Sakura.Bootstrapping.Configuration;
     using Sakura.Extensions.Data;
     using Sakura.Extensions.NHibernateMvc.Binders;
     using Sakura.Extensions.NHibernateMvc.Filters;
-    using Sakura.Framework.Fluent;
 
     public static class SetupBootExtensions
     {

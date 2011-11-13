@@ -4,9 +4,8 @@ namespace Sakura.Extensions.Api
 
     using Autofac;
 
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.WebApi;
-    using Sakura.Framework.Tasks;
-    using Sakura.Framework.Tasks.Types;
 
     public class StartWebApi : IStartupTask
     {

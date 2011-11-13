@@ -153,9 +153,9 @@
       <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
       <Name>Sakura.Extensions.Mvc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakura.Framework\Sakura.Framework.csproj">
+    <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
-      <Name>Sakura.Framework</Name>
+      <Name>Sakura</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

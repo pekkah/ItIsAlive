@@ -5,9 +5,9 @@ namespace Sakura.Extensions.Mvc
     using Autofac;
     using Autofac.Integration.Mvc;
 
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Tasks.Types;
 
     [NotDiscoverable]
     public class InitializeMvc : IInitializationTask

@@ -13,12 +13,13 @@ namespace Sakura.Extensions.Api.Tests
 
     using NUnit.Framework;
 
+    using Sakura.Bootstrapping;
+    using Sakura.Bootstrapping.Configuration;
+    using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.Tests.Apis;
     using Sakura.Extensions.Api.WebApi;
     using Sakura.Extensions.Mvc;
     using Sakura.Framework;
-    using Sakura.Framework.Fluent;
-    using Sakura.Framework.Tasks.Types;
 
     [TestFixture]
     public class When_configuring_web_api_with_mvc
