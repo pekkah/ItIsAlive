@@ -1,13 +1,12 @@
-﻿namespace Sakura.Framework.Samples.ContactsWeb.Controllers
+﻿namespace Sakura.Samples.ContactsWeb.Controllers
 {
     using System.Web.Mvc;
     using System.Web.Security;
 
     using Sakura.Extensions.Data;
-    using Sakura.Extensions.NHibernateMvc.Filters;
     using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Samples.Contacts.Database.Entities;
-    using Sakura.Framework.Samples.ContactsWeb.Models;
+    using Sakura.Samples.Contacts.Database.Entities;
+    using Sakura.Samples.ContactsWeb.Models;
 
     public class AccountController : Controller, ITransientDependency
     {

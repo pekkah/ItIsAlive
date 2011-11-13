@@ -1,4 +1,4 @@
-﻿namespace Sakura.Framework.Samples.Contacts.Database.Entities
+﻿namespace Sakura.Samples.Contacts.Database.Entities
 {
     public class Contact : AbstractEntity
     {

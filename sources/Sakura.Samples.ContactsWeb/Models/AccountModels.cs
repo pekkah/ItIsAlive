@@ -1,4 +1,4 @@
-﻿namespace Sakura.Framework.Samples.ContactsWeb.Models
+﻿namespace Sakura.Samples.ContactsWeb.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;

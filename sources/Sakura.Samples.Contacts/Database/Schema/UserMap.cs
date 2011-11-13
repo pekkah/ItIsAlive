@@ -1,8 +1,8 @@
-namespace Sakura.Framework.Samples.Contacts.Database.Schema
+namespace Sakura.Samples.Contacts.Database.Schema
 {
     using NHibernate.Mapping.ByCode;
 
-    using Sakura.Framework.Samples.Contacts.Database.Entities;
+    using Sakura.Samples.Contacts.Database.Entities;
 
     public class UserMap : AbstractEntityMap<User>
     {

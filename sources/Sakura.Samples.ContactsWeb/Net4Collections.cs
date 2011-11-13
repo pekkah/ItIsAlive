@@ -1,21 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using NHibernate;
-using NHibernate.Collection;
-using NHibernate.DebugHelpers;
-using NHibernate.Engine;
-using NHibernate.Loader;
-using NHibernate.Persister.Collection;
-using NHibernate.Type;
-using NHibernate.Util;
-
-namespace Sakura.Framework.Samples.ContactsWeb
+namespace Sakura.Samples.ContactsWeb
 {
-	//add to your configuration:
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Diagnostics;
+    using System.Linq;
+
+    using NHibernate;
+    using NHibernate.Collection;
+    using NHibernate.DebugHelpers;
+    using NHibernate.Engine;
+    using NHibernate.Loader;
+    using NHibernate.Persister.Collection;
+    using NHibernate.Type;
+    using NHibernate.Util;
+
+    //add to your configuration:
 	//configuration.Properties[Environment.CollectionTypeFactoryClass]
 	//		= typeof(Net4CollectionTypeFactory).AssemblyQualifiedName;
 	public class Net4CollectionTypeFactory : DefaultCollectionTypeFactory

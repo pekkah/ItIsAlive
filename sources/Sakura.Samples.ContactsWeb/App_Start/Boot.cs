@@ -1,11 +1,11 @@
-﻿using Sakura.Framework.Samples.ContactsWeb.App_Start;
+﻿using Sakura.Samples.ContactsWeb.App_Start;
 
 using WebActivator;
 
 [assembly: PostApplicationStartMethod(typeof(Boot), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(Boot), "Shutdown")]
 
-namespace Sakura.Framework.Samples.ContactsWeb.App_Start
+namespace Sakura.Samples.ContactsWeb.App_Start
 {
     using System.IO;
     using System.Linq;
@@ -23,9 +23,10 @@ namespace Sakura.Framework.Samples.ContactsWeb.App_Start
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.Mvc.Web;
     using Sakura.Extensions.NHibernateMvc;
-    using Sakura.Framework.Samples.Contacts.Database.Entities;
-    using Sakura.Framework.Samples.Contacts.Database.Schema;
-    using Sakura.Framework.Samples.ContactsWeb.Controllers;
+    using Sakura.Samples.Contacts.Database.Entities;
+    using Sakura.Samples.Contacts.Database.Schema;
+    using Sakura.Samples.ContactsWeb;
+    using Sakura.Samples.ContactsWeb.Controllers;
 
     public class Boot
     {
