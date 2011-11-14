@@ -25,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\build-output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -67,6 +67,10 @@
     <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
       <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
       <Name>Sakura.Extensions.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">
+      <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
+      <Name>Sakura.Extensions.NHibernate</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>

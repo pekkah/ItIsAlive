@@ -3,7 +3,7 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using Sakura.Extensions.Data;
+    using Sakura.Extensions.NHibernate;
     using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.ContactsWeb.Models;

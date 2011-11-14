@@ -6,10 +6,10 @@
     using Autofac;
     using Autofac.Integration.Mvc;
 
-    using NHibernate;
+    using global::NHibernate;
 
-    using Sakura.Extensions.Data;
     using Sakura.Extensions.Mvc.Policies;
+    using Sakura.Extensions.NHibernate;
 
     public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter
     {
@@ -47,23 +47,21 @@
                 {
                     session.Transaction.Commit();
                 }
-
             }
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var workContext =
-                filterContext.ActionParameters.Values.Where(
-                    value =>
+            var workContext = filterContext.ActionParameters.Values.Where(
+                value =>
+                    {
+                        if (value == null)
                         {
-                            if (value == null)
-                            {
-                                return false;
-                            }
+                            return false;
+                        }
 
-                            return typeof(IWorkContext).IsAssignableFrom(value.GetType());
-                        }).FirstOrDefault();
+                        return typeof(IWorkContext).IsAssignableFrom(value.GetType());
+                    }).FirstOrDefault();
 
             if (workContext == null)
             {

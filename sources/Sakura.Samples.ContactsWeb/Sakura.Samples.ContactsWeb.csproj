@@ -218,6 +218,10 @@
       <Project>{5E880304-AD94-498F-92B5-23403A0252D8}</Project>
       <Name>Sakura.Extensions.NHibernateMvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">
+      <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
+      <Name>Sakura.Extensions.NHibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sakura.Samples.Contacts\Sakura.Samples.Contacts.csproj">
       <Project>{515745CC-8205-474F-9564-13419EEA5F54}</Project>
       <Name>Sakura.Samples.Contacts</Name>

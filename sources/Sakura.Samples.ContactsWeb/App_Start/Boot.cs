@@ -19,13 +19,12 @@ namespace Sakura.Samples.ContactsWeb.App_Start
 
     using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Setup;
-    using Sakura.Extensions.Data;
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.Mvc.Web;
+    using Sakura.Extensions.NHibernate;
     using Sakura.Extensions.NHibernateMvc;
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.Contacts.Database.Schema;
-    using Sakura.Samples.ContactsWeb;
     using Sakura.Samples.ContactsWeb.Controllers;
 
     public class Boot
@@ -41,13 +40,13 @@ namespace Sakura.Samples.ContactsWeb.App_Start
         {
             bootstrapper = new Setup().Dependencies(
                 setup =>
-                {
-                    setup.AssemblyOf<AccountController>();
-                    setup.AssemblyOf<User>();
-                })
+                    {
+                        setup.AssemblyOf<AccountController>();
+                        setup.AssemblyOf<User>();
+                    })
                     .ConfigureMvc(ConfigureRoutes)
                     .ConfigureNHibernate(ConfigureNHibernate)
-                    .ActivateNHibernateMvcIntegration()
+                    .EnableWorkContext()
                     .Start();
         }
 
@@ -62,13 +61,13 @@ namespace Sakura.Samples.ContactsWeb.App_Start
 
             config.DataBaseIntegration(
                 db =>
-                {
-                    db.Dialect<MsSqlCe40Dialect>();
-                    db.Driver<SqlServerCeDriver>();
-                    db.SchemaAction = SchemaAutoAction.Recreate;
-                    db.ConnectionString = connectionString;
-                    db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
-                });
+                    {
+                        db.Dialect<MsSqlCe40Dialect>();
+                        db.Driver<SqlServerCeDriver>();
+                        db.SchemaAction = SchemaAutoAction.Recreate;
+                        db.ConnectionString = connectionString;
+                        db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
+                    });
 
             // allow using .NET ISet<T> instead of Iesi ISet<T>
             config.CollectionTypeFactory<Net4CollectionTypeFactory>();
@@ -95,14 +94,9 @@ namespace Sakura.Samples.ContactsWeb.App_Start
             router.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             router.MapRoute(
-                "Default",
-                "{controller}/{action}/{id}",
-                new
-                {
-                    controller = "Home",
-                    action = "Index",
-                    id = UrlParameter.Optional
-                });
+                "Default", 
+                "{controller}/{action}/{id}", 
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

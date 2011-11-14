@@ -3,9 +3,8 @@ namespace Sakura.Extensions.NHibernateMvc
     using System.Diagnostics;
 
     using Autofac;
-    using Autofac.Integration.Mvc;
 
-    using NHibernate;
+    using global::NHibernate;
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.DefaultTypes;
@@ -17,8 +16,8 @@ namespace Sakura.Extensions.NHibernateMvc
         public void Execute(InitializationTaskContext context)
         {
             // register session so that each lifetime scope will have their own instance
-            context.Builder.Register(this.GetSession).As<ISession>().InstancePerMatchingLifetimeScope("httpRequest").OnActivated(
-                handler => Trace.TraceInformation("Session activated")).OnRelease(
+            context.Builder.Register(this.GetSession).As<ISession>().InstancePerMatchingLifetimeScope("httpRequest").
+                OnActivated(handler => Trace.TraceInformation("Session activated")).OnRelease(
                     release => Trace.TraceInformation("Session released."));
         }
 
