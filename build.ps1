@@ -1,0 +1,1 @@
+invoke-psake -framework '4.0'
