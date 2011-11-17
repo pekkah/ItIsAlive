@@ -125,7 +125,9 @@
     <Compile Include="RegisterNHibernate.cs" />
     <Compile Include="RegisterSession.cs" />
     <Compile Include="RegisterWorkContext.cs" />
+    <Compile Include="ResolveSessionFactoryOnce.cs" />
     <Compile Include="SetupExtensions.cs" />
+    <Compile Include="WarmupNHibernate.cs" />
     <Compile Include="WorkContext.cs" />
   </ItemGroup>
   <ItemGroup>

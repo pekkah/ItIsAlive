@@ -86,5 +86,18 @@
             this.manualInitializationTasks.Remove(target);
             this.manualInitializationTasks.Add(with);
         }
+
+        public void Remove<T>()
+        {
+            var target = this.manualInitializationTasks.GetByType<T>().SingleOrDefault();
+
+            if (target == null)
+            {
+                throw new InvalidOperationException(
+                    string.Format("Task manager does not contain task with type '{0}'", typeof(T).FullName));
+            }
+
+            this.manualInitializationTasks.Remove(target);
+        }
     }
 }

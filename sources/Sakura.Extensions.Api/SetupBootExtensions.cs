@@ -4,23 +4,15 @@
 
     using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.Api.WebApi;
-    using Sakura.Extensions.Mvc;
-    using Sakura.Framework;
 
     public static class SetupBootExtensions
     {
         public static ISetupBootstrapper ConfigureWebApi(
-            this ISetupBootstrapper setup, Action<IWebApiRouter, ApiConfiguration> configure)
+            this ISetupBootstrapper setup, Action<Func<ApiConfiguration>> configurationFactory)
         {
-            var task = new InitializeWebApi(configure);
-            var http = new InitializeHttpDependencies();
-
-            return setup.Tasks(
-                tasks =>
-                    {
-                        tasks.TryAddTask(http);
-                        tasks.AddTask(task);
-                    });
+            return setup
+                .Dependencies(dependencies => dependencies.AssemblyOf<StartWebApi>())
+                .Tasks(manager => manager.AddTask(new InitializeWebApi(configurationFactory)));
         }
     }
 }

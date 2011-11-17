@@ -11,8 +11,6 @@
 
     public class ApiConfiguration : WebApiConfiguration
     {
-        public static readonly string WebApiRequestToken = "WebApiRequest";
-
         private readonly ILifetimeScope container;
 
         public ApiConfiguration(ILifetimeScope container)
@@ -33,13 +31,7 @@
 
         private object OncreateInstance(Type serviceType, InstanceContext context, HttpRequestMessage message)
         {
-            var lifetime = this.container.BeginLifetimeScope(WebApiRequestToken);
-
-            var lifetimeExtension = new AutofacLifetimeExtension(lifetime);
-
-            context.Extensions.Add(lifetimeExtension);
-
-            return lifetime.Resolve(serviceType);
+            return this.container.Resolve(serviceType);
         }
     }
 }

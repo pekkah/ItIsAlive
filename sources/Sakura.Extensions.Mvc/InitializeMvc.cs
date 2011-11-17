@@ -6,15 +6,14 @@ namespace Sakura.Extensions.Mvc
     using Autofac.Integration.Mvc;
 
     using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Extensions.Mvc.Web;
     using Sakura.Framework.Dependencies.Discovery;
 
     [NotDiscoverable]
     public class InitializeMvc : IInitializationTask
     {
-        private readonly Action<IWebRouter> configure;
+        private readonly Action configure;
 
-        public InitializeMvc(Action<IWebRouter> configure)
+        public InitializeMvc(Action configure)
         {
             this.configure = configure;
         }
@@ -26,7 +25,9 @@ namespace Sakura.Extensions.Mvc
             builder.RegisterModelBinderProvider();
             builder.RegisterFilterProvider();
             builder.RegisterModule(new AutofacWebTypesModule());
-            builder.RegisterInstance(this.configure);
+            builder.Register(
+                componentContext => new StartMvc(componentContext.Resolve<ILifetimeScope>(), this.configure)).
+                AsImplementedInterfaces();
         }
     }
 }

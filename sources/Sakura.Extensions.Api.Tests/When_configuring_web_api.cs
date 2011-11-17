@@ -17,8 +17,6 @@
     using Sakura.Bootstrapping.Setup;
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.Tests.Apis;
-    using Sakura.Extensions.Api.WebApi;
-    using Sakura.Framework;
 
     [TestFixture]
     public class When_configuring_web_api
@@ -31,16 +29,13 @@
         public void Setup()
         {
             var initializeTest = Substitute.For<IInitializationTask>();
-            var routes = Substitute.For<IWebApiRouter>();
-
-            initializeTest.Execute(
-                Arg.Do<InitializationTaskContext>(c => c.Builder.RegisterInstance(routes).AsImplementedInterfaces()));
 
             this.bootstrapper = new Setup()
-                .Dependencies(d => d.Types(typeof(PersonApi)))
-                .Tasks(tasks => tasks.AddTask(initializeTest))  
-                .ConfigureWebApi((router, config) => router.MapServiceRoute<PersonApi>("api/person", config))
-                        .ExposeContainer(exposed => this.container = exposed).Start();
+                .ConfigureWebApi(configurationFactory => { })
+                .Tasks(manager => manager.AddTask(initializeTest))
+                .Dependencies(dependencies => dependencies.Types(typeof(PersonApi)))
+                .ExposeContainer(exposed => this.container = exposed)
+                .Start();
         }
 
         [Test]
@@ -51,17 +46,6 @@
 
             registration.Should().NotBeNull();
             registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
-        }
-
-        [Test]
-        public void should_register_http_dependencies()
-        {
-            var registration =
-                this.container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(RouteCollection))).
-                    SingleOrDefault();
-
-            registration.Should().NotBeNull();
-            registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
         }
     }
 }

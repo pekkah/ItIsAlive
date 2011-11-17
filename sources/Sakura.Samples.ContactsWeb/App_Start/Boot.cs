@@ -7,10 +7,14 @@ using WebActivator;
 
 namespace Sakura.Samples.ContactsWeb.App_Start
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
+    using System.Web.Routing;
+
+    using Autofac.Integration.Mvc;
 
     using NHibernate.Cfg;
     using NHibernate.Dialect;
@@ -19,12 +23,15 @@ namespace Sakura.Samples.ContactsWeb.App_Start
 
     using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Setup;
+    using Sakura.Extensions.Api;
+    using Sakura.Extensions.Api.WebApi;
     using Sakura.Extensions.Mvc;
-    using Sakura.Extensions.Mvc.Web;
     using Sakura.Extensions.NHibernate;
     using Sakura.Extensions.NHibernateMvc;
+    using Sakura.Extensions.NHibernateWebApi;
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.Contacts.Database.Schema;
+    using Sakura.Samples.ContactsWeb.Apis;
     using Sakura.Samples.ContactsWeb.Controllers;
 
     public class Boot
@@ -45,9 +52,21 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                         setup.AssemblyOf<User>();
                     })
                     .ConfigureMvc(ConfigureRoutes)
-                    .ConfigureNHibernate(ConfigureNHibernate)
-                    .EnableWorkContext()
+                    .ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
+                    .ConfigureWebApi(ConfigureApis)
+                    .EnableMvcWorkContext()
+                    .EnableWebApiWorkContext()
+                    .WarmupNHibernate()
                     .Start();
+        }
+
+        private static void ConfigureApis(Func<ApiConfiguration> configurationFactory)
+        {
+            var routes = RouteTable.Routes;
+
+            var configuration = configurationFactory();
+            routes.SetDefaultHttpConfiguration(configuration);
+            routes.MapServiceRoute<ContactsApi>("api/contacts");
         }
 
         private static Configuration ConfigureNHibernate()
@@ -89,11 +108,13 @@ namespace Sakura.Samples.ContactsWeb.App_Start
             return config;
         }
 
-        private static void ConfigureRoutes(IWebRouter router)
+        private static void ConfigureRoutes()
         {
-            router.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            var routes = RouteTable.Routes;
 
-            router.MapRoute(
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapRoute(
                 "Default", 
                 "{controller}/{action}/{id}", 
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional });

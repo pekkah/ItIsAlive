@@ -6,27 +6,24 @@ namespace Sakura.Extensions.Api
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Api.WebApi;
+    using Sakura.Framework.Dependencies.Discovery;
 
+    [NotDiscoverable]
     public class StartWebApi : IStartupTask
     {
-        private readonly Action<IWebApiRouter, ApiConfiguration> configure;
+        private readonly Action<Func<ApiConfiguration>> configurationFactory;
 
         private readonly ILifetimeScope lifetimeScope;
 
-        private readonly IWebApiRouter webApiRouter;
-
-        public StartWebApi(Action<IWebApiRouter, ApiConfiguration> configure, ILifetimeScope lifetimeScope, IWebApiRouter webApiRouter)
+        public StartWebApi(ILifetimeScope lifetimeScope, Action<Func<ApiConfiguration>> configurationFactory)
         {
-            this.configure = configure;
+            this.configurationFactory = configurationFactory;
             this.lifetimeScope = lifetimeScope;
-            this.webApiRouter = webApiRouter;
         }
 
         public void Execute()
         {
-            var configuration = new ApiConfiguration(this.lifetimeScope);
-
-            this.configure(this.webApiRouter, configuration);
+            this.configurationFactory(() => new ApiConfiguration(this.lifetimeScope));
         }
     }
 }

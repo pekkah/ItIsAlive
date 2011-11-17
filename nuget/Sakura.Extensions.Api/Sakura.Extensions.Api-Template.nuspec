@@ -16,7 +16,6 @@
       <dependency id="Autofac" version="2.5.2.830" />
       <dependency id="WebApi.All" version="0.5.0"/>
       <dependency id="Sakura" version="{Version}" />
-      <dependency id="Sakura.Extensions.Mvc" version="{Version}" />
     </dependencies>
   </metadata>
 </package>

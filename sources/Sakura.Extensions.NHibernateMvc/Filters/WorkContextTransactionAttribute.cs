@@ -1,5 +1,6 @@
 ﻿namespace Sakura.Extensions.NHibernateMvc.Filters
 {
+    using System.Diagnostics;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -39,29 +40,25 @@
 
             if (session.Transaction.IsActive)
             {
+                Trace.TraceInformation("Ending transaction..");
                 if (filterContext.Exception != null)
                 {
+                    Trace.TraceError("Rolling back transaction due to error: {0}", filterContext.Exception);
                     session.Transaction.Rollback();
                 }
                 else
                 {
                     session.Transaction.Commit();
+                    Trace.TraceInformation("Transaction committed.");
                 }
             }
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var workContext = filterContext.ActionParameters.Values.Where(
-                value =>
-                    {
-                        if (value == null)
-                        {
-                            return false;
-                        }
-
-                        return typeof(IWorkContext).IsAssignableFrom(value.GetType());
-                    }).FirstOrDefault();
+            var workContext =
+                filterContext.ActionParameters.Values.Where(
+                    value => value != null && typeof(IWorkContext).IsAssignableFrom(value.GetType())).FirstOrDefault();
 
             if (workContext == null)
             {
@@ -77,6 +74,7 @@
                 return;
             }
 
+            Trace.TraceInformation("Begin transaction");
             session.BeginTransaction();
         }
     }

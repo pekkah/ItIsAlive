@@ -136,24 +136,16 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerBuilderExtensions.cs" />
-    <Compile Include="InitializeWebApi.cs" />
+    <Compile Include="InitializeMvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupBootExtensions.cs" />
     <Compile Include="StartWebApi.cs" />
     <Compile Include="WebApi\ApiConfiguration.cs" />
-    <Compile Include="WebApi\AutofacLifetimeExtension.cs" />
-    <Compile Include="WebApi\IWebApiRouter.cs" />
-    <Compile Include="WebApi\WebApiRouter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
-      <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
-      <Name>Sakura.Extensions.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
       <Name>Sakura</Name>

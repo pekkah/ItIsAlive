@@ -10,30 +10,32 @@ namespace Sakura.Extensions.Mvc
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Extensions.Mvc.Policies;
-    using Sakura.Extensions.Mvc.Web;
+    using Sakura.Framework.Dependencies.Discovery;
 
+    [NotDiscoverable]
     public class StartMvc : IStartupTask
     {
-        private readonly Action<IWebRouter> configure;
+        private readonly Action configure;
 
         private readonly ILifetimeScope container;
 
-        private readonly IWebRouter router;
-
-        public StartMvc(ILifetimeScope container, IWebRouter router, Action<IWebRouter> configure)
+        public StartMvc(ILifetimeScope lifetimeScope, Action configure)
         {
-            this.container = container;
             this.configure = configure;
-            this.router = router;
+            this.container = lifetimeScope;
         }
 
         public void Execute()
         {
-            this.configure(this.router);
             DependencyResolver.SetResolver(new AutofacDependencyResolver(this.container));
 
             if (HttpContext.Current != null)
             {
+                if (this.configure != null)
+                {
+                    this.configure();
+                }
+
                 var globalFilters =
                     AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve<IEnumerable<IGlobalFilter>>();
 
