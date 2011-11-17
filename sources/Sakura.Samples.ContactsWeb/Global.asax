@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Sakura.Framework.Samples.ContactsWeb.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Sakura.Samples.ContactsWeb.MvcApplication" Language="C#" %>
