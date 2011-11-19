@@ -4,18 +4,18 @@ namespace Sakura.Bootstrapping.Tasks.Types
 
     using Autofac;
 
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public class InitializationTaskContext
     {
-        public InitializationTaskContext(ContainerBuilder builder, IEnumerable<IRegistrationPolicy> policies)
+        public InitializationTaskContext(ContainerBuilder builder, IEnumerable<IRegistrationConvention> policies)
         {
             this.Builder = builder;
-            this.Policies = policies;
+            this.Conventions = policies;
         }
 
         public ContainerBuilder Builder { get; private set; }
 
-        public IEnumerable<IRegistrationPolicy> Policies { get; private set; }
+        public IEnumerable<IRegistrationConvention> Conventions { get; private set; }
     }
 }

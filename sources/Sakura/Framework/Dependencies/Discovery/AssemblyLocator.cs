@@ -5,7 +5,7 @@ namespace Sakura.Framework.Dependencies.Discovery
     using System.Linq;
     using System.Reflection;
 
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public class AssemblyLocator : IDependencyLocator
     {
@@ -16,13 +16,13 @@ namespace Sakura.Framework.Dependencies.Discovery
             this.assemblies = assemblies;
         }
 
-        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationPolicy> policies)
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies)
         {
             return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), policies));
         }
 
         internal static IEnumerable<Type> FilterDependencyTypes(
-            IEnumerable<Type> types, IEnumerable<IRegistrationPolicy> policies)
+            IEnumerable<Type> types, IEnumerable<IRegistrationConvention> policies)
         {
             if (types == null)
             {
@@ -32,7 +32,7 @@ namespace Sakura.Framework.Dependencies.Discovery
             return types.Where(dependencyType => IsDependency(dependencyType, policies));
         }
 
-        private static bool IsDependency(Type dependencyType, IEnumerable<IRegistrationPolicy> policies)
+        private static bool IsDependency(Type dependencyType, IEnumerable<IRegistrationConvention> policies)
         {
             // skip non discoverable dependencies
             if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))

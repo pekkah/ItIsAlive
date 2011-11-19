@@ -31,5 +31,11 @@
                 Name = contact.Name
             });
         }
+
+        [WebGet(UriTemplate = "test")]
+        public void Test()
+        {
+            
+        }
     }
 }

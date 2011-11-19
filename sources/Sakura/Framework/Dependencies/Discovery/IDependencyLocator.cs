@@ -3,10 +3,10 @@ namespace Sakura.Framework.Dependencies.Discovery
     using System;
     using System.Collections.Generic;
 
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public interface IDependencyLocator
     {
-        IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationPolicy> policies);
+        IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies);
     }
 }

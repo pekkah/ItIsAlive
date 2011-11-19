@@ -1,6 +1,7 @@
 ﻿namespace Sakura.ExtensionMethods
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     public static class TypeExtensions
@@ -22,5 +23,9 @@
 
             return interfaces.Any(interfaceType.IsAssignableFrom);
         }
+    }
+
+    public static class DictionaryExtensions
+    {
     }
 }

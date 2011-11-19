@@ -10,8 +10,8 @@ namespace Sakura.Framework.Tests.Bootstrapping
 
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Bootstrapping.Tasks.Types;
+    using Sakura.Framework.Dependencies.Conventions;
     using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Dependencies.Policies;
 
     [TestFixture]
     public class Whan_executing_tasks
@@ -28,7 +28,7 @@ namespace Sakura.Framework.Tests.Bootstrapping
         public void should_execute_tasks()
         {
             var task = Substitute.For<IInitializationTask, ISingleInstanceDependency>();
-            var policies = Substitute.For<IEnumerable<IRegistrationPolicy>>();
+            var policies = Substitute.For<IEnumerable<IRegistrationConvention>>();
 
             var builder = new ContainerBuilder();
             var context = new InitializationTaskContext(builder, policies);

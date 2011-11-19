@@ -100,6 +100,7 @@
     <Compile Include="RegisterWorkContextHandler.cs" />
     <Compile Include="SetupBootExtensions.cs" />
     <Compile Include="WorkContextHandler.cs" />
+    <Compile Include="WorkContextTransactionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sakura.Extensions.Api\Sakura.Extensions.Api.csproj">

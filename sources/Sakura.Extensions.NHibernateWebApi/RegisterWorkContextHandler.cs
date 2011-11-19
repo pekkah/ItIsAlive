@@ -17,8 +17,7 @@ namespace Sakura.Extensions.NHibernateWebApi
         public void Execute(InitializationTaskContext context)
         {
             context.Builder.RegisterType<WorkContextOperationHandler>()
-                .As<HttpOperationHandler<HttpRequestMessage, IWorkContext>>()
-                .InstancePerLifetimeScope();
+                .As<HttpOperationHandler<HttpRequestMessage, IWorkContext>>().InstancePerLifetimeScope();
         }
     }
 }

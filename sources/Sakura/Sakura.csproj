@@ -129,10 +129,10 @@
     <Compile Include="Framework\Dependencies\Discovery\ListLocator.cs" />
     <Compile Include="Framework\Dependencies\Discovery\NotDiscoverable.cs" />
     <Compile Include="Bootstrapping\Setup\ISetupDependencies.cs" />
-    <Compile Include="Framework\Dependencies\Policies\IRegistrationPolicy.cs" />
-    <Compile Include="Framework\Dependencies\Policies\AsSelfPolicy.cs" />
-    <Compile Include="Framework\Dependencies\Policies\SingleInstancePolicy.cs" />
-    <Compile Include="Framework\Dependencies\Policies\TransientPolicy.cs" />
+    <Compile Include="Framework\Dependencies\Conventions\IRegistrationConvention.cs" />
+    <Compile Include="Framework\Dependencies\Conventions\AsSelfConvention.cs" />
+    <Compile Include="Framework\Dependencies\Conventions\SingleInstanceConvention.cs" />
+    <Compile Include="Framework\Dependencies\Conventions\TransientConvention.cs" />
     <Compile Include="Bootstrapping\Setup\Setup.cs" />
     <Compile Include="Framework\Dependencies\Discovery\AssemblyLocator.cs" />
     <Compile Include="Framework\Dependencies\Discovery\IDependencyLocator.cs" />

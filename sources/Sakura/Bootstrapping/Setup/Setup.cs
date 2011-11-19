@@ -10,8 +10,8 @@ namespace Sakura.Bootstrapping.Setup
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Bootstrapping.Tasks.Discovery;
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Dependencies.Policies;
 
     public class Setup : ISetupBootstrapper
     {
@@ -62,8 +62,8 @@ namespace Sakura.Bootstrapping.Setup
             this.bootstrapper.InitializationTasks.AddTask(new RegisterDependencies(typeLocator));
 
             // load initialization tasks from locator
-            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator, this.bootstrapper.RegistrationPolicies));
-            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(typeLocator, this.bootstrapper.RegistrationPolicies));
+            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator, this.bootstrapper.Conventions));
+            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(typeLocator, this.bootstrapper.Conventions));
 
             // execute initialization tasks
             var container = this.bootstrapper.Initialize();
@@ -92,14 +92,14 @@ namespace Sakura.Bootstrapping.Setup
             return this;
         }
 
-        public ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies)
+        public ISetupBootstrapper Conventions(Action<ISet<IRegistrationConvention>> conventions)
         {
-            if (policies == null)
+            if (conventions == null)
             {
-                throw new ArgumentNullException("policies");
+                throw new ArgumentNullException("conventions");
             }
 
-            policies(this.bootstrapper.RegistrationPolicies);
+            conventions(this.bootstrapper.Conventions);
 
             return this;
         }

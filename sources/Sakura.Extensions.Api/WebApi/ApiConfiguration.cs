@@ -1,7 +1,6 @@
 ﻿namespace Sakura.Extensions.Api.WebApi
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Net.Http;
@@ -29,7 +28,8 @@
             this.RequestHandlers = this.GetRequestHandlers;
         }
 
-        private void GetRequestHandlers(Collection<HttpOperationHandler> handlers, ServiceEndpoint endpoint, HttpOperationDescription description)
+        private void GetRequestHandlers(
+            Collection<HttpOperationHandler> handlers, ServiceEndpoint endpoint, HttpOperationDescription description)
         {
             foreach (var input in description.InputParameters)
             {
@@ -38,7 +38,13 @@
                 var handlerType = typeof(HttpOperationHandler<,>).MakeGenericType(
                     typeof(HttpRequestMessage), returnValueType);
 
-                var resolvedHandlers = this.container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType)) as IEnumerable<HttpOperationHandler>;
+                var resolvedHandlers = this.container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType)) as
+                    IEnumerable<HttpOperationHandler>;
+
+                if (resolvedHandlers == null)
+                {
+                    continue;
+                }
 
                 foreach (var resolvedHandler in resolvedHandlers)
                 {

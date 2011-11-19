@@ -7,16 +7,16 @@ namespace Sakura.Bootstrapping.Tasks.Discovery
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.ExtensionMethods;
+    using Sakura.Framework.Dependencies.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Dependencies.Policies;
 
     public class DependencyLocatorSource : IInitializationTaskSource
     {
         private readonly IDependencyLocator locator;
 
-        private readonly IEnumerable<IRegistrationPolicy> policies;
+        private readonly IEnumerable<IRegistrationConvention> policies;
 
-        public DependencyLocatorSource(IDependencyLocator locator, IEnumerable<IRegistrationPolicy> policies)
+        public DependencyLocatorSource(IDependencyLocator locator, IEnumerable<IRegistrationConvention> policies)
         {
             this.locator = locator;
             this.policies = policies;

@@ -15,8 +15,8 @@
 
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies;
+    using Sakura.Framework.Dependencies.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
-    using Sakura.Framework.Dependencies.Policies;
     using Sakura.Framework.Tests.Bootstrapping.DependencyRegistration.Mocks;
 
     public class When_registering_dependencies
@@ -34,10 +34,10 @@
         {
             this.locator = Substitute.For<IDependencyLocator>();
 
-            this.locator.GetDependencies(Arg.Any<IEnumerable<IRegistrationPolicy>>()).Returns(
+            this.locator.GetDependencies(Arg.Any<IEnumerable<IRegistrationConvention>>()).Returns(
                 new[] { typeof(MockSingleInstanceDependency), typeof(MockTransientDependency) });
 
-            var policies = new IRegistrationPolicy[] { new TransientPolicy(), new SingleInstancePolicy() };
+            var policies = new IRegistrationConvention[] { new TransientConvention(), new SingleInstanceConvention() };
 
             this.containerBuilder = new ContainerBuilder();
             this.registerDependencies = new RegisterDependencies(this.locator);
@@ -50,7 +50,7 @@
         [Test]
         public void should_discover_dependencies_from_locator()
         {
-            this.locator.Received().GetDependencies(Arg.Any<IEnumerable<IRegistrationPolicy>>());
+            this.locator.Received().GetDependencies(Arg.Any<IEnumerable<IRegistrationConvention>>());
         }
 
         [Test]

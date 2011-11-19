@@ -9,7 +9,7 @@
 
     using global::NHibernate;
 
-    using Sakura.Extensions.Mvc.Policies;
+    using Sakura.Extensions.Mvc.Conventions;
     using Sakura.Extensions.NHibernate;
 
     public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter
@@ -38,7 +38,7 @@
                 return;
             }
 
-            if (session.Transaction.IsActive)
+            if (session.Transaction != null && session.Transaction.IsActive)
             {
                 Trace.TraceInformation("Ending transaction..");
                 if (filterContext.Exception != null)

@@ -63,10 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitializeMvc.cs" />
-    <Compile Include="Policies\ControllersAsSelf.cs" />
-    <Compile Include="Policies\GlobalFilterPolicy.cs" />
-    <Compile Include="Policies\IGlobalFilter.cs" />
-    <Compile Include="Policies\ModelBinderPolicy.cs" />
+    <Compile Include="Conventions\ControllersAsSelf.cs" />
+    <Compile Include="Conventions\GlobalFilterConvention.cs" />
+    <Compile Include="Conventions\IGlobalFilter.cs" />
+    <Compile Include="Conventions\ModelBinderConvention.cs" />
     <Compile Include="StartMvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupBootExtensions.cs" />

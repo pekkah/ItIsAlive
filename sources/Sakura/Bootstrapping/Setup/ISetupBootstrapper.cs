@@ -7,7 +7,7 @@ namespace Sakura.Bootstrapping.Setup
 
     using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Tasks;
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public interface ISetupBootstrapper
     {
@@ -15,7 +15,7 @@ namespace Sakura.Bootstrapping.Setup
 
         ISetupBootstrapper ExposeContainer(Action<IContainer> exposeTo);
 
-        ISetupBootstrapper RegistrationPolicies(Action<ISet<IRegistrationPolicy>> policies);
+        ISetupBootstrapper Conventions(Action<ISet<IRegistrationConvention>> conventions);
 
         Bootstrapper Start();
 

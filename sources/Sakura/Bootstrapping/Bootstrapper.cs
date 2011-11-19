@@ -6,7 +6,7 @@
 
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public class Bootstrapper
     {
@@ -17,15 +17,15 @@
         public Bootstrapper()
         {
             this.initializationTaskManager = new InitializationTaskManager();
-            this.RegistrationPolicies = new HashSet<IRegistrationPolicy>
+            this.Conventions = new HashSet<IRegistrationConvention>
                 {
-                    new AsSelfPolicy(), 
-                    new SingleInstancePolicy(), 
-                    new TransientPolicy()
+                    new AsSelfConvention(), 
+                    new SingleInstanceConvention(), 
+                    new TransientConvention()
                 };
         }
 
-        public ISet<IRegistrationPolicy> RegistrationPolicies
+        public ISet<IRegistrationConvention> Conventions
         {
             get;
             private set;
@@ -43,7 +43,7 @@
         {
             var builder = new ContainerBuilder();
 
-            var context = new InitializationTaskContext(builder, this.RegistrationPolicies);
+            var context = new InitializationTaskContext(builder, this.Conventions);
             this.initializationTaskManager.Execute(context);
 
             return this.container = builder.Build();

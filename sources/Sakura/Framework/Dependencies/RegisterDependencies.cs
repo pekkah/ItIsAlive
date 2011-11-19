@@ -19,7 +19,7 @@
 
         public void Execute(InitializationTaskContext context)
         {
-            var dependencyTypes = this.locator.GetDependencies(context.Policies);
+            var dependencyTypes = this.locator.GetDependencies(context.Conventions);
 
             foreach (var dependencyType in dependencyTypes)
             {
@@ -30,9 +30,9 @@
         private static void Register(Type dependencyType, InitializationTaskContext context)
         {
             var builder = context.Builder;
-            var policies = context.Policies;
+            var conventions = context.Conventions;
 
-            foreach (var policy in policies.Where(p => p.IsMatch(dependencyType)))
+            foreach (var policy in conventions.Where(p => p.IsMatch(dependencyType)))
             {
                 policy.Apply(dependencyType, builder);
             }

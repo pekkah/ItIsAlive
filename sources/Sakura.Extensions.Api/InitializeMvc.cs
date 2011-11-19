@@ -20,7 +20,10 @@ namespace Sakura.Extensions.Api
 
         public void Execute(InitializationTaskContext context)
         {
-            context.Builder.Register(componentContext => new StartWebApi(componentContext.Resolve<ILifetimeScope>(), this.configurationFactory)).AsImplementedInterfaces();
+            context.Builder.Register(
+                componentContext =>
+                new StartWebApi(componentContext.Resolve<ILifetimeScope>(), this.configurationFactory)).
+                AsImplementedInterfaces();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Sakura.Extensions.Mvc
     using Autofac.Integration.Mvc;
 
     using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Extensions.Mvc.Policies;
+    using Sakura.Extensions.Mvc.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
 
     [NotDiscoverable]

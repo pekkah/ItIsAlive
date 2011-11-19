@@ -3,7 +3,7 @@ namespace Sakura.Framework.Dependencies.Discovery
     using System;
     using System.Collections.Generic;
 
-    using Sakura.Framework.Dependencies.Policies;
+    using Sakura.Framework.Dependencies.Conventions;
 
     public class ListLocator : IDependencyLocator
     {
@@ -19,7 +19,7 @@ namespace Sakura.Framework.Dependencies.Discovery
             this.dependencyTypes = dependencyTypes;
         }
 
-        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationPolicy> policies)
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies)
         {
             return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes, policies);
         }
