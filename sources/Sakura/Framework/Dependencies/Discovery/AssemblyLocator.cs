@@ -16,9 +16,9 @@ namespace Sakura.Framework.Dependencies.Discovery
             this.assemblies = assemblies;
         }
 
-        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies)
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> conventions)
         {
-            return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), policies));
+            return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), conventions));
         }
 
         internal static IEnumerable<Type> FilterDependencyTypes(

@@ -19,6 +19,6 @@ namespace Sakura.Bootstrapping.Setup
 
         Bootstrapper Start();
 
-        ISetupBootstrapper Tasks(Action<InitializationTaskManager> tasks);
+        ISetupBootstrapper Tasks(Action<InitializationTaskManager> manager);
     }
 }

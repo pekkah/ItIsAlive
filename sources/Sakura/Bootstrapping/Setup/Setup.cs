@@ -55,15 +55,15 @@ namespace Sakura.Bootstrapping.Setup
         {
             var assemblies = this.dependencySetup.GetAssemblies();
             var assemblyLocator = new AssemblyLocator(assemblies);
-            this.bootstrapper.InitializationTasks.AddTask(new RegisterDependencies(assemblyLocator));
+            this.bootstrapper.TaskManager.AddTask(new RegisterDependencies(assemblyLocator));
 
             var types = this.dependencySetup.GetTypes();
             var typeLocator = new ListLocator(types.ToArray());
-            this.bootstrapper.InitializationTasks.AddTask(new RegisterDependencies(typeLocator));
+            this.bootstrapper.TaskManager.AddTask(new RegisterDependencies(typeLocator));
 
             // load initialization tasks from locator
-            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(assemblyLocator, this.bootstrapper.Conventions));
-            this.bootstrapper.InitializationTasks.AddTaskSource(new DependencyLocatorSource(typeLocator, this.bootstrapper.Conventions));
+            this.bootstrapper.TaskManager.AddProvider(new DependencyLocatorProvider(assemblyLocator, this.bootstrapper.Conventions));
+            this.bootstrapper.TaskManager.AddProvider(new DependencyLocatorProvider(typeLocator, this.bootstrapper.Conventions));
 
             // execute initialization tasks
             var container = this.bootstrapper.Initialize();
@@ -80,14 +80,14 @@ namespace Sakura.Bootstrapping.Setup
             return this.bootstrapper;
         }
 
-        public ISetupBootstrapper Tasks(Action<InitializationTaskManager> tasks)
+        public ISetupBootstrapper Tasks(Action<InitializationTaskManager> manager)
         {
-            if (tasks == null)
+            if (manager == null)
             {
-                throw new ArgumentNullException("tasks");
+                throw new ArgumentNullException("manager");
             }
 
-            tasks(this.bootstrapper.InitializationTasks);
+            manager(this.bootstrapper.TaskManager);
 
             return this;
         }

@@ -10,13 +10,13 @@
 
     public class Bootstrapper
     {
-        private readonly InitializationTaskManager initializationTaskManager;
+        private readonly InitializationTaskManager taskManagerManager;
 
         private IContainer container;
 
         public Bootstrapper()
         {
-            this.initializationTaskManager = new InitializationTaskManager();
+            this.taskManagerManager = new InitializationTaskManager();
             this.Conventions = new HashSet<IRegistrationConvention>
                 {
                     new AsSelfConvention(), 
@@ -31,11 +31,11 @@
             private set;
         }
 
-        public InitializationTaskManager InitializationTasks
+        public InitializationTaskManager TaskManager
         {
             get
             {
-                return this.initializationTaskManager;
+                return this.taskManagerManager;
             }
         }
 
@@ -44,7 +44,7 @@
             var builder = new ContainerBuilder();
 
             var context = new InitializationTaskContext(builder, this.Conventions);
-            this.initializationTaskManager.Execute(context);
+            this.taskManagerManager.Execute(context);
 
             return this.container = builder.Build();
         }

@@ -144,11 +144,11 @@
     <Compile Include="Bootstrapping\Setup\SetupDependencies.cs" />
     <Compile Include="Bootstrapping\Tasks\Types\IInitializationTask.cs" />
     <Compile Include="Bootstrapping\Tasks\Types\IStartupTask.cs" />
-    <Compile Include="Bootstrapping\Tasks\Discovery\IInitializationTaskSource.cs" />
+    <Compile Include="Bootstrapping\Tasks\Discovery\IInitializationTaskProvider.cs" />
     <Compile Include="Bootstrapping\Tasks\Types\InitializationTaskContext.cs" />
     <Compile Include="Bootstrapping\Tasks\InitializationTaskManager.cs" />
-    <Compile Include="Bootstrapping\Tasks\Discovery\InitializationTaskListSource.cs" />
-    <Compile Include="Bootstrapping\Tasks\Discovery\DependencyLocatorSource.cs" />
+    <Compile Include="Bootstrapping\Tasks\Discovery\InitializationTaskListProvider.cs" />
+    <Compile Include="Bootstrapping\Tasks\Discovery\DependencyLocatorProvider.cs" />
     <Compile Include="Framework\Dependencies\RegisterDependencies.cs" />
   </ItemGroup>
   <ItemGroup>

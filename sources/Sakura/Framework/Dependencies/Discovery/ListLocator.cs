@@ -19,9 +19,9 @@ namespace Sakura.Framework.Dependencies.Discovery
             this.dependencyTypes = dependencyTypes;
         }
 
-        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies)
+        public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> conventions)
         {
-            return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes, policies);
+            return AssemblyLocator.FilterDependencyTypes(this.dependencyTypes, conventions);
         }
     }
 }

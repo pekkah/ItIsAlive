@@ -106,6 +106,15 @@
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.1.5.0.0\Lib\.NetFramework 4.0\FluentAssertions.dll</HintPath>
     </Reference>
+    <Reference Include="Machine.Fakes">
+      <HintPath>..\packages\Machine.Fakes.0.2.8\lib\Machine.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes.Adapters.NSubstitute">
+      <HintPath>..\packages\Machine.Fakes.NSubstitute.0.2.8\lib\Machine.Fakes.Adapters.NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\packages\Machine.Specifications.0.4.24.0\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.2.1.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
@@ -127,20 +136,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapping\DependencyRegistration\Mocks\MockSingleInstanceDependency.cs" />
-    <Compile Include="Bootstrapping\DependencyRegistration\Mocks\MockTransientDependency.cs" />
-    <Compile Include="Bootstrapping\DependencyRegistration\When_registering_dependencies.cs" />
-    <Compile Include="Bootstrapping\Whan_adding_tasks.cs" />
-    <Compile Include="Bootstrapping\Whan_executing_tasks.cs" />
-    <Compile Include="Bootstrapping\When_booting.cs" />
-    <Compile Include="Bootstrapping\When_initializing.cs" />
-    <Compile Include="Bootstrapping\When_starting.cs" />
+    <Compile Include="Bootstrapping\BehaviorConfigs\DefaultConventions.cs" />
+    <Compile Include="Bootstrapping\BehaviorConfigs\DependencyLocation.cs" />
+    <Compile Include="Bootstrapping\Mocks\MockInitializationTask.cs" />
+    <Compile Include="Bootstrapping\Mocks\MockSingleInstanceDependency.cs" />
+    <Compile Include="Bootstrapping\Mocks\MockTransientDependency.cs" />
+    <Compile Include="Bootstrapping\DependencyDiscovery\Given_dependencies_when_registering_dependencies.cs" />
+    <Compile Include="Bootstrapping\Tasks\Given_single_instance_task_when_adding_task.cs" />
+    <Compile Include="Bootstrapping\Tasks\Given_task_when_adding_task.cs" />
+    <Compile Include="Bootstrapping\Tasks\Given_context_and_task_when_executed.cs" />
+    <Compile Include="Bootstrapping\Setup\Given_dependencies_when_booting.cs" />
+    <Compile Include="Bootstrapping\Given_tasks_when_initialized.cs" />
+    <Compile Include="Bootstrapping\Given_startup_task_when_started.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sakura.TestHelpers\Sakura.TestHelpers.csproj">
+      <Project>{35BE81CF-4414-4CD2-BC8E-77A0710F5678}</Project>
+      <Name>Sakura.TestHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
       <Name>Sakura</Name>

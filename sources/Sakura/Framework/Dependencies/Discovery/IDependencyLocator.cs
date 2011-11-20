@@ -7,6 +7,6 @@ namespace Sakura.Framework.Dependencies.Discovery
 
     public interface IDependencyLocator
     {
-        IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> policies);
+        IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> conventions);
     }
 }

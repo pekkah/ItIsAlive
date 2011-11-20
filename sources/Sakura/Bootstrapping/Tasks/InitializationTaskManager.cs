@@ -11,21 +11,21 @@
 
     public class InitializationTaskManager
     {
-        private readonly InitializationTaskListSource manualInitializationTasks;
+        private readonly InitializationTaskListProvider manualInitializationTaskProvider;
 
-        private readonly List<IInitializationTaskSource> sources;
+        private readonly List<IInitializationTaskProvider> providers;
 
         public InitializationTaskManager()
         {
-            this.manualInitializationTasks = new InitializationTaskListSource();
-            this.sources = new List<IInitializationTaskSource>() { this.manualInitializationTasks };
+            this.manualInitializationTaskProvider = new InitializationTaskListProvider();
+            this.providers = new List<IInitializationTaskProvider>() { this.manualInitializationTaskProvider };
         }
 
         public IEnumerable<IInitializationTask> Tasks
         {
             get
             {
-                var tasks = this.sources.SelectMany(source => source.GetTasks());
+                var tasks = this.providers.SelectMany(source => source.Tasks);
 
                 return tasks;
             }
@@ -40,9 +40,9 @@
             }
         }
 
-        public void AddTaskSource(IInitializationTaskSource initializationTaskSource)
+        public void AddProvider(IInitializationTaskProvider provider)
         {
-            this.sources.Add(initializationTaskSource);
+            this.providers.Add(provider);
         }
 
         public void Execute(InitializationTaskContext context)
@@ -69,13 +69,13 @@
                 }
             }
 
-            this.manualInitializationTasks.Add(task);
+            this.manualInitializationTaskProvider.Add(task);
             return true;
         }
 
         public void ReplaceTask<TTarget>(IInitializationTask with) where TTarget : IInitializationTask
         {
-            var target = this.manualInitializationTasks.GetByType<TTarget>().SingleOrDefault();
+            var target = this.manualInitializationTaskProvider.GetByType<TTarget>().SingleOrDefault();
 
             if (target == null)
             {
@@ -83,13 +83,13 @@
                     string.Format("Task manager does not contain task with type '{0}'", typeof(TTarget).FullName));
             }
 
-            this.manualInitializationTasks.Remove(target);
-            this.manualInitializationTasks.Add(with);
+            this.manualInitializationTaskProvider.Remove(target);
+            this.manualInitializationTaskProvider.Add(with);
         }
 
         public void Remove<T>()
         {
-            var target = this.manualInitializationTasks.GetByType<T>().SingleOrDefault();
+            var target = this.manualInitializationTaskProvider.GetByType<T>().SingleOrDefault();
 
             if (target == null)
             {
@@ -97,7 +97,7 @@
                     string.Format("Task manager does not contain task with type '{0}'", typeof(T).FullName));
             }
 
-            this.manualInitializationTasks.Remove(target);
+            this.manualInitializationTaskProvider.Remove(target);
         }
     }
 }
