@@ -3,10 +3,8 @@
     using System.ServiceModel;
     using System.ServiceModel.Web;
 
-    using Sakura.Framework.Dependencies.DefaultTypes;
-
     [ServiceContract]
-    public class PersonApi : ITransientDependency, IAsSelf
+    public class PersonApi
     {
         [WebGet]
         public string Echo(string message)

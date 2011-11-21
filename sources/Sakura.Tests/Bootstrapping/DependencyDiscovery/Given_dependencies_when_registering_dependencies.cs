@@ -7,8 +7,6 @@
     using Autofac.Core;
     using Autofac.Core.Lifetime;
 
-    using FluentAssertions;
-
     using Machine.Fakes;
     using Machine.Specifications;
 
@@ -55,7 +53,7 @@
                     container.ComponentRegistry.RegistrationsFor(
                         new TypedService(typeof(IMockSingleInstanceDependency))).Single();
 
-                registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
+                registration.Lifetime.ShouldBeOfType<RootScopeLifetime>();
             };
 
         private It should_register_transient_dependency_as_transient = () =>
@@ -64,7 +62,7 @@
                     container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
                         Single();
 
-                registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
+                registration.Lifetime.ShouldBeOfType<CurrentScopeLifetime>();
             };
     }
 }
