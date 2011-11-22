@@ -65,11 +65,11 @@
     <Compile Include="InitializeMvc.cs" />
     <Compile Include="Conventions\ControllersAsSelf.cs" />
     <Compile Include="Conventions\GlobalFilterConvention.cs" />
-    <Compile Include="Conventions\IGlobalFilter.cs" />
+    <Compile Include="IGlobalFilter.cs" />
     <Compile Include="Conventions\ModelBinderConvention.cs" />
     <Compile Include="StartMvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupBootExtensions.cs" />
+    <Compile Include="SetupExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sakura\Sakura.csproj">

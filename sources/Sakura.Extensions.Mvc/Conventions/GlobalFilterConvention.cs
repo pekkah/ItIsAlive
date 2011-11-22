@@ -10,8 +10,10 @@ namespace Sakura.Extensions.Mvc.Conventions
     {
         public void Apply(Type dependencyType, ContainerBuilder builder)
         {
-            builder.RegisterType(dependencyType).As<IGlobalFilter>().InstancePerMatchingLifetimeScope("httpRequest").
-                PropertiesAutowired();
+            builder.RegisterType(dependencyType)
+                .As<IGlobalFilter>()
+                .InstancePerMatchingLifetimeScope("httpRequest")
+                .PropertiesAutowired();
         }
 
         public bool IsMatch(Type type)

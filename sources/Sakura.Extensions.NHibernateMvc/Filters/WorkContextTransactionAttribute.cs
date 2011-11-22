@@ -9,7 +9,7 @@
 
     using global::NHibernate;
 
-    using Sakura.Extensions.Mvc.Conventions;
+    using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
 
     public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter

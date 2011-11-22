@@ -2,7 +2,7 @@
 {
     using Sakura.Bootstrapping.Setup;
 
-    public static class SetupBootExtensions
+    public static class SetupExtensions
     {
         public static ISetupBootstrapper EnableWebApiWorkContext(this ISetupBootstrapper setup)
         {

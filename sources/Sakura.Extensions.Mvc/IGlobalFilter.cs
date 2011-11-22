@@ -1,4 +1,4 @@
-namespace Sakura.Extensions.Mvc.Conventions
+namespace Sakura.Extensions.Mvc
 {
     public interface IGlobalFilter
     {
