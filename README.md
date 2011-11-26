@@ -51,10 +51,9 @@ var bootstrapper = new Setup()
 	.ConfigureWebApi(configurationFactory => 
 	{ 
 		var routes = RouteTable.Routes;
-
-            	var configuration = configurationFactory();
-            	routes.SetDefaultHttpConfiguration(configuration);
-            	routes.MapServiceRoute<ContactsApi>("api/contacts");
+		var configuration = configurationFactory();
+		routes.SetDefaultHttpConfiguration(configuration);
+		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	}).Start();
 ```
 
@@ -90,7 +89,7 @@ public class ContactsController : Controller // Sakura will automatically regist
 }
 ```
 
-Your service action methods will be automatically wrapped in transaction when ```IWorkContext``` is added as parameter.
+Your controller action methods will be automatically wrapped in transaction when ```IWorkContext``` is added as parameter.
 
 - If your method is successfull then transaction is automatically committed,
 - If your method fails by throwing an exception the transaction is automatically rolled back.
