@@ -83,7 +83,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                     {
                         db.Dialect<MsSqlCe40Dialect>();
                         db.Driver<SqlServerCeDriver>();
-                        db.SchemaAction = SchemaAutoAction.Recreate;
+                        db.SchemaAction = SchemaAutoAction.Update;
                         db.ConnectionString = connectionString;
                         db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
                     });

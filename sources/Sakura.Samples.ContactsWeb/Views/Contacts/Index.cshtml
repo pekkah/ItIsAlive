@@ -1,0 +1,26 @@
+﻿@using Sakura.Samples.ContactsWeb.Models
+@model IEnumerable<ContactModel>
+@{
+    this.ViewBag.Title = "Contacts";    
+}
+<p>
+    @this.Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+        </th>
+    </tr>
+    @foreach (var item in this.Model)
+    {
+        <tr>
+            <td>
+                <p>@item.Name</p>
+            </td>
+            <td>
+                @this.Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @this.Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>

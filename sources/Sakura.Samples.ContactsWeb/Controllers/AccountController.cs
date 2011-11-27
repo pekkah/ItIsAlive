@@ -4,11 +4,10 @@
     using System.Web.Security;
 
     using Sakura.Extensions.NHibernate;
-    using Sakura.Framework.Dependencies.DefaultTypes;
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.ContactsWeb.Models;
 
-    public class AccountController : Controller, ITransientDependency
+    public class AccountController : Controller
     {
         public AccountController()
         {
