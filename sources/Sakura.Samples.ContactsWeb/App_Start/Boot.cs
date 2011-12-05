@@ -65,6 +65,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
             var routes = RouteTable.Routes;
 
             var configuration = configurationFactory();
+
             routes.SetDefaultHttpConfiguration(configuration);
             routes.MapServiceRoute<ContactsApi>("api/contacts");
         }
@@ -83,7 +84,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                     {
                         db.Dialect<MsSqlCe40Dialect>();
                         db.Driver<SqlServerCeDriver>();
-                        db.SchemaAction = SchemaAutoAction.Update;
+                        db.SchemaAction = SchemaAutoAction.Recreate;
                         db.ConnectionString = connectionString;
                         db.KeywordsAutoImport = Hbm2DDLKeyWords.AutoQuote;
                     });

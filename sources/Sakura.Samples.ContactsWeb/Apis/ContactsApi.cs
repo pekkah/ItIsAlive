@@ -2,16 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
     using System.ServiceModel;
     using System.ServiceModel.Web;
+    using System.Threading.Tasks;
 
     using Sakura.Extensions.NHibernate;
     using Sakura.Samples.Contacts.Database.Entities;
-
-    public class ContactDto
-    {
-        public string Name { get; set; }
-    }
 
     [ServiceContract]
     public class ContactsApi
@@ -24,9 +22,18 @@
             return contacts.Select(contact => new ContactDto() { Name = contact.Name });
         }
 
-        [WebGet(UriTemplate = "test")]
-        public void Test()
+        [WebInvoke(UriTemplate = "add")]
+        public Task<HttpResponseMessage> Add(HttpRequestMessage<ContactDto> request, IWorkContext workContext)
         {
+            return request.Content.ReadAsAsync().ContinueWith(
+                result =>
+                    {
+                        var contactDto = result.Result;
+
+                        workContext.Save(new Contact() { Name = contactDto.Name });
+
+                        return new HttpResponseMessage(HttpStatusCode.Created);
+                    });
         }
     }
 }
