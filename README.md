@@ -104,10 +104,9 @@ var bootstrapper = new Setup()
 	.ConfigureWebApi(configurationFactory => 
 	{ 
 		var routes = RouteTable.Routes;
-
-            	var configuration = configurationFactory();
-            	routes.SetDefaultHttpConfiguration(configuration);
-            	routes.MapServiceRoute<ContactsApi>("api/contacts");
+		var configuration = configurationFactory();
+		routes.SetDefaultHttpConfiguration(configuration);
+		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	})
 	.ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
 	.EnableWebApiWorkContext()
