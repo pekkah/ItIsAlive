@@ -45,7 +45,7 @@ var bootstrapper = new Setup()
 
 ### WCF Web Api Extension
 
-Install-Package Sakura.Extensions.Api
+Install-Package Sakura.Extensions.WebApi
 
 ```csharp
 var bootstrapper = new Setup()
