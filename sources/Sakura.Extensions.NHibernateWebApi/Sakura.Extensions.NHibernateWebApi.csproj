@@ -113,10 +113,6 @@
     <Compile Include="WorkContextTransactionHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.Api\Sakura.Extensions.Api.csproj">
-      <Project>{4D4CAF1C-94BB-4711-B8B5-6F48173E6746}</Project>
-      <Name>Sakura.Extensions.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">
       <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
       <Name>Sakura.Extensions.NHibernate</Name>

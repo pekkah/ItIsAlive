@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Sakura.Extensions.WebApi</id>
+    <version>{Version}</version>
+    <title>Sakura</title>
+    <authors>Pekka Heikura</authors>
+    <owners>Pekka Heikura</owners>
+    <projectUrl>http://github.com/pekkah/sakura/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>WCF Web Api extensions for Sakura</description>
+    <releaseNotes>First release. Might contain bugs. You have been warned.</releaseNotes>
+    <copyright>Copyright 2011</copyright>
+    <tags>Bootstrapping Dependencies Autofac WebApi WCF Sakura</tags>
+    <dependencies>
+      <dependency id="Autofac" version="2.5.2.830" />
+      <dependency id="WebApi.All" version="0.6.0"/>
+      <dependency id="Sakura" version="{Version}" />
+    </dependencies>
+  </metadata>
+</package>

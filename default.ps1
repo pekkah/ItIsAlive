@@ -32,7 +32,7 @@ Task PackAll -Depends BuildSolution {
 	Pack "$pack_dir\Sakura\Sakura-Template.nuspec" "$build_artifacts_bin_dir\Sakura.dll" $build_artifacts_dir
 	Pack "$pack_dir\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.NHibernate.dll" $build_artifacts_dir
 	Pack "$pack_dir\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.Mvc.dll" $build_artifacts_dir
-	Pack "$pack_dir\Sakura.Extensions.Api\Sakura.Extensions.Api-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.Api.dll" $build_artifacts_dir
+	Pack "$pack_dir\Sakura.Extensions.WebApi\Sakura.Extensions.WebApi-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.WebApi.dll" $build_artifacts_dir
 	Pack "$pack_dir\Sakura.Extensions.NHibernateMvc\Sakura.Extensions.NHibernateMvc-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.NHibernateMvc.dll" $build_artifacts_dir
 	Pack "$pack_dir\Sakura.Extensions.NHibernateWebapi\Sakura.Extensions.NHibernateWebApi-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.NHibernateWebApi.dll" $build_artifacts_dir
 }

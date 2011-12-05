@@ -23,8 +23,8 @@ namespace Sakura.Samples.ContactsWeb.App_Start
 
     using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Setup;
-    using Sakura.Extensions.Api;
-    using Sakura.Extensions.Api.WebApi;
+    using Sakura.Extensions.WebApi;
+    using Sakura.Extensions.WebApi.WebApi;
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
     using Sakura.Extensions.NHibernateMvc;
