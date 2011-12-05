@@ -2,6 +2,8 @@
 
 Generic bootstrapper for rapidly building applications. 
 
+_NuGet packages are not ready for publishing yet! You can still download and build them yourself!_
+
 ## Getting Started
 Install-Package Sakura
 
@@ -104,10 +106,9 @@ var bootstrapper = new Setup()
 	.ConfigureWebApi(configurationFactory => 
 	{ 
 		var routes = RouteTable.Routes;
-
-            	var configuration = configurationFactory();
-            	routes.SetDefaultHttpConfiguration(configuration);
-            	routes.MapServiceRoute<ContactsApi>("api/contacts");
+		var configuration = configurationFactory();
+		routes.SetDefaultHttpConfiguration(configuration);
+		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	})
 	.ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
 	.EnableWebApiWorkContext()
