@@ -2,6 +2,8 @@
 
 Generic bootstrapper for rapidly building applications. 
 
+_NuGet packages are not ready for publishing yet! You can still download and build them yourself!_
+
 ## Getting Started
 Install-Package Sakura
 
