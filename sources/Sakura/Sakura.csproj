@@ -125,7 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Framework\Dependencies\Conventions\UnitOfWorkConvention.cs" />
     <Compile Include="Framework\Dependencies\DefaultTypes\IAsSelf.cs" />
+    <Compile Include="Framework\Dependencies\DefaultTypes\IUnitOfWorkDependency.cs" />
     <Compile Include="Framework\Dependencies\Discovery\ListLocator.cs" />
     <Compile Include="Framework\Dependencies\Discovery\NotDiscoverable.cs" />
     <Compile Include="Bootstrapping\Setup\ISetupDependencies.cs" />

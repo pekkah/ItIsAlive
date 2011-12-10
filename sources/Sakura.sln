@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Samples.Contacts", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernateMvc", "Sakura.Extensions.NHibernateMvc\Sakura.Extensions.NHibernateMvc.csproj", "{5E880304-AD94-498F-92B5-23403A0252D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. NuGet", "0. NuGet", "{6CE4987E-F026-4965-867B-43E30EC37F41}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernate", "Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj", "{8384A054-56A2-4079-81AB-82BAAD29AC1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernate.Tests", "Sakura.Extensions.NHibernate.Tests\Sakura.Extensions.NHibernate.Tests.csproj", "{87A36C5E-1AA8-4750-8514-3749DD4D0482}"

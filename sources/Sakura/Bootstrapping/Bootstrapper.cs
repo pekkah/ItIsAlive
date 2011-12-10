@@ -21,7 +21,8 @@
                 {
                     new AsSelfConvention(), 
                     new SingleInstanceConvention(), 
-                    new TransientConvention()
+                    new TransientConvention(),
+                    new UnitOfWorkConvention()
                 };
         }
 
