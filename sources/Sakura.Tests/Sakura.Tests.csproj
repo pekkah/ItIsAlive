@@ -136,6 +136,8 @@
     <Compile Include="Bootstrapping\Setup\Given_dependencies_when_booting.cs" />
     <Compile Include="Bootstrapping\Given_tasks_when_initialized.cs" />
     <Compile Include="Bootstrapping\Given_startup_task_when_started.cs" />
+    <Compile Include="Examples\Given_dependencies_and_custom_convention_when_started.cs" />
+    <Compile Include="Examples\Given_dependencies_marked_with_interfaces_when_started.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
