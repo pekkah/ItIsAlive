@@ -2,14 +2,12 @@ namespace Sakura.Extensions.Mvc
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
     using System.Web.Mvc;
 
     using Autofac;
     using Autofac.Integration.Mvc;
 
     using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Extensions.Mvc.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
 
     [NotDiscoverable]
@@ -19,9 +17,12 @@ namespace Sakura.Extensions.Mvc
 
         private readonly ILifetimeScope container;
 
-        public StartMvc(ILifetimeScope lifetimeScope, Action configure)
+        private readonly IEnumerable<IGlobalFilter> globalFilters;
+
+        public StartMvc(ILifetimeScope lifetimeScope, Action configure, IEnumerable<IGlobalFilter> globalFilters)
         {
             this.configure = configure;
+            this.globalFilters = globalFilters;
             this.container = lifetimeScope;
         }
 
@@ -29,20 +30,10 @@ namespace Sakura.Extensions.Mvc
         {
             DependencyResolver.SetResolver(new AutofacDependencyResolver(this.container));
 
-            if (HttpContext.Current != null)
+            this.configure();
+            foreach (IGlobalFilter globalFilter in this.globalFilters)
             {
-                if (this.configure != null)
-                {
-                    this.configure();
-                }
-
-                var globalFilters =
-                    AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve<IEnumerable<IGlobalFilter>>();
-
-                foreach (var globalFilter in globalFilters)
-                {
-                    GlobalFilters.Filters.Add(globalFilter);
-                }
+                GlobalFilters.Filters.Add(globalFilter);
             }
         }
     }

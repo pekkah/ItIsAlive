@@ -12,7 +12,7 @@ namespace Sakura.Extensions.Mvc.Conventions
         {
             builder.RegisterType(dependencyType)
                 .As<IGlobalFilter>()
-                .InstancePerMatchingLifetimeScope("httpRequest")
+                .InstancePerLifetimeScope()
                 .PropertiesAutowired();
         }
 

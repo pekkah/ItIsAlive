@@ -1,6 +1,7 @@
 namespace Sakura.Extensions.Mvc
 {
     using System;
+    using System.Collections.Generic;
 
     using Autofac;
     using Autofac.Integration.Mvc;
@@ -21,13 +22,20 @@ namespace Sakura.Extensions.Mvc
         public void Execute(InitializationTaskContext context)
         {
             var builder = context.Builder;
+            
             builder.RegisterFilterProvider();
             builder.RegisterModelBinderProvider();
             builder.RegisterFilterProvider();
             builder.RegisterModule(new AutofacWebTypesModule());
-            builder.Register(
-                componentContext => new StartMvc(componentContext.Resolve<ILifetimeScope>(), this.configure)).
-                AsImplementedInterfaces();
+            builder.Register(this.CreateStartMvcTask).As<IStartupTask>().InstancePerDependency();
+        }
+
+        public IStartupTask CreateStartMvcTask(IComponentContext context)
+        {
+            var lifetimeScope = context.Resolve<ILifetimeScope>();
+            var globalFilters = context.Resolve<IEnumerable<IGlobalFilter>>();
+
+            return new StartMvc(lifetimeScope, this.configure, globalFilters);
         }
     }
 }

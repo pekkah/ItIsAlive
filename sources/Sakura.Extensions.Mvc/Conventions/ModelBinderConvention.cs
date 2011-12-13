@@ -13,9 +13,13 @@ namespace Sakura.Extensions.Mvc.Conventions
     {
         public void Apply(Type dependencyType, ContainerBuilder builder)
         {
-            builder.RegisterType(dependencyType).As<IModelBinder>().InstancePerHttpRequest().WithMetadata(
-                "SupportedModelTypes", this.GetTargetType(dependencyType)).PropertiesAutowired(
-                    PropertyWiringFlags.PreserveSetValues);
+            builder.RegisterType(dependencyType)
+                .As<IModelBinder>()
+                .InstancePerLifetimeScope()
+                .WithMetadata(
+                "SupportedModelTypes", 
+                this.GetTargetType(dependencyType))
+                .PropertiesAutowired(PropertyWiringFlags.PreserveSetValues);
         }
 
         public bool IsMatch(Type type)

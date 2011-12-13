@@ -2,10 +2,10 @@
 {
     using System.Diagnostics;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
 
     using Autofac;
-    using Autofac.Integration.Mvc;
 
     using global::NHibernate;
 
@@ -14,24 +14,16 @@
 
     public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter
     {
-        public ILifetimeScope LifetimeScope
-        {
-            get
-            {
-                return AutofacDependencyResolver.Current.RequestLifetimeScope;
-            }
-        }
-
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var workContext = filterContext.RequestContext.HttpContext.Items["workContext"] as IWorkContext;
+            var unitOfWorkScope = this.GetUnitOfWorkScope(filterContext.HttpContext);
 
-            if (workContext == null)
+            if (unitOfWorkScope == null)
             {
                 return;
             }
 
-            var session = this.LifetimeScope.Resolve<ISession>();
+            var session = unitOfWorkScope.Resolve<ISession>();
 
             if (session == null)
             {
@@ -52,11 +44,13 @@
                     Trace.TraceInformation("Transaction committed.");
                 }
             }
+
+            unitOfWorkScope.Dispose();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var workContext =
+            object workContext =
                 filterContext.ActionParameters.Values.Where(
                     value => value != null && typeof(IWorkContext).IsAssignableFrom(value.GetType())).FirstOrDefault();
 
@@ -65,9 +59,7 @@
                 return;
             }
 
-            filterContext.RequestContext.HttpContext.Items["workContext"] = workContext;
-
-            var session = this.LifetimeScope.Resolve<ISession>();
+            var session = this.GetUnitOfWorkScope(filterContext.HttpContext).Resolve<ISession>();
 
             if (session == null)
             {
@@ -76,6 +68,16 @@
 
             Trace.TraceInformation("Begin transaction");
             session.BeginTransaction();
+        }
+
+        private ILifetimeScope GetUnitOfWorkScope(HttpContextBase httpContext)
+        {
+            if (!httpContext.Items.Contains("unitOfWork"))
+            {
+                return null;
+            }
+
+            return httpContext.Items["unitOfWork"] as ILifetimeScope;
         }
     }
 }

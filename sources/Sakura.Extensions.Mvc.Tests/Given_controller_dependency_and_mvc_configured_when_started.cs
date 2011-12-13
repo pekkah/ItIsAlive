@@ -44,7 +44,7 @@
                     container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IGlobalFilter))).SingleOrDefault();
 
                 registration.ShouldNotBeNull();
-                registration.Lifetime.ShouldBeOfType<MatchingScopeLifetime>();
+                registration.Lifetime.ShouldBeOfType<CurrentScopeLifetime>();
             };
 
         private It should_register_model_binders= () =>
