@@ -52,7 +52,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                         setup.AssemblyOf<User>();
                     })
                     .ConfigureMvc(ConfigureRoutes)
-                    .ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
+                    .ConfigureNHibernate(ConfigureNHibernate)
                     .ConfigureWebApi(ConfigureApis)
                     .EnableMvcWorkContext()
                     .EnableWebApiWorkContext()

@@ -23,30 +23,35 @@ namespace Sakura.Extensions.NHibernateWebApi
         {
             return base.SendAsync(request, cancellationToken).ContinueWith(
                 result =>
+                {
+                    object unitOfWorkValue;
+                    if (result.Result.RequestMessage.Properties.TryGetValue("unitOfWork", out unitOfWorkValue))
                     {
-                        object sessionValue;
-                        if (result.Result.RequestMessage.Properties.TryGetValue("session", out sessionValue))
-                        {
-                            var session = (ISession)sessionValue;
+                        var unitOfWorkScope = (ILifetimeScope)unitOfWorkValue;
+                        var session = unitOfWorkScope.Resolve<ISession>();
 
-                            if (session.Transaction != null && session.Transaction.IsActive)
-                            {
-                                Trace.TraceInformation("Ending transaction..");
-                                if (result.Exception != null)
-                                {
-                                    Trace.TraceError("Rolling back transaction due to error: {0}", result.Exception);
-                                    session.Transaction.Rollback();
-                                }
-                                else
-                                {
-                                    session.Transaction.Commit();
-                                    Trace.TraceInformation("Transaction committed.");
-                                }
-                            }
+                        if (session.Transaction == null || !session.Transaction.IsActive)
+                        {
+                        }
+                        
+                        Trace.TraceInformation("Ending transaction..");
+                        if (result.Exception != null)
+                        {
+                            Trace.TraceError("Rolling back transaction due to error: {0}", result.Exception);
+                            session.Transaction.Rollback();
+                        }
+                        else
+                        {
+                            session.Transaction.Commit();
+                            Trace.TraceInformation("Transaction committed.");
                         }
 
-                        return result.Result;
-                    });
+                        // end unit of work
+                        unitOfWorkScope.Dispose();
+                    }
+
+                    return result.Result;
+                });
         }
     }
 }

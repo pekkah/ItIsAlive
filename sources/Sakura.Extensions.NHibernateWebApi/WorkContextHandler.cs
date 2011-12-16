@@ -4,7 +4,6 @@
     using System.Net.Http;
 
     using Autofac;
-    using Autofac.Integration.Mvc;
 
     using Microsoft.ApplicationServer.Http.Dispatcher;
 
@@ -14,18 +13,26 @@
 
     public class WorkContextOperationHandler : HttpOperationHandler<HttpRequestMessage, IWorkContext>
     {
-        public WorkContextOperationHandler()
+        private readonly ILifetimeScope lifetimeScope;
+
+        public WorkContextOperationHandler(ILifetimeScope lifetimeScope)
             : base("workContext")
         {
+            this.lifetimeScope = lifetimeScope;
         }
 
         protected override IWorkContext OnHandle(HttpRequestMessage input)
         {
-            var session = AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve<ISession>();
-            var workContext = AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve<IWorkContext>();
+            var unitOfWorkScope = this.lifetimeScope.BeginLifetimeScope("unitOfWork");
+
+            var session = unitOfWorkScope.Resolve<ISession>();
+            var workContext = unitOfWorkScope.Resolve<IWorkContext>();
+
             Trace.TraceInformation("Begin transaction");
             session.BeginTransaction();
-            input.Properties.Add("session", session);
+
+            // store unit of work scope
+            input.Properties.Add("unitOfWork", unitOfWorkScope);
 
             return workContext;
         }
