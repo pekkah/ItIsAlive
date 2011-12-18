@@ -1,8 +1,3 @@
-#This build assumes the following directory structure
-#
-#  \Build          - This is where the project build code lives
-#  \BuildArtifacts - This folder is created if it is missing and contains output of the build
-#  \Code           - This folder contains the source code or solutions you want to build
 #
 Properties {
 	$build_dir = Split-Path $psake.build_script_file	
@@ -71,7 +66,7 @@ Function Pack {
 	
 	cp $assembly "$lib_dir\net40\"
 	
-    exec { nuget pack $spec_file -OutputDirectory $output_dir }
+    exec { sources\.nuget\NuGet.exe pack $spec_file -OutputDirectory $output_dir }
 	
 	rd $lib_dir -Force -Recurse
 	rd $spec_file
