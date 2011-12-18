@@ -53,7 +53,7 @@
                 container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IModelBinder))).SingleOrDefault();
 
             registration.ShouldNotBeNull();
-            registration.Lifetime.ShouldBeOfType<MatchingScopeLifetime>();
+            registration.Lifetime.ShouldBeOfType<CurrentScopeLifetime>();
         };
     }
 }
