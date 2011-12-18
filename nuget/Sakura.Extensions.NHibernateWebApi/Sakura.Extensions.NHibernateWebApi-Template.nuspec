@@ -3,7 +3,7 @@
   <metadata>
     <id>Sakura.Extensions.NHibernateWebApi</id>
     <version>{Version}</version>
-    <title>Sakura</title>
+    <title>NHibernate-WebApi integration extension for Sakura</title>
     <authors>Pekka Heikura</authors>
     <owners>Pekka Heikura</owners>
     <projectUrl>http://github.com/pekkah/sakura/</projectUrl>

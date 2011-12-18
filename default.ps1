@@ -7,7 +7,7 @@ Properties {
 	$solution = "Sakura.sln"
 	$config = "Release"
 	$pack_dir= "$build_dir\nuget"
-	$version = "1.0" # + (git describe --tags --long).split('-')[1]
+	$version = (git describe --tags --candidates 1).split('-')[0]
 }
 
 $framework='4.0';
