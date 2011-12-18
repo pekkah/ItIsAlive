@@ -12,6 +12,7 @@
 
     using NSubstitute;
 
+    using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies;
     using Sakura.Framework.Dependencies.Conventions;

@@ -33,7 +33,7 @@ namespace Sakura.Extensions.Mvc
         public IStartupTask CreateStartMvcTask(IComponentContext context)
         {
             var lifetimeScope = context.Resolve<ILifetimeScope>();
-            var globalFilters = context.Resolve<IEnumerable<IGlobalFilter>>();
+            var globalFilters = context.Resolve<IEnumerable<Lazy<IGlobalFilter, IPriorityMetadata>>>();
 
             return new StartMvc(lifetimeScope, this.configure, globalFilters);
         }

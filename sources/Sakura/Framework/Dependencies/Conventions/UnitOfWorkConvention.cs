@@ -5,6 +5,7 @@ namespace Sakura.Framework.Dependencies.Conventions
 
     using Autofac;
 
+    using Sakura.Bootstrapping;
     using Sakura.ExtensionMethods;
     using Sakura.Framework.Dependencies.DefaultTypes;
 

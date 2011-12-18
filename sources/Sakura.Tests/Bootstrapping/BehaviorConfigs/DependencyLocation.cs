@@ -6,6 +6,7 @@ namespace Sakura.Framework.Tests.Bootstrapping.BehaviorConfigs
 
     using NSubstitute;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.Conventions;
     using Sakura.Framework.Dependencies.Discovery;
     using Sakura.Framework.Tests.Bootstrapping.Mocks;

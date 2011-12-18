@@ -128,10 +128,11 @@
     <Compile Include="Framework\Dependencies\Conventions\UnitOfWorkConvention.cs" />
     <Compile Include="Framework\Dependencies\DefaultTypes\IAsSelf.cs" />
     <Compile Include="Framework\Dependencies\DefaultTypes\IUnitOfWorkDependency.cs" />
+    <Compile Include="Framework\Dependencies\Discovery\IPriorityMetadata.cs" />
     <Compile Include="Framework\Dependencies\Discovery\ListLocator.cs" />
     <Compile Include="Framework\Dependencies\Discovery\NotDiscoverable.cs" />
     <Compile Include="Bootstrapping\Setup\ISetupDependencies.cs" />
-    <Compile Include="Framework\Dependencies\Conventions\IRegistrationConvention.cs" />
+    <Compile Include="Bootstrapping\IRegistrationConvention.cs" />
     <Compile Include="Framework\Dependencies\Conventions\AsSelfConvention.cs" />
     <Compile Include="Framework\Dependencies\Conventions\SingleInstanceConvention.cs" />
     <Compile Include="Framework\Dependencies\Conventions\TransientConvention.cs" />

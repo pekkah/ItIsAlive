@@ -4,6 +4,7 @@ namespace Sakura.Framework.Tests.Bootstrapping.BehaviorConfigs
 
     using Machine.Fakes;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.Conventions;
 
     public class DefaultConventions

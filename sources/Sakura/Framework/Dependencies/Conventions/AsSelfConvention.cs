@@ -4,6 +4,7 @@ namespace Sakura.Framework.Dependencies.Conventions
 
     using Autofac;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.DefaultTypes;
 
     public class AsSelfConvention : IRegistrationConvention

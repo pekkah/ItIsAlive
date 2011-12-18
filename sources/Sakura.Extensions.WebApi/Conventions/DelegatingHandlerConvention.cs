@@ -5,6 +5,7 @@ namespace Sakura.Extensions.WebApi.Conventions
 
     using Autofac;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.Conventions;
 
     public class DelegatingHandlerConvention : IRegistrationConvention

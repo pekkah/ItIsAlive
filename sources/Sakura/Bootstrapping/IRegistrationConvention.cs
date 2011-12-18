@@ -1,4 +1,4 @@
-namespace Sakura.Framework.Dependencies.Conventions
+namespace Sakura.Bootstrapping
 {
     using System;
 

@@ -2,6 +2,7 @@ namespace Sakura.Extensions.Mvc
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
 
     using Autofac;
@@ -17,9 +18,9 @@ namespace Sakura.Extensions.Mvc
 
         private readonly ILifetimeScope container;
 
-        private readonly IEnumerable<IGlobalFilter> globalFilters;
+        private readonly IEnumerable<Lazy<IGlobalFilter, IPriorityMetadata>> globalFilters;
 
-        public StartMvc(ILifetimeScope lifetimeScope, Action configure, IEnumerable<IGlobalFilter> globalFilters)
+        public StartMvc(ILifetimeScope lifetimeScope, Action configure, IEnumerable<Lazy<IGlobalFilter, IPriorityMetadata>> globalFilters)
         {
             this.configure = configure;
             this.globalFilters = globalFilters;
@@ -31,9 +32,10 @@ namespace Sakura.Extensions.Mvc
             DependencyResolver.SetResolver(new AutofacDependencyResolver(this.container));
 
             this.configure();
-            foreach (IGlobalFilter globalFilter in this.globalFilters)
+
+            foreach (var filter in this.globalFilters.OrderBy(f => f.Metadata.Priority))
             {
-                GlobalFilters.Filters.Add(globalFilter);
+                GlobalFilters.Filters.Add(filter.Value);
             }
         }
     }

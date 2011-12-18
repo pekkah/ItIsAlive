@@ -3,7 +3,7 @@ namespace Sakura.Framework.Dependencies.Discovery
     using System;
     using System.Collections.Generic;
 
-    using Sakura.Framework.Dependencies.Conventions;
+    using Sakura.Bootstrapping;
 
     public interface IDependencyLocator
     {

@@ -7,6 +7,7 @@
     using Machine.Fakes;
     using Machine.Specifications;
 
+    using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Setup;
     using Sakura.Framework.Dependencies.Conventions;
 

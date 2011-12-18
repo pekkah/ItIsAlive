@@ -7,6 +7,7 @@ namespace Sakura.Extensions.Mvc.Conventions
     using Autofac;
     using Autofac.Integration.Mvc;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.Conventions;
 
     public class ModelBinderConvention : IRegistrationConvention

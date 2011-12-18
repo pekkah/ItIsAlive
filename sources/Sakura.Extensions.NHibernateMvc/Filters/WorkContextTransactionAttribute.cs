@@ -11,7 +11,9 @@
 
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
+    using Sakura.Framework.Dependencies.Discovery;
 
+    [Priority(Priority = -100)]
     public class WorkContextTransactionAttribute : ActionFilterAttribute, IGlobalFilter
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)

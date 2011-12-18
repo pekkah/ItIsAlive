@@ -5,6 +5,7 @@ namespace Sakura.Framework.Dependencies.Discovery
     using System.Linq;
     using System.Reflection;
 
+    using Sakura.Bootstrapping;
     using Sakura.Framework.Dependencies.Conventions;
 
     public class AssemblyLocator : IDependencyLocator

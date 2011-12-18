@@ -7,6 +7,7 @@ namespace Sakura.Framework.Tests.Bootstrapping.Tasks
     using Machine.Fakes;
     using Machine.Specifications;
 
+    using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Bootstrapping.Tasks.Types;
     using Sakura.Framework.Dependencies.Conventions;

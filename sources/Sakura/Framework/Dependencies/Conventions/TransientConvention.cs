@@ -5,6 +5,7 @@
 
     using Autofac;
 
+    using Sakura.Bootstrapping;
     using Sakura.ExtensionMethods;
     using Sakura.Framework.Dependencies.DefaultTypes;
 
