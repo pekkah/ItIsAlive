@@ -76,7 +76,7 @@ var bootstrapper = new Setup()
                 	"{controller}/{action}/{id}", 
                 	new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 	})
-	.ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
+	.ConfigureNHibernate(ConfigureNHibernate)
 	.EnableMvcWorkContext()
 	.Start();
 	
@@ -110,7 +110,7 @@ var bootstrapper = new Setup()
 		routes.SetDefaultHttpConfiguration(configuration);
 		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	})
-	.ConfigureNHibernate(ConfigureNHibernate, sessionRegistration => sessionRegistration.InstancePerHttpRequest())
+	.ConfigureNHibernate(ConfigureNHibernate)
 	.EnableWebApiWorkContext()
 	.Start();
 	
