@@ -16,6 +16,7 @@
                     {
                         conventions.Add(new ServiceContractConvention());
                         conventions.Add(new DelegatingHandlerConvention());
+                        conventions.Add(new HttpOperationHandlerConvention());
                     }).Tasks(manager => manager.AddTask(new InitializeWebApi(configurationFactory)));
         }
     }

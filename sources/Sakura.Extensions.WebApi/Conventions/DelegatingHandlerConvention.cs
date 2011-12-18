@@ -6,13 +6,15 @@ namespace Sakura.Extensions.WebApi.Conventions
     using Autofac;
 
     using Sakura.Bootstrapping;
-    using Sakura.Framework.Dependencies.Conventions;
+    using Sakura.Extensions.Mvc.Conventions;
 
     public class DelegatingHandlerConvention : IRegistrationConvention
     {
         public void Apply(Type dependencyType, ContainerBuilder builder)
         {
-            builder.RegisterType(dependencyType).As<DelegatingHandler>().InstancePerLifetimeScope();
+            var registration = builder.RegisterType(dependencyType).As<DelegatingHandler>().InstancePerLifetimeScope();
+
+            RegistrationHelper.ApplyPriority(dependencyType, registration);
         }
 
         public bool IsMatch(Type type)

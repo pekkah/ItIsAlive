@@ -10,7 +10,9 @@
     using global::NHibernate;
 
     using Sakura.Extensions.NHibernate;
+    using Sakura.Framework.Dependencies.Discovery;
 
+    [Priority(Priority = -100)]
     public class WorkContextOperationHandler : HttpOperationHandler<HttpRequestMessage, IWorkContext>
     {
         private readonly ILifetimeScope lifetimeScope;

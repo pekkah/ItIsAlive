@@ -125,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
+    <Compile Include="Extensions\Mvc\Conventions\RegistrationHelper.cs" />
     <Compile Include="Framework\Dependencies\Conventions\UnitOfWorkConvention.cs" />
     <Compile Include="Framework\Dependencies\DefaultTypes\IAsSelf.cs" />
     <Compile Include="Framework\Dependencies\DefaultTypes\IUnitOfWorkDependency.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Sakura.Extensions.WebApi.WebApi
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Net.Http;
@@ -12,6 +13,8 @@
     using Microsoft.ApplicationServer.Http;
     using Microsoft.ApplicationServer.Http.Description;
     using Microsoft.ApplicationServer.Http.Dispatcher;
+
+    using Sakura.Framework.Dependencies.Discovery;
 
     public class ApiConfiguration : WebApiConfiguration
     {
@@ -31,6 +34,16 @@
         private void GetRequestHandlers(
             Collection<HttpOperationHandler> handlers, ServiceEndpoint endpoint, HttpOperationDescription description)
         {
+            var registeredHandlers = this.container
+                .Resolve<IEnumerable<Lazy<HttpOperationHandler, IPriorityMetadata>>>();
+
+            foreach (var handler in registeredHandlers.OrderBy(h => h.Metadata.Priority))
+            {
+                handlers.Add(handler.Value);
+            }
+
+            return;
+
             foreach (var input in description.InputParameters)
             {
                 var returnValueType = input.ParameterType;
@@ -55,9 +68,11 @@
 
         private IEnumerable<DelegatingHandler> OnCreateMessageHandlers()
         {
-            var result = this.container.Resolve<IEnumerable<DelegatingHandler>>();
+            var result =
+                this.container.Resolve<IEnumerable<Lazy<DelegatingHandler, IPriorityMetadata>>>().OrderBy(
+                    h => h.Metadata.Priority);
 
-            return result;
+            return result.Select(h => h.Value);
         }
 
         private object OncreateInstance(Type serviceType, InstanceContext context, HttpRequestMessage message)
