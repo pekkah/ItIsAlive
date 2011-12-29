@@ -15,22 +15,22 @@
     public class ContactsApi
     {
         [WebGet]
-        public IEnumerable<ContactDto> Contacts(IWorkContext workContext)
+        public IEnumerable<ContactDto> Contacts(IUnitOfWork unitOfWork)
         {
-            var contacts = workContext.QueryOver<Contact>().Take(100).List();
+            var contacts = unitOfWork.QueryOver<Contact>().Take(100).List();
 
             return contacts.Select(contact => new ContactDto() { Name = contact.Name });
         }
 
         [WebInvoke(UriTemplate = "add")]
-        public Task<HttpResponseMessage> Add(HttpRequestMessage<ContactDto> request, IWorkContext workContext)
+        public Task<HttpResponseMessage> Add(HttpRequestMessage<ContactDto> request, IUnitOfWork unitOfWork)
         {
             return request.Content.ReadAsAsync().ContinueWith(
                 result =>
                     {
                         var contactDto = result.Result;
 
-                        workContext.Save(new Contact() { Name = contactDto.Name });
+                        unitOfWork.Save(new Contact() { Name = contactDto.Name });
 
                         return new HttpResponseMessage(HttpStatusCode.Created);
                     });

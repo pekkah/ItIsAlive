@@ -21,7 +21,7 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model, IWorkContext workContext)
+        public ActionResult ChangePassword(ChangePasswordModel model, IUnitOfWork unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
@@ -29,7 +29,7 @@
 
                 var identityName = this.Request.RequestContext.HttpContext.User.Identity.Name;
 
-                var user = workContext.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
+                var user = unitOfWork.QueryOver<User>().Where(u => u.Name == identityName).SingleOrDefault();
 
                 if (user != null)
                 {
@@ -68,11 +68,11 @@
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl, IWorkContext workContext)
+        public ActionResult LogOn(LogOnModel model, string returnUrl, IUnitOfWork unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
-                if (this.ValidateUser(model.UserName, model.Password, workContext))
+                if (this.ValidateUser(model.UserName, model.Password, unitOfWork))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     if (this.Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
@@ -101,7 +101,7 @@
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model, IWorkContext workContext)
+        public ActionResult Register(RegisterModel model, IUnitOfWork unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
@@ -109,7 +109,7 @@
 
                 user.AddContact("Somebody");
 
-                workContext.Save(user);
+                unitOfWork.Save(user);
 
                 return this.RedirectToAction("Index", "Home");
             }
@@ -118,9 +118,9 @@
             return View(model);
         }
 
-        private bool ValidateUser(string userName, string password, IWorkContext workContext)
+        private bool ValidateUser(string userName, string password, IUnitOfWork unitOfWork)
         {
-            var user = workContext.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
+            var user = unitOfWork.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
 
             if (user == null)
             {

@@ -2,13 +2,12 @@
 {
     using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.NHibernateMvc.Binders;
-    using Sakura.Extensions.NHibernateMvc.Filters;
 
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper EnableMvcWorkContext(this ISetupBootstrapper setup)
+        public static ISetupBootstrapper EnableMvcUnitOfWork(this ISetupBootstrapper setup)
         {
-            return setup.Dependencies(d => d.Types(typeof(WorkContextBinder), typeof(WorkContextTransactionAttribute)));
+            return setup.Dependencies(d => d.AssemblyOf<UnitOfWorkBinder>());
         }
     }
 }

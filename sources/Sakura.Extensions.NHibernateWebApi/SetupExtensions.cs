@@ -4,9 +4,9 @@
 
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper EnableWebApiWorkContext(this ISetupBootstrapper setup)
+        public static ISetupBootstrapper EnableWebApiUnitOfWork(this ISetupBootstrapper setup)
         {
-            return setup.Dependencies(dependencies => dependencies.AssemblyOf<WorkContextTransactionHandler>());
+            return setup.Dependencies(dependencies => dependencies.AssemblyOf<UnitOfWorkTransactionHandler>());
         }
     }
 }

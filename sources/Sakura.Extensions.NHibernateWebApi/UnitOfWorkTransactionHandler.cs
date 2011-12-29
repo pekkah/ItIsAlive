@@ -9,11 +9,11 @@ namespace Sakura.Extensions.NHibernateWebApi
 
     using global::NHibernate;
 
-    public class WorkContextTransactionHandler : DelegatingHandler
+    public class UnitOfWorkTransactionHandler : DelegatingHandler
     {
         private readonly ILifetimeScope lifetimeScope;
 
-        public WorkContextTransactionHandler(ILifetimeScope lifetimeScope)
+        public UnitOfWorkTransactionHandler(ILifetimeScope lifetimeScope)
         {
             this.lifetimeScope = lifetimeScope;
         }

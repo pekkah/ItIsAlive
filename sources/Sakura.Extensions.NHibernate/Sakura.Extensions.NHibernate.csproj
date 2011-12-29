@@ -120,15 +120,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IWorkContext.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterNHibernate.cs" />
     <Compile Include="RegisterSession.cs" />
-    <Compile Include="RegisterWorkContext.cs" />
+    <Compile Include="RegisterRepository.cs" />
     <Compile Include="ResolveSessionFactoryOnce.cs" />
     <Compile Include="SetupExtensions.cs" />
     <Compile Include="WarmupNHibernate.cs" />
-    <Compile Include="WorkContext.cs" />
+    <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

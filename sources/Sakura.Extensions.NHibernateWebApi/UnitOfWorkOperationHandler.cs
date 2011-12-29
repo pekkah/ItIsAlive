@@ -13,22 +13,22 @@
     using Sakura.Framework.Dependencies.Discovery;
 
     [Priority(Priority = -100)]
-    public class WorkContextOperationHandler : HttpOperationHandler<HttpRequestMessage, IWorkContext>
+    public class UnitOfWorkOperationHandler : HttpOperationHandler<HttpRequestMessage, IUnitOfWork>
     {
         private readonly ILifetimeScope lifetimeScope;
 
-        public WorkContextOperationHandler(ILifetimeScope lifetimeScope)
+        public UnitOfWorkOperationHandler(ILifetimeScope lifetimeScope)
             : base("workContext")
         {
             this.lifetimeScope = lifetimeScope;
         }
 
-        protected override IWorkContext OnHandle(HttpRequestMessage input)
+        protected override IUnitOfWork OnHandle(HttpRequestMessage input)
         {
             var unitOfWorkScope = this.lifetimeScope.BeginLifetimeScope("unitOfWork");
 
             var session = unitOfWorkScope.Resolve<ISession>();
-            var workContext = unitOfWorkScope.Resolve<IWorkContext>();
+            var workContext = unitOfWorkScope.Resolve<IUnitOfWork>();
 
             Trace.TraceInformation("Begin transaction");
             session.BeginTransaction();
