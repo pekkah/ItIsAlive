@@ -41,29 +41,6 @@
             {
                 handlers.Add(handler.Value);
             }
-
-            return;
-
-            foreach (var input in description.InputParameters)
-            {
-                var returnValueType = input.ParameterType;
-
-                var handlerType = typeof(HttpOperationHandler<,>).MakeGenericType(
-                    typeof(HttpRequestMessage), returnValueType);
-
-                var resolvedHandlers = this.container.Resolve(typeof(IEnumerable<>).MakeGenericType(handlerType)) as
-                    IEnumerable<HttpOperationHandler>;
-
-                if (resolvedHandlers == null)
-                {
-                    continue;
-                }
-
-                foreach (var resolvedHandler in resolvedHandlers)
-                {
-                    handlers.Add(resolvedHandler);
-                }
-            }
         }
 
         private IEnumerable<DelegatingHandler> OnCreateMessageHandlers()

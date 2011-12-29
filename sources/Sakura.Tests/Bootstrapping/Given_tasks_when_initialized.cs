@@ -17,8 +17,6 @@
     {
         private static IInitializationTask initializationTask1;
 
-        private static IInitializationTask initializationTaskDependency;
-
         private static IInitializationTaskProvider initializationTaskProvider;
 
         private static IInitializationTask taskInTaskSource;
