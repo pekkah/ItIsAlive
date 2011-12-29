@@ -77,21 +77,21 @@ var bootstrapper = new Setup()
                 	new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 	})
 	.ConfigureNHibernate(ConfigureNHibernate)
-	.EnableMvcWorkContext()
+	.EnableMvcUnitOfWork()
 	.Start();
 	
 public class ContactsController : Controller // Sakura will automatically register IController -types
 {
-	public ActionResult Contacts(IWorkContext workContext)
+	public ActionResult Contacts(IUnitOfWork unitOfWork)
 	{
-		var contacts = workContext.QueryOver<Contact>().Take(100).List();
+		var contacts = unitOfWork.QueryOver<Contact>().Take(100).List();
 		
 		return View(contacts);
 	}
 }
 ```
 
-Your controller action methods will be automatically wrapped in transaction when ```IWorkContext``` is added as parameter.
+Your controller action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
 
 - If your method is successfull then transaction is automatically committed,
 - If your method fails by throwing an exception the transaction is automatically rolled back.
@@ -111,22 +111,22 @@ var bootstrapper = new Setup()
 		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	})
 	.ConfigureNHibernate(ConfigureNHibernate)
-	.EnableWebApiWorkContext()
+	.EnableWebApiUnitOfWork()
 	.Start();
 	
 [ServiceContract]
 public class ContactsApi
 {
 	[WebGet]
-	public IEnumerable<ContactDto> Contacts(IWorkContext workContext)
+	public IEnumerable<ContactDto> Contacts(IUnitOfWork unitOfWork)
 	{
-		var contacts = workContext.QueryOver<Contact>().Take(100).List();
+		var contacts = unitOfWork.QueryOver<Contact>().Take(100).List();
 		return contacts.Select(contact => new ContactDto() { Name = contact.Name });
 	}
 }
 ```
 
-Your service action methods will be automatically wrapped in transaction when ```IWorkContext``` is added as parameter.
+Your service action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
 
 - If your method is successfull then transaction is automatically committed,
 - If your method fails by throwing an exception the transaction is automatically rolled back.
