@@ -4,9 +4,9 @@ namespace Sakura.Extensions.WebApi
 
     using Autofac;
 
-    using Sakura.Bootstrapping.Tasks.Types;
+    using Sakura.Bootstrapping.Tasks;
+    using Sakura.Composition.Discovery;
     using Sakura.Extensions.WebApi.WebApi;
-    using Sakura.Framework.Dependencies.Discovery;
 
     [NotDiscoverable]
     public class InitializeWebApi : IInitializationTask

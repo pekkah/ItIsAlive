@@ -9,7 +9,8 @@ namespace Sakura.Extensions.NHibernate.Tests
     using Machine.Fakes;
     using Machine.Specifications;
 
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.NHibernate.Tests.DatabaseModel;
 
     using global::NHibernate;
@@ -18,7 +19,7 @@ namespace Sakura.Extensions.NHibernate.Tests
     using global::NHibernate.Driver;
     using global::NHibernate.Mapping.ByCode;
 
-    public class Given_configuration_and_session_registration_override_when_started: WithSubject<Setup>
+    public class Given_configuration_and_session_registration_override_when_started: WithSubject<Configure>
     {
         private static IContainer container;
 

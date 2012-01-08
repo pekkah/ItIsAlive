@@ -6,6 +6,7 @@
     using Autofac;
 
     using Sakura.Bootstrapping;
+    using Sakura.Composition;
 
     public class ServiceContractConvention : IRegistrationConvention
     {

@@ -5,6 +5,7 @@ namespace Sakura.Extensions.Mvc.Conventions
     using Autofac;
 
     using Sakura.Bootstrapping;
+    using Sakura.Composition;
 
     public class GlobalFilterConvention : IRegistrationConvention
     {

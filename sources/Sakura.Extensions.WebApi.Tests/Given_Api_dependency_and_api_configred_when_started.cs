@@ -10,11 +10,12 @@
     using Machine.Fakes;
     using Machine.Specifications;
 
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.WebApi.Tests.Apis;
     using Sakura.Extensions.WebApi.WebApi;
 
-    public class Given_Api_dependency_and_api_configred_when_started : WithSubject<Setup>
+    public class Given_Api_dependency_and_api_configred_when_started : WithSubject<Configure>
     {
         private static ApiConfiguration configuration1;
 

@@ -2,10 +2,10 @@ namespace Sakura.Extensions.NHibernate
 {
     using System.Diagnostics;
 
-    using global::NHibernate;
+    using Sakura.Bootstrapping.Tasks;
+    using Sakura.Composition.Discovery;
 
-    using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Framework.Dependencies.Discovery;
+    using global::NHibernate;
 
     [NotDiscoverable]
     public class ResolveSessionFactoryOnce : IStartupTask

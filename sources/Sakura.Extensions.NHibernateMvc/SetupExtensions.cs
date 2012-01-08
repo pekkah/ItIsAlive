@@ -1,13 +1,14 @@
 ﻿namespace Sakura.Extensions.NHibernateMvc
 {
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.NHibernateMvc.Binders;
 
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper EnableMvcUnitOfWork(this ISetupBootstrapper setup)
+        public static IConfigureBootstrapper EnableMvcUnitOfWork(this IConfigureBootstrapper configure)
         {
-            return setup.Dependencies(d => d.AssemblyOf<UnitOfWorkBinder>());
+            return configure.Dependencies(d => d.AssemblyOf<UnitOfWorkBinder>());
         }
     }
 }

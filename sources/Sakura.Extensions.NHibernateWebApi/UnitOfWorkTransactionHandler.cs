@@ -7,8 +7,11 @@ namespace Sakura.Extensions.NHibernateWebApi
 
     using Autofac;
 
+    using Sakura.Composition.Discovery;
+
     using global::NHibernate;
 
+    [Priority(Priority = -100)]
     public class UnitOfWorkTransactionHandler : DelegatingHandler
     {
         private readonly ILifetimeScope lifetimeScope;

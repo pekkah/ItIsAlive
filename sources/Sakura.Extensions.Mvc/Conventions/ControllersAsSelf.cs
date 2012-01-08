@@ -6,7 +6,7 @@
     using Autofac;
 
     using Sakura.Bootstrapping;
-    using Sakura.Framework.Dependencies.Conventions;
+    using Sakura.Composition;
 
     public class ControllersAsSelf : IRegistrationConvention
     {

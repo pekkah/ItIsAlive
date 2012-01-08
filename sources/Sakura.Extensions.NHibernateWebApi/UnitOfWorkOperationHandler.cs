@@ -7,10 +7,10 @@
 
     using Microsoft.ApplicationServer.Http.Dispatcher;
 
-    using global::NHibernate;
-
+    using Sakura.Composition.Discovery;
     using Sakura.Extensions.NHibernate;
-    using Sakura.Framework.Dependencies.Discovery;
+
+    using global::NHibernate;
 
     [Priority(Priority = -100)]
     public class UnitOfWorkOperationHandler : HttpOperationHandler<HttpRequestMessage, IUnitOfWork>

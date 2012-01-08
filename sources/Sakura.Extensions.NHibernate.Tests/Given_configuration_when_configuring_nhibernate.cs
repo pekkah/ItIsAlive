@@ -9,16 +9,18 @@
     using Machine.Fakes;
     using Machine.Specifications;
 
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
+
     using global::NHibernate;
     using global::NHibernate.Cfg;
     using global::NHibernate.Dialect;
     using global::NHibernate.Driver;
     using global::NHibernate.Mapping.ByCode;
 
-    using Sakura.Bootstrapping.Setup;
     using Sakura.Extensions.NHibernate.Tests.DatabaseModel;
 
-    public class Given_configuration_when_started : WithSubject<Setup>
+    public class Given_configuration_when_started : WithSubject<Configure>
     {
         private static IContainer container;
 

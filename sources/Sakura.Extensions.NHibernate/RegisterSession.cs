@@ -6,11 +6,11 @@ namespace Sakura.Extensions.NHibernate
     using Autofac;
     using Autofac.Builder;
 
-    using global::NHibernate;
+    using Sakura.Bootstrapping.Tasks;
+    using Sakura.Composition.Discovery;
+    using Sakura.Composition.Markers;
 
-    using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Dependencies.Discovery;
+    using global::NHibernate;
 
     [NotDiscoverable]
     public class RegisterSession : IInitializationTask, ISingleInstanceDependency

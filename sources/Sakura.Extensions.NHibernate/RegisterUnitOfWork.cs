@@ -4,10 +4,10 @@ namespace Sakura.Extensions.NHibernate
 
     using Autofac;
 
-    using global::NHibernate;
+    using Sakura.Bootstrapping.Tasks;
+    using Sakura.Composition.Markers;
 
-    using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Framework.Dependencies.DefaultTypes;
+    using global::NHibernate;
 
     public class RegisterUnitOfWork : IInitializationTask, ISingleInstanceDependency
     {

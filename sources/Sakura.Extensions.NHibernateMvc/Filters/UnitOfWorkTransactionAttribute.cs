@@ -7,11 +7,12 @@
 
     using Autofac;
 
+    using Sakura.Composition.Discovery;
+
     using global::NHibernate;
 
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
-    using Sakura.Framework.Dependencies.Discovery;
 
     [Priority(Priority = -100)]
     public class UnitOfWorkTransactionAttribute : ActionFilterAttribute, IGlobalFilter

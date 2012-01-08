@@ -4,7 +4,7 @@
 
     using Autofac;
 
-    using Sakura.Bootstrapping.Tasks.Types;
+    using Sakura.Bootstrapping.Tasks;
 
     public class RegisterDependency : IInitializationTask
     {

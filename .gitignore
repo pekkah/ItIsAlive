@@ -14,7 +14,7 @@
 packages/
 
 !.nuget/*
-!.nuget/*.exe
+!.nuget/NuGet.exe
 
 # VS Upgrade stuff #
 ####################
@@ -36,6 +36,7 @@ build-artifacts
 #############
 _ReSharper.*
 *.ReSharper.*
+*.user
 
 # Packages #
 ############

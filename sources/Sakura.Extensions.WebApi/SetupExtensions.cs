@@ -2,16 +2,17 @@
 {
     using System;
 
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.WebApi.Conventions;
     using Sakura.Extensions.WebApi.WebApi;
 
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper ConfigureWebApi(
-            this ISetupBootstrapper setup, Action<Func<ApiConfiguration>> configurationFactory)
+        public static IConfigureBootstrapper ConfigureWebApi(
+            this IConfigureBootstrapper configure, Action<Func<ApiConfiguration>> configurationFactory)
         {
-            return setup.Dependencies(dependencies => dependencies.AssemblyOf<StartWebApi>()).Conventions(
+            return configure.Dependencies(dependencies => dependencies.AssemblyOf<StartWebApi>()).Conventions(
                 conventions =>
                     {
                         conventions.Add(new ServiceContractConvention());

@@ -2,12 +2,12 @@
 {
     using System;
 
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
     using Sakura.Extensions.Mvc.Conventions;
 
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper ConfigureMvc(this ISetupBootstrapper setup, Action configure)
+        public static IConfigureBootstrapper ConfigureMvc(this IConfigureBootstrapper configure, Action configure)
         {
             var initializeMvc = new InitializeMvc(configure);
 

@@ -2,9 +2,9 @@ namespace Sakura.Extensions.NHibernate
 {
     using Autofac;
 
-    using Sakura.Bootstrapping.Tasks.Types;
-    using Sakura.Framework.Dependencies.DefaultTypes;
-    using Sakura.Framework.Dependencies.Discovery;
+    using Sakura.Bootstrapping.Tasks;
+    using Sakura.Composition.Discovery;
+    using Sakura.Composition.Markers;
 
     [NotDiscoverable]
     public class WarmupNHibernate : IInitializationTask, ISingleInstanceDependency

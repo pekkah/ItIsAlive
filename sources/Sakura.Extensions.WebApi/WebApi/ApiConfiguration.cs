@@ -14,7 +14,7 @@
     using Microsoft.ApplicationServer.Http.Description;
     using Microsoft.ApplicationServer.Http.Dispatcher;
 
-    using Sakura.Framework.Dependencies.Discovery;
+    using Sakura.Composition.Discovery;
 
     public class ApiConfiguration : WebApiConfiguration
     {

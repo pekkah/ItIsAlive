@@ -4,15 +4,15 @@
 
     using Autofac.Builder;
 
+    using Sakura.Bootstrapping;
+
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
-    using Sakura.Bootstrapping.Setup;
-
     public static class SetupExtensions
     {
-        public static ISetupBootstrapper ConfigureNHibernate(
-            this ISetupBootstrapper setup, 
+        public static IConfigureBootstrapper ConfigureNHibernate(
+            this IConfigureBootstrapper configure, 
             Func<Configuration> configure, 
             Action<IRegistrationBuilder<ISession, SimpleActivatorData, SingleRegistrationStyle>> modifySessionRegistration = null)
         {
@@ -27,9 +27,9 @@
                     });
         }
 
-        public static ISetupBootstrapper WarmupNHibernate(this ISetupBootstrapper setup)
+        public static IConfigureBootstrapper WarmupNHibernate(this IConfigureBootstrapper configure)
         {
-            return setup.Tasks(manager => manager.TryAddTask(new WarmupNHibernate()));
+            return configure.Tasks(manager => manager.TryAddTask(new WarmupNHibernate()));
         }
     }
 }

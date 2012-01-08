@@ -22,7 +22,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
     using NHibernate.Mapping.ByCode;
 
     using Sakura.Bootstrapping;
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Composition;
     using Sakura.Extensions.WebApi;
     using Sakura.Extensions.WebApi.WebApi;
     using Sakura.Extensions.Mvc;
@@ -45,7 +45,7 @@ namespace Sakura.Samples.ContactsWeb.App_Start
 
         public static void Start()
         {
-            bootstrapper = new Setup().Dependencies(
+            bootstrapper = new Configure().Dependencies(
                 setup =>
                     {
                         setup.AssemblyOf<AccountController>();

@@ -11,12 +11,13 @@
     using Machine.Fakes;
     using Machine.Specifications;
 
-    using Sakura.Bootstrapping.Setup;
+    using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.Mvc.Conventions;
     using Sakura.Extensions.Mvc.Tests.Controllers;
     using Sakura.Extensions.Mvc.Tests.Filters;
 
-    public class Given_dependencies_and_mvc_configured_when_started : WithSubject<Setup>
+    public class Given_dependencies_and_mvc_configured_when_started : WithSubject<Configure>
     {
         private static IContainer container;
 
