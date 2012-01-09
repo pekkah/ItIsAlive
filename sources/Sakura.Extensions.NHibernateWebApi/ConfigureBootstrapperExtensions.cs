@@ -2,7 +2,7 @@
 {
     using Sakura.Bootstrapping;
 
-    public static class ConfigurationExtensions
+    public static class ConfigureBootstrapperExtensions
     {
         public static IConfigureBootstrapper EnableWebApiUnitOfWork(this IConfigureBootstrapper configure)
         {

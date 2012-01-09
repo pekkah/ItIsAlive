@@ -3,7 +3,7 @@
     using Sakura.Bootstrapping;
     using Sakura.Extensions.NHibernateMvc.Binders;
 
-    public static class ConfigurationExtensions
+    public static class ConfigureBootstrapperExtensions
     {
         public static IConfigureBootstrapper EnableMvcUnitOfWork(this IConfigureBootstrapper configure)
         {

@@ -6,7 +6,7 @@
     using Sakura.Extensions.WebApi.Conventions;
     using Sakura.Extensions.WebApi.WebApi;
 
-    public static class ConfigurationExtensions
+    public static class ConfigureBootstrapperExtensions
     {
         public static IConfigureBootstrapper ConfigureWebApi(
             this IConfigureBootstrapper configure, Action<Func<ApiConfiguration>> configurationFactory)

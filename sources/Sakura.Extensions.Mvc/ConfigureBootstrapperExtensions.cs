@@ -5,7 +5,7 @@
     using Sakura.Bootstrapping;
     using Sakura.Extensions.Mvc.Conventions;
 
-    public static class ConfigurationExtensions
+    public static class ConfigureBootstrapperExtensions
     {
         public static IConfigureBootstrapper ConfigureMvc(this IConfigureBootstrapper configureBootstrapper, Action configure)
         {

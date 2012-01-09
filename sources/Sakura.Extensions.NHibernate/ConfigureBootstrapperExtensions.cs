@@ -9,7 +9,7 @@
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
-    public static class ConfigurationExtensions
+    public static class ConfigureBootstrapperExtensions
     {
         public static IConfigureBootstrapper ConfigureNHibernate(
             this IConfigureBootstrapper configureBootstrapper, 
