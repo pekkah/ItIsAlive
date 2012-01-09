@@ -36,7 +36,8 @@
         [Fact]
         public void should_register_as_single_instance()
         {
-            this.convention.Apply(typeof(MockSingleInstanceDependency), this.containerBuilder);
+            var dependencyRegistration = this.containerBuilder.RegisterType<MockSingleInstanceDependency>();
+            this.convention.Apply(dependencyRegistration, typeof(MockSingleInstanceDependency));
 
             var container = this.containerBuilder.Build();
             var registration =

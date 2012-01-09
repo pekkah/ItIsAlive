@@ -15,7 +15,7 @@
             this.Tasks = new List<IInitializationTask>();
         }
 
-        public IList<IInitializationTask> Tasks { get; private set; }
+        public List<IInitializationTask> Tasks { get; private set; }
 
         public IContainer Initialize()
         {

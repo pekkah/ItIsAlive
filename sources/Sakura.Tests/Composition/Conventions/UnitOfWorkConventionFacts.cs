@@ -36,7 +36,8 @@ namespace Sakura.Framework.Tests.Composition.Conventions
         [Fact]
         public void should_register_as_scoped_to_unitOfWork()
         {
-            this.convention.Apply(typeof(MockUnitOfWorkDependency), this.containerBuilder);
+            var dependencyRegistration = containerBuilder.RegisterType<MockUnitOfWorkDependency>();
+            this.convention.Apply(dependencyRegistration, typeof(MockUnitOfWorkDependency));
 
             var container = this.containerBuilder.Build();
             var registration =

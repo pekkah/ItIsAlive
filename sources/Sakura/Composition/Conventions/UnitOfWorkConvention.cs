@@ -3,19 +3,21 @@ namespace Sakura.Composition.Conventions
     using System;
     using System.Linq;
 
-    using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition.Markers;
     using Sakura.ExtensionMethods;
 
     public class UnitOfWorkConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(IUnitOfWorkDependency))))
+            foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(IUnitOfWorkDependency)))
+                )
             {
-                builder.RegisterType(dependencyType).As(itf).InstancePerMatchingLifetimeScope("unitOfWork");
+                registration.As(itf).InstancePerMatchingLifetimeScope("unitOfWork");
             }
         }
 

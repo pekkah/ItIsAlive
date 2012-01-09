@@ -7,6 +7,7 @@ namespace Sakura.Bootstrapping
 
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Composition;
+    using Sakura.Composition.Discovery;
 
     public class Configure : IConfigureBootstrapper
     {
@@ -16,10 +17,13 @@ namespace Sakura.Bootstrapping
 
         private readonly ConfigureDependencies configureDependencies;
 
+        private readonly List<IRegistrationConvention> conventions;
+
         public Configure()
         {
             this.bootstrapper = new Bootstrapper();
             this.configureDependencies = new ConfigureDependencies();
+            this.conventions = new List<IRegistrationConvention>();
         }
 
         public IConfigureBootstrapper Dependencies(Action<IConfigureDependencies> dependencies)
@@ -34,14 +38,14 @@ namespace Sakura.Bootstrapping
             return this;
         }
 
-        public IConfigureBootstrapper Conventions(Action<ISet<IRegistrationConvention>> conventions)
+        public IConfigureBootstrapper Conventions(Action<IList<IRegistrationConvention>> configureConventions)
         {
-            if (conventions == null)
+            if (configureConventions == null)
             {
-                throw new ArgumentNullException("conventions");
+                throw new ArgumentNullException("configureConventions");
             }
 
-            // conventions(this.bootstrapper.Conventions);
+            configureConventions(this.conventions);
 
             return this;
         }
@@ -60,6 +64,25 @@ namespace Sakura.Bootstrapping
 
         public Bootstrapper Start()
         {
+            var assemblies = this.configureDependencies.GetAssemblies();
+            var types = this.configureDependencies.GetTypes();
+
+            var assemblyLocator = new AssemblyLocator(assemblies);
+            var discoverFromAssemblies = new DefaultDependencyDiscoveryTask(assemblyLocator);
+
+            var typeLocator = new ListLocator(types);
+            var discoverFromTypes = new DefaultDependencyDiscoveryTask(typeLocator);
+
+            // add custom conventions to discovery tasks
+            foreach (var convention in this.conventions)
+            {
+                discoverFromAssemblies.AddConvention(convention);
+                discoverFromTypes.AddConvention(convention);
+            }
+
+            this.bootstrapper.Tasks.Add(discoverFromAssemblies);
+            this.bootstrapper.Tasks.Add(discoverFromTypes);
+
             // execute initialization tasks
             var container = this.bootstrapper.Initialize();
 

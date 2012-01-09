@@ -10,7 +10,7 @@ namespace Sakura.Bootstrapping
 
     public interface IConfigureBootstrapper
     {
-        IConfigureBootstrapper Conventions(Action<ISet<IRegistrationConvention>> conventions);
+        IConfigureBootstrapper Conventions(Action<IList<IRegistrationConvention>> conventions);
 
         IConfigureBootstrapper ExposeContainer(Action<IContainer> exposeTo);
 

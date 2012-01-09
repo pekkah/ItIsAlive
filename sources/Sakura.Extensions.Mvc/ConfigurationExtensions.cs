@@ -5,15 +5,15 @@
     using Sakura.Bootstrapping;
     using Sakura.Extensions.Mvc.Conventions;
 
-    public static class SetupExtensions
+    public static class ConfigurationExtensions
     {
-        public static IConfigureBootstrapper ConfigureMvc(this IConfigureBootstrapper configure, Action configure)
+        public static IConfigureBootstrapper ConfigureMvc(this IConfigureBootstrapper configureBootstrapper, Action configure)
         {
             var initializeMvc = new InitializeMvc(configure);
 
             return
-                setup.Dependencies(dependencies => dependencies.AssemblyOf<StartMvc>()).Tasks(
-                    tasks => tasks.AddTask(initializeMvc)).Conventions(
+                configureBootstrapper.Dependencies(dependencies => dependencies.AssemblyOf<StartMvc>()).Tasks(
+                    tasks => tasks.Add(initializeMvc)).Conventions(
                         policies =>
                             {
                                 policies.Add(new ControllersAsSelf());

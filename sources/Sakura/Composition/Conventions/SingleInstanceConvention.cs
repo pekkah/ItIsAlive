@@ -3,19 +3,21 @@ namespace Sakura.Composition.Conventions
     using System;
     using System.Linq;
 
-    using Autofac;
+    using Autofac.Builder;
 
     using Sakura.Composition.Markers;
     using Sakura.ExtensionMethods;
 
     public class SingleInstanceConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
             foreach (
                 var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(ISingleInstanceDependency))))
             {
-                builder.RegisterType(dependencyType).As(itf).SingleInstance();
+                registration.As(itf).SingleInstance();
             }
         }
 

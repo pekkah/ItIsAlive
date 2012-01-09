@@ -4,6 +4,8 @@
 
     using FluentAssertions;
 
+    using NSubstitute;
+
     using Sakura.Composition.Conventions;
     using Sakura.Composition.Discovery;
 
@@ -15,7 +17,7 @@
 
         public DefaultDependencyDiscoveryTaskFacts()
         {
-            var locator = new ListLocator();
+            var locator = Substitute.For<IDependencyLocator>();
             this.discoveryTask = new DefaultDependencyDiscoveryTask(locator);
         }
 

@@ -13,22 +13,22 @@ namespace Sakura.Framework.Tests.Composition.Conventions
 
     using Xunit;
 
-    public class TransientConventionFacts
+    public class AsSelfConventionFacts
     {
         private readonly ContainerBuilder containerBuilder;
 
-        private readonly TransientConvention convention;
+        private readonly AsSelfConvention convention;
 
-        public TransientConventionFacts()
+        public AsSelfConventionFacts()
         {
-            this.convention = new TransientConvention();
+            this.convention = new AsSelfConvention();
             this.containerBuilder = new ContainerBuilder();
         }
 
         [Fact]
-        public void should_match_to_transient_dependency()
+        public void should_match_to_as_self()
         {
-            var shouldMatch = this.convention.IsMatch(typeof(MockTransientDependency));
+            var shouldMatch = this.convention.IsMatch(typeof(MockTransientAsSelfDependency));
 
             shouldMatch.Should().BeTrue();
         }
@@ -36,12 +36,12 @@ namespace Sakura.Framework.Tests.Composition.Conventions
         [Fact]
         public void should_register_as_transient()
         {
-            var dependencyRegistration = this.containerBuilder.RegisterType<MockTransientDependency>();
-            this.convention.Apply(dependencyRegistration, typeof(MockTransientDependency));
+            var dependencyRegistration = this.containerBuilder.RegisterType<MockTransientAsSelfDependency>();
+            this.convention.Apply(dependencyRegistration, typeof(MockTransientAsSelfDependency));
 
             var container = this.containerBuilder.Build();
             var registration =
-                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).
+                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(MockTransientAsSelfDependency))).
                     SingleOrDefault();
 
             registration.Should().NotBeNull();

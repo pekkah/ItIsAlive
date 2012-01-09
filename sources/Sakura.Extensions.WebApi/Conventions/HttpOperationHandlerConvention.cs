@@ -2,19 +2,20 @@ namespace Sakura.Extensions.WebApi.Conventions
 {
     using System;
 
-    using Autofac;
+    using Autofac.Builder;
 
     using Microsoft.ApplicationServer.Http.Dispatcher;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
     using Sakura.ExtensionMethods;
 
     public class HttpOperationHandlerConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            var registration = builder.RegisterType(dependencyType).As<HttpOperationHandler>().InstancePerLifetimeScope();
+            registration.As<HttpOperationHandler>().InstancePerLifetimeScope();
             registration.ApplyPriority(dependencyType);
         }
 

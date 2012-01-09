@@ -126,7 +126,7 @@
     <Compile Include="RegisterSession.cs" />
     <Compile Include="RegisterUnitOfWork.cs" />
     <Compile Include="ResolveSessionFactoryOnce.cs" />
-    <Compile Include="SetupExtensions.cs" />
+    <Compile Include="ConfigurationExtensions.cs" />
     <Compile Include="WarmupNHibernate.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

@@ -2,20 +2,19 @@ namespace Sakura.Extensions.Mvc.Conventions
 {
     using System;
 
-    using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
+    using Sakura.ExtensionMethods;
 
     public class GlobalFilterConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            var registration =
-                builder.RegisterType(dependencyType).As<IGlobalFilter>().InstancePerLifetimeScope().PropertiesAutowired(
-                    );
-
-            RegistrationHelper.ApplyPriority(dependencyType, registration);
+            registration.As<IGlobalFilter>().InstancePerLifetimeScope().PropertiesAutowired();
+            registration.ApplyPriority(dependencyType);
         }
 
         public bool IsMatch(Type type)
@@ -26,6 +25,6 @@ namespace Sakura.Extensions.Mvc.Conventions
             }
 
             return typeof(IGlobalFilter).IsAssignableFrom(type);
-        } 
+        }
     }
 }

@@ -4,6 +4,7 @@ namespace Sakura.Framework.Tests.Composition
     using System.Linq;
 
     using Autofac;
+    using Autofac.Builder;
     using Autofac.Core;
 
     using FluentAssertions;
@@ -23,7 +24,7 @@ namespace Sakura.Framework.Tests.Composition
 
         public DependencyDiscoveryTaskFacts()
         {
-            var locator = new ListLocator(typeof(IMockTransientDependency));
+            var locator = new ListLocator(typeof(MockDependency));
             this.discoveryTask = new DependencyDiscoveryTask(locator);
         }
 
@@ -31,8 +32,8 @@ namespace Sakura.Framework.Tests.Composition
         public void should_add_convention()
         {
             var convention = Substitute.For<IRegistrationConvention>();
-            discoveryTask.AddConvention(convention);
-            discoveryTask.Conventions.Should().Contain(convention);
+            this.discoveryTask.AddConvention(convention);
+            this.discoveryTask.Conventions.Should().Contain(convention);
         }
 
         [Fact]
@@ -44,20 +45,30 @@ namespace Sakura.Framework.Tests.Composition
 
             // discoverers IMockDependencies
             var convention = Substitute.For<IRegistrationConvention>();
-            convention.IsMatch(Arg.Is<Type>(type => typeof(IMockTransientDependency).IsAssignableFrom(type))).Returns(true);
+            convention.IsMatch(Arg.Any<Type>()).Returns(true);
 
-            convention.When(c => c.Apply(Arg.Any<Type>(), Arg.Any<ContainerBuilder>())).Do(
-                ci => ci.Arg<ContainerBuilder>().RegisterType(ci.Arg<Type>()).As<IMockTransientDependency>());
+            convention.When(
+                c =>
+                c.Apply(
+                    Arg.Any<IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>>(),
+                    Arg.Any<Type>())).Do(
+                        ci =>
+                            {
+                                var dpr =
+                                    ci.Arg<IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle>>();
+                                
+                                dpr.As<IMockDependency>();
+                            });
 
             // act
-            discoveryTask.AddConvention(convention);
-            discoveryTask.Execute(context);
+            this.discoveryTask.AddConvention(convention);
+            this.discoveryTask.Execute(context);
 
             // assert
             var container = builder.Build();
             var registration =
-                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockTransientDependency))).SingleOrDefault(
-                    );
+                container.ComponentRegistry.RegistrationsFor(new TypedService(typeof(IMockDependency))).
+                    SingleOrDefault();
 
             registration.Should().NotBeNull();
         }
@@ -66,11 +77,11 @@ namespace Sakura.Framework.Tests.Composition
         public void should_remove_convention()
         {
             var convention = Substitute.For<IRegistrationConvention>();
-            discoveryTask.AddConvention(convention);
+            this.discoveryTask.AddConvention(convention);
 
-            discoveryTask.RemoveConvention(convention);
+            this.discoveryTask.RemoveConvention(convention);
 
-            discoveryTask.Conventions.Should().NotContain(convention);
+            this.discoveryTask.Conventions.Should().NotContain(convention);
         }
     }
 }

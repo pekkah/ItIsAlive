@@ -3,20 +3,18 @@ namespace Sakura.Extensions.WebApi.Conventions
     using System;
     using System.Net.Http;
 
-    using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
     using Sakura.ExtensionMethods;
 
     public class DelegatingHandlerConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            var registration = builder
-                .RegisterType(dependencyType)
-                .As<DelegatingHandler>()
-                .InstancePerLifetimeScope();
+            registration.As<DelegatingHandler>().InstancePerLifetimeScope();
 
             registration.ApplyPriority(dependencyType);
         }

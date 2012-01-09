@@ -2,14 +2,13 @@ namespace Sakura.Composition.Discovery
 {
     using System;
     using System.Collections.Generic;
-
-    using Sakura.Bootstrapping;
+    using System.Linq;
 
     public class ListLocator : IDependencyLocator
     {
-        private readonly Type[] dependencyTypes;
+        private readonly IEnumerable<Type> dependencyTypes;
 
-        public ListLocator(params Type[] dependencyTypes)
+        public ListLocator(IEnumerable<Type> dependencyTypes)
         {
             if (dependencyTypes == null)
             {
@@ -17,6 +16,16 @@ namespace Sakura.Composition.Discovery
             }
 
             this.dependencyTypes = dependencyTypes;
+        }
+
+        public ListLocator(params Type[] types)
+        {
+            if (types == null)
+            {
+                throw new ArgumentNullException("types");
+            }
+
+            this.dependencyTypes = types.ToArray();
         }
 
         public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> conventions)

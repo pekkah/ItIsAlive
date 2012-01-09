@@ -3,19 +3,20 @@
     using System;
     using System.Linq;
 
-    using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition.Markers;
     using Sakura.ExtensionMethods;
 
     public class TransientConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
             foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(ITransientDependency))))
             {
-                builder.RegisterType(dependencyType).As(itf).InstancePerDependency();
+                registration.As(itf).InstancePerDependency();
             }
         }
 

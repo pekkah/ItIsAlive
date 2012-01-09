@@ -160,7 +160,7 @@
     <Compile Include="Conventions\ServiceContractConvention.cs" />
     <Compile Include="InitializeWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SetupExtensions.cs" />
+    <Compile Include="ConfigurationExtensions.cs" />
     <Compile Include="StartWebApi.cs" />
     <Compile Include="WebApi\ApiConfiguration.cs" />
   </ItemGroup>

@@ -4,6 +4,8 @@ namespace Sakura.Composition.Discovery
     using System.Collections.Generic;
     using System.Linq;
 
+    using Autofac;
+
     using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Tasks;
 
@@ -44,9 +46,10 @@ namespace Sakura.Composition.Discovery
 
         private void Register(InitializationTaskContext context, Type matchingType)
         {
+            var registration = context.Builder.RegisterType(matchingType);
             foreach (var policy in this.conventions.Where(p => p.IsMatch(matchingType)))
             {
-                policy.Apply(matchingType, context.Builder);
+                policy.Apply(registration, matchingType);
             }
         }
 

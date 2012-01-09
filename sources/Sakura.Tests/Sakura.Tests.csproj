@@ -122,14 +122,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapping\BootstrapperFacts.cs" />
+    <Compile Include="Bootstrapping\ConfigureBootstrapperFacts.cs" />
+    <Compile Include="Composition\Conventions\AsSelfConventionFacts.cs" />
     <Compile Include="Composition\Conventions\SingleInstanceConventionFacts.cs" />
     <Compile Include="Composition\Conventions\TransientConventionFacts.cs" />
     <Compile Include="Composition\Conventions\UnitOfWorkConventionFacts.cs" />
     <Compile Include="Composition\DefaultDependencyDicoveryTaskFacts.cs" />
     <Compile Include="Composition\DependencyDiscoveryTaskFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticMocks\IMockDependency.cs" />
     <Compile Include="StaticMocks\MockSingleInstanceDependency.cs" />
     <Compile Include="StaticMocks\MockStartupTask.cs" />
+    <Compile Include="StaticMocks\MockTransientAsSelfDependency.cs" />
     <Compile Include="StaticMocks\MockTransientDependency.cs" />
     <Compile Include="StaticMocks\MockUnitOfWorkDependency.cs" />
   </ItemGroup>

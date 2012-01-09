@@ -126,8 +126,10 @@
   <ItemGroup>
     <Compile Include="Bootstrapping\Bootstrapper.cs" />
     <Compile Include="Bootstrapping\Tasks\ActionTask.cs" />
+    <Compile Include="Composition\Conventions\AsSelfConvention.cs" />
     <Compile Include="Composition\Discovery\DefaultDependencyDiscoveryTask.cs" />
     <Compile Include="Composition\Discovery\PriorityAttribute.cs" />
+    <Compile Include="Composition\Markers\IAsSelf.cs" />
     <Compile Include="ExtensionMethods\RegistrationExtensions.cs" />
     <Compile Include="Composition\Conventions\UnitOfWorkConvention.cs" />
     <Compile Include="Composition\Markers\IUnitOfWorkDependency.cs" />

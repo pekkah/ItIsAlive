@@ -3,11 +3,10 @@
     using System;
 
     using Sakura.Bootstrapping;
-    using Sakura.Composition;
     using Sakura.Extensions.WebApi.Conventions;
     using Sakura.Extensions.WebApi.WebApi;
 
-    public static class SetupExtensions
+    public static class ConfigurationExtensions
     {
         public static IConfigureBootstrapper ConfigureWebApi(
             this IConfigureBootstrapper configure, Action<Func<ApiConfiguration>> configurationFactory)
@@ -18,7 +17,7 @@
                         conventions.Add(new ServiceContractConvention());
                         conventions.Add(new DelegatingHandlerConvention());
                         conventions.Add(new HttpOperationHandlerConvention());
-                    }).Tasks(manager => manager.AddTask(new InitializeWebApi(configurationFactory)));
+                    }).Tasks(manager => manager.Add(new InitializeWebApi(configurationFactory)));
         }
     }
 }

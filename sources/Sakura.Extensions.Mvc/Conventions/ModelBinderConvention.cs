@@ -5,22 +5,20 @@ namespace Sakura.Extensions.Mvc.Conventions
     using System.Web.Mvc;
 
     using Autofac;
+    using Autofac.Builder;
     using Autofac.Integration.Mvc;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
 
     public class ModelBinderConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            builder.RegisterType(dependencyType)
-                .As<IModelBinder>()
-                .InstancePerLifetimeScope()
-                .WithMetadata(
-                "SupportedModelTypes", 
-                this.GetTargetType(dependencyType))
-                .PropertiesAutowired(PropertyWiringFlags.PreserveSetValues);
+            registration.As<IModelBinder>().InstancePerLifetimeScope().WithMetadata(
+                "SupportedModelTypes", this.GetTargetType(dependencyType)).PropertiesAutowired(
+                    PropertyWiringFlags.PreserveSetValues);
         }
 
         public bool IsMatch(Type type)

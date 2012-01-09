@@ -4,15 +4,17 @@
     using System.ServiceModel;
 
     using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
 
     public class ServiceContractConvention : IRegistrationConvention
     {
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            builder.RegisterType(dependencyType).AsSelf().InstancePerLifetimeScope();
+            registration.AsSelf().InstancePerLifetimeScope();
         }
 
         public bool IsMatch(Type type)

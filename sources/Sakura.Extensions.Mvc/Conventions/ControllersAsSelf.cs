@@ -3,10 +3,10 @@
     using System;
     using System.Web.Mvc;
 
-    using Autofac;
+    using Autofac.Builder;
 
-    using Sakura.Bootstrapping;
     using Sakura.Composition;
+    using Sakura.Composition.Conventions;
 
     public class ControllersAsSelf : IRegistrationConvention
     {
@@ -17,9 +17,11 @@
             this.asSelfConvention = new AsSelfConvention();
         }
 
-        public void Apply(Type dependencyType, ContainerBuilder builder)
+        public void Apply(
+            IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
+            Type dependencyType)
         {
-            this.asSelfConvention.Apply(dependencyType, builder);
+            this.asSelfConvention.Apply(registration, dependencyType);
         }
 
         public bool IsMatch(Type type)
