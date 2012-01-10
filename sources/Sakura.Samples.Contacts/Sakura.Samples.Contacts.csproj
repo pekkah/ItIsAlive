@@ -47,20 +47,11 @@
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.2.0.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\Entities\AbstractEntity.cs" />
@@ -70,16 +61,6 @@
     <Compile Include="Database\Schema\AbstractEntityMap.cs" />
     <Compile Include="Database\Schema\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
-      <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
-      <Name>Sakura.Extensions.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sakura\Sakura.csproj">
-      <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
-      <Name>Sakura</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

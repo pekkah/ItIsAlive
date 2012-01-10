@@ -92,7 +92,7 @@
             var baseEntityType = typeof(AbstractEntity);
             mapper.IsEntity(
                 (t, declared) => baseEntityType.IsAssignableFrom(t) && baseEntityType != t && !t.IsInterface);
-            mapper.IsRootEntity((t, declared) => baseEntityType.Equals(t.BaseType));
+            mapper.IsRootEntity((t, declared) => baseEntityType == t.BaseType);
 
             // override base properties
             mapper.Class<AbstractEntity>(map => map.Id(x => x.Id, m => m.Generator(Generators.GuidComb)));

@@ -1,6 +1,7 @@
 ﻿namespace Sakura.Bootstrapping
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
 
     using Autofac;
 
@@ -12,10 +13,10 @@
 
         public Bootstrapper()
         {
-            this.Tasks = new List<IInitializationTask>();
+            this.Tasks = new Collection<IInitializationTask>();
         }
 
-        public List<IInitializationTask> Tasks { get; private set; }
+        public Collection<IInitializationTask> Tasks { get; private set; }
 
         public IContainer Initialize()
         {

@@ -39,7 +39,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -136,7 +137,7 @@
     <Compile Include="Composition\Discovery\DependencyDiscoveryTask.cs" />
     <Compile Include="Composition\Discovery\IPriorityMetadata.cs" />
     <Compile Include="Composition\Discovery\ListLocator.cs" />
-    <Compile Include="Composition\Discovery\NotDiscoverable.cs" />
+    <Compile Include="Composition\Discovery\HiddenAttribute.cs" />
     <Compile Include="Bootstrapping\IConfigureDependencies.cs" />
     <Compile Include="Composition\IRegistrationConvention.cs" />
     <Compile Include="Composition\Conventions\SingleInstanceConvention.cs" />

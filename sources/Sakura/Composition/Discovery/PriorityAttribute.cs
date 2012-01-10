@@ -2,12 +2,9 @@ namespace Sakura.Composition.Discovery
 {
     using System;
 
-    public class PriorityAttribute : Attribute, IPriorityMetadata
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
+    public sealed class PriorityAttribute : Attribute, IPriorityMetadata
     {
-        public int Priority
-        {
-            get;
-            set;
-        }
+        public int Priority { get; set; }
     }
 }

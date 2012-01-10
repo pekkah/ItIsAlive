@@ -9,7 +9,7 @@ namespace Sakura.Extensions.Mvc
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Composition.Discovery;
 
-    [NotDiscoverable]
+    [Hidden]
     public class InitializeMvc : IInitializationTask
     {
         private readonly Action configure;

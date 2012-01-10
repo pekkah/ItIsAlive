@@ -31,7 +31,7 @@ namespace Sakura.Extensions.NHibernate
 
         public IQueryOver<T, T> QueryOver<T>(Expression<Func<T>> alias) where T : class
         {
-            return this.session.QueryOver<T>(alias);
+            return this.session.QueryOver(alias);
         }
 
         public IQueryOver<T, T> QueryOver<T>(string entityName) where T : class
@@ -41,7 +41,7 @@ namespace Sakura.Extensions.NHibernate
 
         public IQueryOver<T, T> QueryOver<T>(string entityName, Expression<Func<T>> alias) where T : class
         {
-            return this.session.QueryOver<T>(entityName, alias);
+            return this.session.QueryOver(entityName, alias);
         }
 
         public void RollbackChanges()

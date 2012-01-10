@@ -5,8 +5,6 @@ namespace Sakura.Composition.Discovery
     using System.Linq;
     using System.Reflection;
 
-    using Sakura.Bootstrapping;
-
     public class AssemblyLocator : IDependencyLocator
     {
         private readonly IEnumerable<Assembly> assemblies;
@@ -18,7 +16,8 @@ namespace Sakura.Composition.Discovery
 
         public IEnumerable<Type> GetDependencies(IEnumerable<IRegistrationConvention> conventions)
         {
-            return this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), conventions));
+            return
+                this.assemblies.SelectMany(assembly => FilterDependencyTypes(assembly.GetExportedTypes(), conventions));
         }
 
         internal static IEnumerable<Type> FilterDependencyTypes(
@@ -35,7 +34,7 @@ namespace Sakura.Composition.Discovery
         private static bool IsDependency(Type dependencyType, IEnumerable<IRegistrationConvention> policies)
         {
             // skip non discoverable dependencies
-            if (Attribute.IsDefined(dependencyType, typeof(NotDiscoverable)))
+            if (Attribute.IsDefined(dependencyType, typeof(HiddenAttribute)))
             {
                 return false;
             }

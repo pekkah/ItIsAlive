@@ -14,6 +14,16 @@
             IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
             Type dependencyType)
         {
+            if (registration == null)
+            {
+                throw new ArgumentNullException("registration");
+            }
+
+            if (dependencyType == null)
+            {
+                throw new ArgumentNullException("dependencyType");
+            }
+
             foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(ITransientDependency))))
             {
                 registration.As(itf).InstancePerDependency();

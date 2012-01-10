@@ -18,7 +18,7 @@ namespace Sakura.Bootstrapping.Tasks
 
         public void Execute(InitializationTaskContext context)
         {
-            action(context);
+            this.action(context);
         }
     }
 }

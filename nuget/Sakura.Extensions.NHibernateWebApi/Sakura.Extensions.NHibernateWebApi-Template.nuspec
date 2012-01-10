@@ -15,7 +15,7 @@
     <dependencies>
       <dependency id="Autofac" version="2.5.2.830" />
       <dependency id="NHibernate" version="3.2.0.4000" />
-      <dependency id="WebApi.All" version="0.6.0" />
+      <dependency id="WebApi" version="0.6.0" />
       <dependency id="Sakura" version="{Version}" />
       <dependency id="Sakura.Extensions.NHibernate" version="{Version}" />
       <dependency id="Sakura.Extensions.WebApi" version="{Version}" />

@@ -12,7 +12,7 @@ namespace Sakura.Extensions.NHibernate
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
-    [NotDiscoverable]
+    [Hidden]
     public class RegisterNHibernate : IInitializationTask, ISingleInstanceDependency
     {
         private readonly Func<Configuration> configure;

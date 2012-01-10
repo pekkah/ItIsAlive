@@ -13,11 +13,11 @@ namespace Sakura.Bootstrapping
     {
         private readonly Bootstrapper bootstrapper;
 
-        private Action<IContainer> exposeContainer;
-
         private readonly ConfigureDependencies configureDependencies;
 
         private readonly List<IRegistrationConvention> conventions;
+
+        private Action<IContainer> exposeContainer;
 
         public Configure()
         {
@@ -26,19 +26,7 @@ namespace Sakura.Bootstrapping
             this.conventions = new List<IRegistrationConvention>();
         }
 
-        public IConfigureBootstrapper Dependencies(Action<IConfigureDependencies> dependencies)
-        {
-            if (dependencies == null)
-            {
-                throw new ArgumentNullException("dependencies");
-            }
-
-            dependencies(this.configureDependencies);
-
-            return this;
-        }
-
-        public IConfigureBootstrapper Conventions(Action<IList<IRegistrationConvention>> configureConventions)
+        public IConfigureBootstrapper Conventions(Action<ICollection<IRegistrationConvention>> configureConventions)
         {
             if (configureConventions == null)
             {
@@ -50,22 +38,34 @@ namespace Sakura.Bootstrapping
             return this;
         }
 
-        public IConfigureBootstrapper ExposeContainer(Action<IContainer> exposeTo)
+        public IConfigureBootstrapper Dependencies(Action<IConfigureDependencies> from)
         {
-            if (exposeTo == null)
+            if (from == null)
             {
-                throw new ArgumentNullException("exposeTo");
+                throw new ArgumentNullException("from");
             }
 
-            this.exposeContainer = exposeTo;
+            from(this.configureDependencies);
+
+            return this;
+        }
+
+        public IConfigureBootstrapper ExposeContainer(Action<IContainer> exposedContainer)
+        {
+            if (exposedContainer == null)
+            {
+                throw new ArgumentNullException("exposedContainer");
+            }
+
+            this.exposeContainer = exposedContainer;
 
             return this;
         }
 
         public Bootstrapper Start()
         {
-            var assemblies = this.configureDependencies.GetAssemblies();
-            var types = this.configureDependencies.GetTypes();
+            var assemblies = this.configureDependencies.SourceAssemblies;
+            var types = this.configureDependencies.SourceTypes;
 
             var assemblyLocator = new AssemblyLocator(assemblies);
             var discoverFromAssemblies = new DefaultDependencyDiscoveryTask(assemblyLocator);
@@ -98,14 +98,14 @@ namespace Sakura.Bootstrapping
             return this.bootstrapper;
         }
 
-        public IConfigureBootstrapper Tasks(Action<IList<IInitializationTask>> modifyTasks)
+        public IConfigureBootstrapper Tasks(Action<ICollection<IInitializationTask>> tasks)
         {
-            if (modifyTasks == null)
+            if (tasks == null)
             {
-                throw new ArgumentNullException("modifyTasks");
+                throw new ArgumentNullException("tasks");
             }
 
-            modifyTasks(this.bootstrapper.Tasks);
+            tasks(this.bootstrapper.Tasks);
 
             return this;
         }

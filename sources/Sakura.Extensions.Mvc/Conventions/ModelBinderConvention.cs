@@ -17,7 +17,7 @@ namespace Sakura.Extensions.Mvc.Conventions
             Type dependencyType)
         {
             registration.As<IModelBinder>().InstancePerLifetimeScope().WithMetadata(
-                "SupportedModelTypes", this.GetTargetType(dependencyType)).PropertiesAutowired(
+                "SupportedModelTypes", GetTargetType(dependencyType)).PropertiesAutowired(
                     PropertyWiringFlags.PreserveSetValues);
         }
 
@@ -26,7 +26,7 @@ namespace Sakura.Extensions.Mvc.Conventions
             return typeof(IModelBinder).IsAssignableFrom(type);
         }
 
-        private object GetTargetType(Type type)
+        private static object GetTargetType(Type type)
         {
             return
                 (from ModelBinderTypeAttribute attribute in

@@ -8,7 +8,7 @@ namespace Sakura.Extensions.WebApi
     using Sakura.Composition.Discovery;
     using Sakura.Extensions.WebApi.WebApi;
 
-    [NotDiscoverable]
+    [Hidden]
     public class InitializeWebApi : IInitializationTask
     {
         private readonly Action<Func<ApiConfiguration>> configurationFactory;

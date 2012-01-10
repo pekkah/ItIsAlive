@@ -1,5 +1,6 @@
 namespace Sakura.Extensions.NHibernate
 {
+    using System;
     using System.Diagnostics;
 
     using Sakura.Bootstrapping.Tasks;
@@ -7,14 +8,15 @@ namespace Sakura.Extensions.NHibernate
 
     using global::NHibernate;
 
-    [NotDiscoverable]
+    [Hidden]
     public class ResolveSessionFactoryOnce : IStartupTask
     {
-        private readonly ISessionFactory sessionFactory;
-
         public ResolveSessionFactoryOnce(ISessionFactory sessionFactory)
         {
-            this.sessionFactory = sessionFactory;
+            if (sessionFactory == null)
+            {
+                throw new ArgumentNullException("sessionFactory");
+            }
         }
 
         public void Execute()

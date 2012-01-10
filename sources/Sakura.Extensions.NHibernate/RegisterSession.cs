@@ -12,7 +12,7 @@ namespace Sakura.Extensions.NHibernate
 
     using global::NHibernate;
 
-    [NotDiscoverable]
+    [Hidden]
     public class RegisterSession : IInitializationTask, ISingleInstanceDependency
     {
         private readonly Action<IRegistrationBuilder<ISession, SimpleActivatorData, SingleRegistrationStyle>> modifySessionRegistration;

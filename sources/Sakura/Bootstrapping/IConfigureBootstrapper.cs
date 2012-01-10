@@ -10,14 +10,14 @@ namespace Sakura.Bootstrapping
 
     public interface IConfigureBootstrapper
     {
-        IConfigureBootstrapper Conventions(Action<IList<IRegistrationConvention>> conventions);
+        IConfigureBootstrapper Conventions(Action<ICollection<IRegistrationConvention>> configureConventions);
 
-        IConfigureBootstrapper ExposeContainer(Action<IContainer> exposeTo);
+        IConfigureBootstrapper Dependencies(Action<IConfigureDependencies> from);
+
+        IConfigureBootstrapper ExposeContainer(Action<IContainer> exposedContainer);
 
         Bootstrapper Start();
 
-        IConfigureBootstrapper Tasks(Action<IList<IInitializationTask>> modifyTasks);
-
-        IConfigureBootstrapper Dependencies(Action<IConfigureDependencies> dependencies);
+        IConfigureBootstrapper Tasks(Action<ICollection<IInitializationTask>> tasks);
     }
 }

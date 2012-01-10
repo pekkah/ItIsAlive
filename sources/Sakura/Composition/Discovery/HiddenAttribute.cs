@@ -3,7 +3,7 @@
     using System;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface)]
-    public class NotDiscoverable : Attribute
+    public sealed class HiddenAttribute : Attribute
     {
     }
 }

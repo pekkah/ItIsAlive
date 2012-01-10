@@ -14,18 +14,10 @@ namespace Sakura.Extensions.NHibernateWebApi
     [Priority(Priority = -100)]
     public class UnitOfWorkTransactionHandler : DelegatingHandler
     {
-        private readonly ILifetimeScope lifetimeScope;
-
-        public UnitOfWorkTransactionHandler(ILifetimeScope lifetimeScope)
-        {
-            this.lifetimeScope = lifetimeScope;
-        }
-
         protected override Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return base.SendAsync(request, cancellationToken).ContinueWith(
-                result =>
+            return base.SendAsync(request, cancellationToken).ContinueWith(result =>
                 {
                     object unitOfWorkValue;
                     if (result.Result.RequestMessage.Properties.TryGetValue("unitOfWork", out unitOfWorkValue))
@@ -33,11 +25,15 @@ namespace Sakura.Extensions.NHibernateWebApi
                         var unitOfWorkScope = (ILifetimeScope)unitOfWorkValue;
                         var session = unitOfWorkScope.Resolve<ISession>();
 
+                        Trace.TraceInformation("Ending transaction..");
+
+                        // if transaction is not started or transaction was ended quit.
                         if (session.Transaction == null || !session.Transaction.IsActive)
                         {
+                            Trace.TraceInformation("Transaction is not active.");
+                            return result.Result;
                         }
-                        
-                        Trace.TraceInformation("Ending transaction..");
+
                         if (result.Exception != null)
                         {
                             Trace.TraceError("Rolling back transaction due to error: {0}", result.Exception);

@@ -14,7 +14,9 @@
     <tags>Bootstrapping Dependencies Autofac WebApi WCF Sakura</tags>
     <dependencies>
       <dependency id="Autofac" version="2.5.2.830" />
-      <dependency id="WebApi.All" version="0.6.0"/>
+      <dependency id="Autofac.Mvc3" version="2.5.2.830" />
+      <dependency id="WebApi" version="0.6.0"/>
+      <dependency id="WebApi.Enhancements" version="0.6.0" />
       <dependency id="Sakura" version="{Version}" />
     </dependencies>
   </metadata>

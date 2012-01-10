@@ -7,16 +7,25 @@
     {
         public static bool HasInterface(this Type type, Type interfaceType)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException("type");
+            }
+
+            if (interfaceType == null)
+            {
+                throw new ArgumentNullException("interfaceType");
+            }
+
             var interfaces = type.GetInterfaces();
 
             if (interfaceType.IsGenericType)
             {
-                foreach (var genericInterface in interfaces.Where(itf => itf.IsGenericType))
+                if (
+                    interfaces.Where(itf => itf.IsGenericType).Any(
+                        genericInterface => genericInterface.GetGenericTypeDefinition() == interfaceType))
                 {
-                    if (genericInterface.GetGenericTypeDefinition() == interfaceType)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 

@@ -14,8 +14,6 @@ namespace Sakura.Samples.ContactsWeb.App_Start
     using System.Web.Mvc;
     using System.Web.Routing;
 
-    using Autofac.Integration.Mvc;
-
     using NHibernate.Cfg;
     using NHibernate.Dialect;
     using NHibernate.Driver;

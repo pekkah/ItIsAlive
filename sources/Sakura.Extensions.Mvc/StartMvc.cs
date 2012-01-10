@@ -11,7 +11,7 @@ namespace Sakura.Extensions.Mvc
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Composition.Discovery;
 
-    [NotDiscoverable]
+    [Hidden]
     public class StartMvc : IStartupTask
     {
         private readonly Action configure;

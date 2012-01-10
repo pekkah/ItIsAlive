@@ -1,5 +1,6 @@
 ﻿namespace Sakura.Extensions.NHibernateMvc.Filters
 {
+    using System;
     using System.Diagnostics;
     using System.Linq;
     using System.Web;
@@ -15,7 +16,8 @@
     using Sakura.Extensions.NHibernate;
 
     [Priority(Priority = -100)]
-    public class UnitOfWorkTransactionAttribute : ActionFilterAttribute, IGlobalFilter
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
+    public sealed class UnitOfWorkTransactionAttribute : ActionFilterAttribute, IGlobalFilter
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
@@ -54,8 +56,7 @@
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             object workContext =
-                filterContext.ActionParameters.Values.Where(
-                    value => value != null && typeof(IUnitOfWork).IsAssignableFrom(value.GetType())).FirstOrDefault();
+                filterContext.ActionParameters.Values.FirstOrDefault(value => value != null && value is IUnitOfWork);
 
             if (workContext == null)
             {

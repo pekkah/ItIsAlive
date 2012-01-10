@@ -6,7 +6,6 @@ namespace Sakura.Composition.Discovery
 
     using Autofac;
 
-    using Sakura.Bootstrapping;
     using Sakura.Bootstrapping.Tasks;
 
     public class DependencyDiscoveryTask : IInitializationTask
@@ -44,6 +43,11 @@ namespace Sakura.Composition.Discovery
             }
         }
 
+        public void RemoveConvention(IRegistrationConvention convention)
+        {
+            this.conventions.Remove(convention);
+        }
+
         private void Register(InitializationTaskContext context, Type matchingType)
         {
             var registration = context.Builder.RegisterType(matchingType);
@@ -51,11 +55,6 @@ namespace Sakura.Composition.Discovery
             {
                 policy.Apply(registration, matchingType);
             }
-        }
-
-        public void RemoveConvention(IRegistrationConvention convention)
-        {
-            this.conventions.Remove(convention);
         }
     }
 }

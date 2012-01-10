@@ -12,6 +12,16 @@ namespace Sakura.ExtensionMethods
             this IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> registration,
             Type dependencyType)
         {
+            if (registration == null)
+            {
+                throw new ArgumentNullException("registration");
+            }
+
+            if (dependencyType == null)
+            {
+                throw new ArgumentNullException("dependencyType");
+            }
+
             var priorityAttribute =
                 (PriorityAttribute)Attribute.GetCustomAttribute(dependencyType, typeof(PriorityAttribute));
 

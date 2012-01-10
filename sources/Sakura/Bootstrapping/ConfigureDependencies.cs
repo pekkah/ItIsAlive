@@ -43,14 +43,20 @@ namespace Sakura.Bootstrapping
             this.assemblyList.Add(assembly);
         }
 
-        public IEnumerable<Assembly> GetAssemblies()
+        public IEnumerable<Assembly> SourceAssemblies
         {
-            return this.assemblyList;
+            get
+            {
+                return this.assemblyList;
+            }
         }
 
-        public IEnumerable<Type> GetTypes()
+        public IEnumerable<Type> SourceTypes
         {
-            return this.typeList;
+            get
+            {
+                return this.typeList;
+            }
         }
 
         public void Types(params Type[] dependencyTypes)
