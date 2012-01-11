@@ -46,9 +46,9 @@ namespace Sakura.Extensions.NHibernate
 
         public void RollbackChanges()
         {
-            if (this.session.Transaction == null)
+            if (!this.IsActive)
             {
-                throw new InvalidOperationException("Current transaction is not set.");
+                throw new InvalidOperationException("Current transaction is not active.");
             }
 
             this.session.Transaction.Rollback();
@@ -62,6 +62,34 @@ namespace Sakura.Extensions.NHibernate
         public void Update<TEntity>(TEntity entity)
         {
             this.session.Save(entity);
+        }
+
+        public void Begin()
+        {
+            if (this.IsActive)
+            {
+                throw new InvalidOperationException("Cannot begin unit of work. Transaction is already active.");
+            }
+
+            this.session.BeginTransaction();
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                return session.Transaction != null && session.Transaction.IsActive;
+            }
+        }
+
+        public void Commit()
+        {
+            if (!this.IsActive)
+            {
+                throw new InvalidOperationException("Cannot commit inactive unit of work.");
+            }
+
+            this.session.Transaction.Commit();
         }
     }
 }

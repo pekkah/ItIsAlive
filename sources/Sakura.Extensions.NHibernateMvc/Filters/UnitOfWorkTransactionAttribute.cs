@@ -9,9 +9,6 @@
     using Autofac;
 
     using Sakura.Composition.Discovery;
-
-    using global::NHibernate;
-
     using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
 
@@ -28,26 +25,28 @@
                 return;
             }
 
-            var session = unitOfWorkScope.Resolve<ISession>();
+            var unitOfWork = unitOfWorkScope.Resolve<IUnitOfWork>();
 
-            if (session == null)
+            if (unitOfWork == null)
             {
                 return;
             }
 
-            if (session.Transaction != null && session.Transaction.IsActive)
+            if (!unitOfWork.IsActive)
             {
-                Trace.TraceInformation("Ending transaction..");
-                if (filterContext.Exception != null)
-                {
-                    Trace.TraceError("Rolling back transaction due to error: {0}", filterContext.Exception);
-                    session.Transaction.Rollback();
-                }
-                else
-                {
-                    session.Transaction.Commit();
-                    Trace.TraceInformation("Transaction committed.");
-                }
+                return;
+            }
+
+            Trace.TraceInformation("Ending transaction..");
+            if (filterContext.Exception != null)
+            {
+                Trace.TraceError("Rolling back transaction due to error: {0}", filterContext.Exception);
+                unitOfWork.RollbackChanges();
+            }
+            else
+            {
+                unitOfWork.Commit();
+                Trace.TraceInformation("Transaction committed.");
             }
 
             unitOfWorkScope.Dispose();
@@ -55,33 +54,27 @@
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            object workContext =
-                filterContext.ActionParameters.Values.FirstOrDefault(value => value != null && value is IUnitOfWork);
+            var unitOfWork =
+                filterContext.ActionParameters.Values.FirstOrDefault(value => value != null && value is IUnitOfWork) as
+                IUnitOfWork;
 
-            if (workContext == null)
-            {
-                return;
-            }
-
-            var session = this.GetUnitOfWorkScope(filterContext.HttpContext).Resolve<ISession>();
-
-            if (session == null)
+            if (unitOfWork == null)
             {
                 return;
             }
 
             Trace.TraceInformation("Begin transaction");
-            session.BeginTransaction();
+            unitOfWork.Begin();
         }
 
         private ILifetimeScope GetUnitOfWorkScope(HttpContextBase httpContext)
         {
-            if (!httpContext.Items.Contains("unitOfWork"))
+            if (!httpContext.Items.Contains("unitOfWorkScope"))
             {
                 return null;
             }
 
-            return httpContext.Items["unitOfWork"] as ILifetimeScope;
+            return httpContext.Items["unitOfWorkScope"] as ILifetimeScope;
         }
     }
 }

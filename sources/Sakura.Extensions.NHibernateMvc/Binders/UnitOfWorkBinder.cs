@@ -15,7 +15,8 @@
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var unitOfWorkScope = this.Lifetime.BeginLifetimeScope("unitOfWork");
-            controllerContext.HttpContext.Items["unitOfWork"] = unitOfWorkScope;
+            controllerContext.HttpContext.Items["unitOfWorkScope"] = unitOfWorkScope;
+            
             return unitOfWorkScope.Resolve<IUnitOfWork>();
         }
     }

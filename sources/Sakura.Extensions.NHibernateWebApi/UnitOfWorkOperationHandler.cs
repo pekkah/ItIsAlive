@@ -10,8 +10,6 @@
     using Sakura.Composition.Discovery;
     using Sakura.Extensions.NHibernate;
 
-    using global::NHibernate;
-
     [Priority(Priority = -100)]
     public class UnitOfWorkOperationHandler : HttpOperationHandler<HttpRequestMessage, IUnitOfWork>
     {
@@ -26,17 +24,15 @@
         protected override IUnitOfWork OnHandle(HttpRequestMessage input)
         {
             var unitOfWorkScope = this.lifetimeScope.BeginLifetimeScope("unitOfWork");
-
-            var session = unitOfWorkScope.Resolve<ISession>();
-            var workContext = unitOfWorkScope.Resolve<IUnitOfWork>();
+            var unitOfWork = unitOfWorkScope.Resolve<IUnitOfWork>();
 
             Trace.TraceInformation("Begin transaction");
-            session.BeginTransaction();
+            unitOfWork.Begin();
 
             // store unit of work scope
-            input.Properties.Add("unitOfWork", unitOfWorkScope);
+            input.Properties.Add("unitOfWorkScope", unitOfWorkScope);
 
-            return workContext;
+            return unitOfWork;
         }
     }
 }

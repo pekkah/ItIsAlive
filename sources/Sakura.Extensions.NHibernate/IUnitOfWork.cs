@@ -24,5 +24,11 @@ namespace Sakura.Extensions.NHibernate
         void Save<TEntity>(TEntity entity);
 
         void Update<TEntity>(TEntity entity);
+
+        void Begin();
+
+        bool IsActive { get; }
+
+        void Commit();
     }
 }
