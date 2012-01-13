@@ -216,25 +216,17 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.Mvc\Sakura.Extensions.Mvc.csproj">
-      <Project>{8AF928C5-B468-4080-BA07-CFFA28796D64}</Project>
-      <Name>Sakura.Extensions.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sakura.Extensions.NHibernateMvc\Sakura.Extensions.NHibernateMvc.csproj">
+    <ProjectReference Include="..\Sakura.Extensions.NHibernateWeb\Sakura.Extensions.NHibernateWeb.csproj">
       <Project>{5E880304-AD94-498F-92B5-23403A0252D8}</Project>
-      <Name>Sakura.Extensions.NHibernateMvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sakura.Extensions.NHibernateWebApi\Sakura.Extensions.NHibernateWebApi.csproj">
-      <Project>{0271C5F6-AF49-43B4-BE17-FD822F6E4D65}</Project>
-      <Name>Sakura.Extensions.NHibernateWebApi</Name>
+      <Name>Sakura.Extensions.NHibernateWeb</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">
       <Project>{8384A054-56A2-4079-81AB-82BAAD29AC1E}</Project>
       <Name>Sakura.Extensions.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakura.Extensions.WebApi\Sakura.Extensions.WebApi.csproj">
-      <Project>{4D4CAF1C-94BB-4711-B8B5-6F48173E6746}</Project>
-      <Name>Sakura.Extensions.WebApi</Name>
+    <ProjectReference Include="..\Sakura.Extensions.Web\Sakura.Extensions.Web.csproj">
+      <Project>{4B57AD55-8B76-4F14-B40D-A470A34C38F0}</Project>
+      <Name>Sakura.Extensions.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakura.Samples.Contacts\Sakura.Samples.Contacts.csproj">
       <Project>{515745CC-8205-474F-9564-13419EEA5F54}</Project>

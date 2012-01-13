@@ -20,13 +20,11 @@ namespace Sakura.Samples.ContactsWeb.App_Start
     using NHibernate.Mapping.ByCode;
 
     using Sakura.Bootstrapping;
-    using Sakura.Composition;
-    using Sakura.Extensions.WebApi;
-    using Sakura.Extensions.WebApi.WebApi;
-    using Sakura.Extensions.Mvc;
     using Sakura.Extensions.NHibernate;
-    using Sakura.Extensions.NHibernateMvc;
-    using Sakura.Extensions.NHibernateWebApi;
+    using Sakura.Extensions.NHibernateWeb.Mvc;
+    using Sakura.Extensions.NHibernateWeb.WebApi;
+    using Sakura.Extensions.Web.Mvc;
+    using Sakura.Extensions.Web.WebApi;
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.Contacts.Database.Schema;
     using Sakura.Samples.ContactsWeb.Apis;
@@ -48,14 +46,8 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                     {
                         setup.AssemblyOf<AccountController>();
                         setup.AssemblyOf<User>();
-                    })
-                    .ConfigureMvc(ConfigureRoutes)
-                    .ConfigureNHibernate(ConfigureNHibernate)
-                    .ConfigureWebApi(ConfigureApis)
-                    .EnableMvcUnitOfWork()
-                    .EnableWebApiUnitOfWork()
-                    .WarmupNHibernate()
-                    .Start();
+                    }).ConfigureMvc(ConfigureRoutes).ConfigureNHibernate(ConfigureNHibernate).ConfigureWebApi(
+                        ConfigureApis).EnableMvcUnitOfWork().EnableWebApiUnitOfWork().WarmupNHibernate().Start();
         }
 
         private static void ConfigureApis(Func<ApiConfiguration> configurationFactory)
@@ -114,8 +106,8 @@ namespace Sakura.Samples.ContactsWeb.App_Start
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default", 
-                "{controller}/{action}/{id}", 
+                "Default",
+                "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }

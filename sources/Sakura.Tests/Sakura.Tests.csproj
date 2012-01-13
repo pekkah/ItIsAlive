@@ -142,10 +142,6 @@
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.TestHelpers\Sakura.TestHelpers.csproj">
-      <Project>{35BE81CF-4414-4CD2-BC8E-77A0710F5678}</Project>
-      <Name>Sakura.TestHelpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sakura\Sakura.csproj">
       <Project>{CE544CB7-A422-49BC-A4E0-25414E817A0C}</Project>
       <Name>Sakura</Name>

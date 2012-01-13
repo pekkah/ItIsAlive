@@ -8,7 +8,7 @@
     <owners>Pekka Heikura</owners>
     <projectUrl>http://github.com/pekkah/sakura/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NHibernate extensions for Sakura</description>
+    <description>NHibernate bootstrapping extensions for Sakura</description>
     <releaseNotes>First release. Might contain bugs. You have been warned.</releaseNotes>
     <copyright>Copyright 2011</copyright>
     <tags>Bootstrapping Dependencies Autofac NHibernate Sakura</tags>
