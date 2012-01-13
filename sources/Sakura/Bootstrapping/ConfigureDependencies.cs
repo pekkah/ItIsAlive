@@ -23,7 +23,10 @@ namespace Sakura.Bootstrapping
                 throw new ArgumentNullException("assemblies");
             }
 
-            this.assemblyList.AddRange(assemblies);
+            foreach (var assembly in assemblies)
+            {
+                this.Assembly(assembly);
+            }
         }
 
         public void Assembly(Assembly assembly)
@@ -33,6 +36,11 @@ namespace Sakura.Bootstrapping
                 throw new ArgumentNullException("assembly");
             }
 
+            if (this.assemblyList.Contains(assembly))
+            {
+                return;
+            }
+
             this.assemblyList.Add(assembly);
         }
 
@@ -40,7 +48,7 @@ namespace Sakura.Bootstrapping
         {
             var assembly = typeof(T).Assembly;
 
-            this.assemblyList.Add(assembly);
+            this.Assembly(assembly);
         }
 
         public IEnumerable<Assembly> SourceAssemblies

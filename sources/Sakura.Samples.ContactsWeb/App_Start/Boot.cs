@@ -46,8 +46,14 @@ namespace Sakura.Samples.ContactsWeb.App_Start
                     {
                         setup.AssemblyOf<AccountController>();
                         setup.AssemblyOf<User>();
-                    }).ConfigureMvc(ConfigureRoutes).ConfigureNHibernate(ConfigureNHibernate).ConfigureWebApi(
-                        ConfigureApis).EnableMvcUnitOfWork().EnableWebApiUnitOfWork().WarmupNHibernate().Start();
+                    })
+                    .ConfigureMvc(ConfigureRoutes)
+                    .ConfigureNHibernate(ConfigureNHibernate)
+                    .ConfigureWebApi(ConfigureApis)
+                    .EnableMvcUnitOfWork()
+                    .EnableWebApiUnitOfWork()
+                    .WarmupNHibernate()
+                    .Start();
         }
 
         private static void ConfigureApis(Func<ApiConfiguration> configurationFactory)

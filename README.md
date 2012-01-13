@@ -16,7 +16,7 @@ var bootstrapper = new Setup().Dependencies(from => from.AssemblyOf<YourDependen
 Install-Package Sakura.Extensions.NHibernate
 
 ```csharp
-var bootstrapper = new Setup().ConfigureNHibernate(() => 
+var bootstrapper = new Configure().ConfigureNHibernate(() => 
 { 
 	var configuration = new Configuration();
 	// todo configure database, mappings etc.
@@ -24,12 +24,16 @@ var bootstrapper = new Setup().ConfigureNHibernate(() =>
  }).Start();
 ```
 
-### ASP.NET MVC 3 Extension
+### Web Extension
+ASP.NET MVC and WCF Web Api bootstrapping extensions
 
-Install-Package Sakura.Extensions.Mvc
+Install-Package Sakura.Extensions.Web
+
+#### ASP.NET MVC 3 Extension
+
 
 ```csharp
-var bootstrapper = new Setup()
+var bootstrapper = new Configure()
 	.Dependencies(from => from.AssemblyOf<MyController>())
 	.ConfigureMvc(() => 
 	{ 
@@ -43,12 +47,11 @@ var bootstrapper = new Setup()
 	}).Start();
 ```
 
-### WCF Web Api Extension
+#### WCF Web Api Extension
 
-Install-Package Sakura.Extensions.WebApi
 
 ```csharp
-var bootstrapper = new Setup()
+var bootstrapper = new Configure()
 	.Dependencies(from => from.AssemblyOf<ContactsApi>())
 	.ConfigureWebApi(configurationFactory => 
 	{ 
@@ -59,12 +62,14 @@ var bootstrapper = new Setup()
 	}).Start();
 ```
 
-### NHibernate integration with ASP.NET MVC 3
+### NHibernate-Web extensions
+ASP.NET MVC and WCF Web Api integration with NHibernate bootstrapping extensions.
+Install-Package Sakura.Extensions.NHibernateWeb
 
-Install-Package Sakura.Extensions.NHibernateMvc
+#### NHibernate integration with ASP.NET MVC 3
 
 ```csharp
-var bootstrapper = new Setup()
+var bootstrapper = new Configure()
 	.Dependencies(from => from.AssemblyOf<MyController>())
 	.ConfigureMvc(() => 
 	{ 
@@ -91,17 +96,10 @@ public class ContactsController : Controller // Sakura will automatically regist
 }
 ```
 
-Your controller action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
-
-- If your method is successfull then transaction is automatically committed,
-- If your method fails by throwing an exception the transaction is automatically rolled back.
-
-### NHibernate integration with WCF Web Api
-
-Install-Package Sakura.Extensions.NHibernateWebApi
+#### NHibernate integration with WCF Web Api
 
 ```csharp
-var bootstrapper = new Setup()
+var bootstrapper = new Configure()
 	.Dependencies(from => from.AssemblyOf<ContactsApi>())
 	.ConfigureWebApi(configurationFactory => 
 	{ 
@@ -126,7 +124,7 @@ public class ContactsApi
 }
 ```
 
-Your service action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
+Your service or controller action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
 
 - If your method is successfull then transaction is automatically committed,
 - If your method fails by throwing an exception the transaction is automatically rolled back.
