@@ -24,13 +24,14 @@
         protected override IUnitOfWork OnHandle(HttpRequestMessage input)
         {
             var unitOfWorkScope = this.lifetimeScope.BeginLifetimeScope("unitOfWork");
-            var unitOfWork = unitOfWorkScope.Resolve<IUnitOfWork>();
-
-            Trace.TraceInformation("Begin transaction");
-            unitOfWork.Begin();
 
             // store unit of work scope
             input.Properties.Add("unitOfWorkScope", unitOfWorkScope);
+
+            var unitOfWork = unitOfWorkScope.Resolve<IUnitOfWork>();
+            
+            Trace.TraceInformation("Begin transaction");
+            unitOfWork.Begin();
 
             return unitOfWork;
         }

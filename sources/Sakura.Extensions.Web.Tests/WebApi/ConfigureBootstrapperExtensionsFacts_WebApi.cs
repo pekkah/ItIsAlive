@@ -1,5 +1,7 @@
 ﻿namespace Sakura.Extensions.Web.Tests.WebApi
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Autofac;
@@ -9,13 +11,18 @@
     using FluentAssertions;
 
     using Sakura.Bootstrapping;
+    using Sakura.Composition;
     using Sakura.Extensions.Web.Tests.WebApi.Apis;
     using Sakura.Extensions.Web.WebApi;
+    using Sakura.Extensions.Web.WebApi.Conventions;
 
     using Xunit;
+    using Xunit.Extensions;
 
     public class ConfigureBootstrapperExtensionsFacts
     {
+        private readonly IConfigureBootstrapper configuration;
+
         private static ApiConfiguration configuration1;
 
         private static ApiConfiguration configuration2;
@@ -24,13 +31,33 @@
 
         public ConfigureBootstrapperExtensionsFacts()
         {
-            new Configure().ConfigureWebApi(
+            this.configuration = new Configure().ConfigureWebApi(
                 configurationFactory =>
-                    {
-                        configuration1 = configurationFactory();
-                        configuration2 = configurationFactory();
-                    }).Dependencies(dependencies => dependencies.Types(typeof(PersonApi))).ExposeContainer(
-                        exposed => container = exposed).Start();
+                {
+                    configuration1 = configurationFactory();
+                    configuration2 = configurationFactory();
+                }).Dependencies(dependencies => dependencies.Types(typeof(PersonApi))).ExposeContainer(
+                        exposed => container = exposed);
+
+            this.configuration.Start();
+        }
+
+        public static IEnumerable<object[]> WebApiConventions
+        {
+            get
+            {
+                yield return new object[] { typeof(ServiceContractConvention) };
+                yield return new object[] { typeof(DelegatingHandlerConvention) };
+                yield return new object[] { typeof(HttpOperationHandlerConvention) };
+            }
+        }
+
+        [Theory]
+        [PropertyData("WebApiConventions")]
+        public void should_add_convetions(Type conventionType)
+        {
+            this.configuration.Conventions(
+                conventions => conventions.Should().Contain(c => c.GetType() == conventionType));
         }
 
         [Fact]
