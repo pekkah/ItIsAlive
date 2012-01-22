@@ -87,7 +87,7 @@ var bootstrapper = new Configure()
 	
 public class ContactsController : Controller // Sakura will automatically register IController -types
 {
-	public ActionResult Contacts(IUnitOfWork unitOfWork)
+	public ActionResult Contacts(ISession unitOfWork)
 	{
 		var contacts = unitOfWork.QueryOver<Contact>().Take(100).List();
 		
@@ -109,14 +109,14 @@ var bootstrapper = new Configure()
 		routes.MapServiceRoute<ContactsApi>("api/contacts");
 	})
 	.ConfigureNHibernate(ConfigureNHibernate)
-	.EnableWebApiUnitOfWork()
+	.EnableWebApISession()
 	.Start();
 	
 [ServiceContract]
 public class ContactsApi
 {
 	[WebGet]
-	public IEnumerable<ContactDto> Contacts(IUnitOfWork unitOfWork)
+	public IEnumerable<ContactDto> Contacts(ISession unitOfWork)
 	{
 		var contacts = unitOfWork.QueryOver<Contact>().Take(100).List();
 		return contacts.Select(contact => new ContactDto() { Name = contact.Name });
@@ -124,7 +124,7 @@ public class ContactsApi
 }
 ```
 
-Your service or controller action methods will be automatically wrapped in transaction when ```IUnitOfWork``` is added as parameter.
+Your service or controller action methods will be automatically wrapped in transaction when ```ISession``` is added as parameter.
 
 - If your method is successfull then transaction is automatically committed,
 - If your method fails by throwing an exception the transaction is automatically rolled back.
