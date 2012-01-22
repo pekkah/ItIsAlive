@@ -101,9 +101,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mvc\ConfigureBootstrapperExtensions.cs" />
     <Compile Include="WebApi\ConfigureBootstrapperExtensions.cs" />
-    <Compile Include="WebApi\UnitOfWorkOperationHandler.cs" />
-    <Compile Include="WebApi\UnitOfWorkDelegatingHandler.cs" />
-    <Compile Include="WebApi\WebApiUnitOfWorkHandler.cs" />
+    <Compile Include="WebApi\UnitOfWorkParameterHandler.cs" />
+    <Compile Include="WebApi\UnitOfWorkHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">

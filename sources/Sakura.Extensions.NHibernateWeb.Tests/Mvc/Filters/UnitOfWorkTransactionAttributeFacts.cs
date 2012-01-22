@@ -8,35 +8,43 @@
     using System.Web.Routing;
 
     using Autofac;
+    using Autofac.Features.OwnedInstances;
 
     using NSubstitute;
 
-    using Sakura.Extensions.NHibernate;
     using Sakura.Extensions.NHibernateWeb.Mvc.Filters;
 
     using Xunit;
 
+    using global::NHibernate;
+
     public class UnitOfWorkTransactionAttributeFacts
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ActionDescriptor actionDescriptor;
 
         private readonly UnitOfWorkTransactionAttribute actionFilter;
 
         private readonly ControllerContext controllerContext;
 
-        private readonly ActionDescriptor actionDescriptor;
+        private readonly IDictionary httpContextItems = new Dictionary<string, object>();
 
-        private readonly ILifetimeScope unitOfWorkScope;
+        private readonly ITransaction transaction;
 
-        private readonly IDictionary httpContextItems = new Dictionary<string,object>();
+        private readonly ISession unitOfWork;
+
+        private Owned<ISession> ownedSession;
 
         public UnitOfWorkTransactionAttributeFacts()
         {
-            this.unitOfWork = Substitute.For<IUnitOfWork>();
+            this.unitOfWork = Substitute.For<ISession>();
+            this.transaction = Substitute.For<ITransaction>();
+            this.unitOfWork.Transaction.Returns(this.transaction);
+
+            var lifetime = Substitute.For<IDisposable>();
+            this.ownedSession = new Owned<ISession>(this.unitOfWork, lifetime);
 
             var builder = new ContainerBuilder();
-            builder.RegisterInstance(this.unitOfWork).AsImplementedInterfaces();
-            this.unitOfWorkScope = builder.Build().BeginLifetimeScope("unitOfWorkScope");
+            builder.RegisterInstance(this.unitOfWork).AsImplementedInterfaces().ExternallyOwned();
 
             var httpContext = Substitute.For<HttpContextBase>();
             httpContext.Items.Returns(this.httpContextItems);
@@ -50,67 +58,54 @@
         }
 
         [Fact]
-        public void should_begin_unitOfWork_if_in_parameters()
-        {
-            var parameters = new Dictionary<string, object> { { "unitOfWorkScope", this.unitOfWork } };
-
-            var filterContext = new ActionExecutingContext(
-                this.controllerContext,
-                this.actionDescriptor,
-                parameters);
-
-            this.actionFilter.OnActionExecuting(filterContext);
-
-            this.unitOfWork.Received().Begin();
-        }
-
-        [Fact]
         public void should_NOT_begin_unitOfWork_if_not_in_parameters()
         {
             var parameters = new Dictionary<string, object>();
 
-            var filterContext = new ActionExecutingContext(
-                this.controllerContext,
-                this.actionDescriptor,
-                parameters);
+            var filterContext = new ActionExecutingContext(this.controllerContext, this.actionDescriptor, parameters);
 
             this.actionFilter.OnActionExecuting(filterContext);
 
-            this.unitOfWork.DidNotReceive().Begin();
+            this.unitOfWork.DidNotReceive().BeginTransaction();
+        }
+
+        [Fact]
+        public void should_begin_unitOfWork_if_in_parameters()
+        {
+            var parameters = new Dictionary<string, object> { { "unitOfWork", this.unitOfWork } };
+
+            var filterContext = new ActionExecutingContext(this.controllerContext, this.actionDescriptor, parameters);
+
+            this.actionFilter.OnActionExecuting(filterContext);
+
+            this.unitOfWork.Received().BeginTransaction();
         }
 
         [Fact]
         public void should_commit_unit_of_work()
         {
-            this.unitOfWork.IsActive.Returns(true);
-            this.controllerContext.HttpContext.Items["unitOfWorkScope"] = this.unitOfWorkScope;
+            this.transaction.IsActive.Returns(true);
+            this.controllerContext.HttpContext.Items["unitOfWork"] = this.ownedSession;
 
-            var filterContext = new ActionExecutedContext(
-                this.controllerContext,
-                this.actionDescriptor,
-                false,
-                null);
+            var filterContext = new ActionExecutedContext(this.controllerContext, this.actionDescriptor, false, null);
 
             this.actionFilter.OnActionExecuted(filterContext);
 
-            this.unitOfWork.Received().Commit();
+            this.transaction.Received().Commit();
         }
 
         [Fact]
         public void should_rollback_changes_on_exception()
         {
-            this.unitOfWork.IsActive.Returns(true);
-            this.controllerContext.HttpContext.Items["unitOfWorkScope"] = this.unitOfWorkScope;
+            this.transaction.IsActive.Returns(true);
+            this.controllerContext.HttpContext.Items["unitOfWork"] = this.ownedSession;
 
             var filterContext = new ActionExecutedContext(
-                this.controllerContext,
-                this.actionDescriptor,
-                false,
-                new Exception());
+                this.controllerContext, this.actionDescriptor, false, new Exception());
 
             this.actionFilter.OnActionExecuted(filterContext);
 
-            this.unitOfWork.Received().RollbackChanges();
+            this.transaction.Received().Rollback();
         }
     }
 }

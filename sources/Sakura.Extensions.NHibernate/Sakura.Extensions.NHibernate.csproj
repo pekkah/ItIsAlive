@@ -121,15 +121,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="ExtensionMethods\SessionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterNHibernate.cs" />
     <Compile Include="RegisterSession.cs" />
-    <Compile Include="RegisterUnitOfWork.cs" />
     <Compile Include="ResolveSessionFactoryOnce.cs" />
     <Compile Include="ConfigureBootstrapperExtensions.cs" />
     <Compile Include="WarmupNHibernate.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

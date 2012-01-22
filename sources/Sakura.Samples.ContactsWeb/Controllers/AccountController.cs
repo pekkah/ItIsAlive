@@ -3,16 +3,13 @@
     using System.Web.Mvc;
     using System.Web.Security;
 
-    using Sakura.Extensions.NHibernate;
+    using NHibernate;
+
     using Sakura.Samples.Contacts.Database.Entities;
     using Sakura.Samples.ContactsWeb.Models;
 
     public class AccountController : Controller
     {
-        public AccountController()
-        {
-        }
-
         [Authorize]
         public ActionResult ChangePassword()
         {
@@ -21,7 +18,7 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult ChangePassword(ChangePasswordModel model, IUnitOfWork unitOfWork)
+        public ActionResult ChangePassword(ChangePasswordModel model, ISession unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
@@ -68,7 +65,7 @@
         }
 
         [HttpPost]
-        public ActionResult LogOn(LogOnModel model, string returnUrl, IUnitOfWork unitOfWork)
+        public ActionResult LogOn(LogOnModel model, string returnUrl, ISession unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
@@ -101,7 +98,7 @@
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model, IUnitOfWork unitOfWork)
+        public ActionResult Register(RegisterModel model, ISession unitOfWork)
         {
             if (this.ModelState.IsValid)
             {
@@ -118,7 +115,7 @@
             return View(model);
         }
 
-        private bool ValidateUser(string userName, string password, IUnitOfWork unitOfWork)
+        private bool ValidateUser(string userName, string password, ISession unitOfWork)
         {
             var user = unitOfWork.QueryOver<User>().Where(u => u.Name == userName).SingleOrDefault();
 

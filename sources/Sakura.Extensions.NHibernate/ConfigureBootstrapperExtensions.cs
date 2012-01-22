@@ -24,7 +24,6 @@
                     {
                         tasks.Add(initializationTask);
                         tasks.Add(registerSession);
-                        tasks.Add(new RegisterUnitOfWork());
                     });
         }
 

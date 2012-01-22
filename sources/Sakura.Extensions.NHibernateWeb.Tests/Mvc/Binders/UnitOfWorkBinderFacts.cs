@@ -10,10 +10,11 @@
 
     using NSubstitute;
 
-    using Sakura.Extensions.NHibernate;
     using Sakura.Extensions.NHibernateWeb.Mvc.Binders;
 
     using Xunit;
+
+    using global::NHibernate;
 
     public class UnitOfWorkBinderFacts
     {
@@ -25,11 +26,11 @@
 
         private readonly ILifetimeScope rootScope;
 
-        private readonly IUnitOfWork unitOfWork;
+        private readonly ISession unitOfWork;
 
         public UnitOfWorkBinderFacts()
         {
-            this.unitOfWork = Substitute.For<IUnitOfWork>();
+            this.unitOfWork = Substitute.For<ISession>();
 
             /* Cannot substitute ILifetimeScope as the Resolve<T>
              * methods are extension methods which cannot be mocked. */
@@ -45,30 +46,14 @@
             this.controllerContext = new ControllerContext(
                 httpContext, new RouteData(), Substitute.For<ControllerBase>());
 
-            this.binder = new UnitOfWorkBinder { Lifetime = this.rootScope };
-        }
-
-        [Fact]
-        public void should_NOT_begin_unitOfWork()
-        {
-            this.binder.BindModel(this.controllerContext, this.modelBindingContext).As<IUnitOfWork>().DidNotReceive().
-                Begin();
-        }
-
-        [Fact]
-        public void should_begin_unitOfWorkScope()
-        {
-            this.binder.BindModel(this.controllerContext, this.modelBindingContext);
-
-            var scope = this.controllerContext.HttpContext.Items["unitOfWorkScope"] as ILifetimeScope;
-
-            scope.Should().NotBeNull();
+            this.binder = new UnitOfWorkBinder { RootScope = this.rootScope };
         }
 
         [Fact]
         public void should_return_unitOfWork()
         {
-            this.binder.BindModel(this.controllerContext, this.modelBindingContext).Should().BeSameAs(this.unitOfWork);
+            this.binder.BindModel(this.controllerContext, this.modelBindingContext)
+                .Should().BeSameAs(this.unitOfWork);
         }
     }
 }

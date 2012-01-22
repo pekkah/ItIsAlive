@@ -1,23 +1,28 @@
 ﻿namespace Sakura.Extensions.NHibernateWeb.Mvc.Binders
 {
+    using System.Diagnostics;
     using System.Web.Mvc;
 
     using Autofac;
+    using Autofac.Features.OwnedInstances;
     using Autofac.Integration.Mvc;
 
-    using Sakura.Extensions.NHibernate;
+    using global::NHibernate;
 
-    [ModelBinderType(typeof(IUnitOfWork))]
+    [ModelBinderType(typeof(ISession))]
     public class UnitOfWorkBinder : IModelBinder
     {
-        public ILifetimeScope Lifetime { get; set; }
+        public ILifetimeScope RootScope { get; set; }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var unitOfWorkScope = this.Lifetime.BeginLifetimeScope("unitOfWork");
-            controllerContext.HttpContext.Items["unitOfWorkScope"] = unitOfWorkScope;
-            
-            return unitOfWorkScope.Resolve<IUnitOfWork>();
+            var ownedSession = this.RootScope.Resolve<Owned<ISession>>();
+
+            // transaction is started OnActionExecuting of the action filter
+
+            controllerContext.HttpContext.Items.Add("unitOfWork", ownedSession);
+
+            return ownedSession.Value;
         }
     }
 }

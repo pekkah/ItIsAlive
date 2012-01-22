@@ -92,6 +92,7 @@
     <Compile Include="WebApi\Conventions\DelegatingHandlerConvention.cs" />
     <Compile Include="WebApi\Conventions\HttpOperationHandlerConvention.cs" />
     <Compile Include="WebApi\Conventions\ServiceContractConvention.cs" />
+    <Compile Include="WebApi\IAppliesTo.cs" />
     <Compile Include="WebApi\InitializeWebApi.cs" />
     <Compile Include="WebApi\StartWebApi.cs" />
     <Compile Include="WebApi\ApiConfiguration.cs" />

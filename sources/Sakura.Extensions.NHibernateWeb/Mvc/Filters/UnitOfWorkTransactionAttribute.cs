@@ -7,10 +7,13 @@
     using System.Web.Mvc;
 
     using Autofac;
+    using Autofac.Features.OwnedInstances;
 
     using Sakura.Composition.Discovery;
-    using Sakura.Extensions.NHibernate;
+    using Sakura.Extensions.NHibernate.ExtensionMethods;
     using Sakura.Extensions.Web.Mvc;
+
+    using global::NHibernate;
 
     [Priority(Priority = -100)]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = false)]
@@ -18,45 +21,36 @@
     {
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var unitOfWorkScope = this.GetUnitOfWorkScope(filterContext.HttpContext);
+            var ownedSession = this.GetUnitOfWork(filterContext.HttpContext);
 
-            if (unitOfWorkScope == null)
+            if (ownedSession == null)
             {
                 return;
             }
 
-            var unitOfWork = unitOfWorkScope.Resolve<IUnitOfWork>();
+            Trace.TraceInformation("Ending transaction...");
 
-            if (unitOfWork == null)
+            if (filterContext.Exception == null)
             {
-                return;
-            }
-
-            if (!unitOfWork.IsActive)
-            {
-                return;
-            }
-
-            Trace.TraceInformation("Ending transaction..");
-            if (filterContext.Exception != null)
-            {
-                Trace.TraceError("Rolling back transaction due to error: {0}", filterContext.Exception);
-                unitOfWork.RollbackChanges();
+                ownedSession.Value.Transaction.Commit();
+                Trace.TraceInformation("transaction committed.");
             }
             else
             {
-                unitOfWork.Commit();
-                Trace.TraceInformation("Transaction committed.");
+                Trace.TraceInformation(
+                    "transaction was rolled back due to error {0}.", filterContext.Exception);
+
+                ownedSession.Value.Transaction.Rollback();
             }
 
-            unitOfWorkScope.Dispose();
+            ownedSession.Dispose();
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var unitOfWork =
-                filterContext.ActionParameters.Values.FirstOrDefault(value => value != null && value is IUnitOfWork) as
-                IUnitOfWork;
+                filterContext.ActionParameters.Values.FirstOrDefault(value => value != null && value is ISession) as
+                ISession;
 
             if (unitOfWork == null)
             {
@@ -64,17 +58,17 @@
             }
 
             Trace.TraceInformation("Begin transaction");
-            unitOfWork.Begin();
+            unitOfWork.BeginTransaction();
         }
 
-        private ILifetimeScope GetUnitOfWorkScope(HttpContextBase httpContext)
+        private Owned<ISession> GetUnitOfWork(HttpContextBase httpContext)
         {
-            if (!httpContext.Items.Contains("unitOfWorkScope"))
+            if (!httpContext.Items.Contains("unitOfWork"))
             {
                 return null;
             }
 
-            return httpContext.Items["unitOfWorkScope"] as ILifetimeScope;
+            return httpContext.Items["unitOfWork"] as Owned<ISession>;
         }
     }
 }

@@ -7,13 +7,12 @@ namespace Sakura.Extensions.NHibernate
 
     using Sakura.Bootstrapping.Tasks;
     using Sakura.Composition.Discovery;
-    using Sakura.Composition.Markers;
 
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
     [Hidden]
-    public class RegisterNHibernate : IInitializationTask, ISingleInstanceDependency
+    public class RegisterNHibernate : IInitializationTask
     {
         private readonly Func<Configuration> configure;
 

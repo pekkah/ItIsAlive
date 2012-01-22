@@ -40,6 +40,19 @@
             foreach (var lazyHandler in registeredHandlers.OrderBy(h => h.Metadata.Priority))
             {
                 var handler = lazyHandler.Value;
+
+
+                // check if applies to operation if IAppliesTo present
+                var applies = handler as IApplies<HttpOperationDescription>;
+                if (applies != null)
+                {
+                    if (!applies.To(description))
+                    {
+                        // exclude from handlers
+                        continue;
+                    }
+                }
+
                 handlers.Add(handler);
             }
         }
