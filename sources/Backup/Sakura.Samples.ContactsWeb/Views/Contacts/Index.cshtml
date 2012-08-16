@@ -1,0 +1,40 @@
+﻿@using Sakura.Samples.ContactsWeb.Models
+@{
+    this.ViewBag.Title = "Contacts";    
+}
+@section JSIncludes{
+    <script src="@this.Url.Content("~/Scripts/contact-management-1.0.js")" type="text/javascript"> </script>
+}
+@section JSScript
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // load all contacts into the grid
+            contactManager.loadAll(function (data) {
+                for (var i in data) {
+                    var html = "<tr><td>" + data[i].Name + "<td><tr>";
+                    $("#contacts-grid").append(html);
+                }
+            });
+
+            // add new contact
+            $("#new-contact").click(function () {
+                var name = $("#new-contact-name").val();
+                contactManager.add({ Name: name }, function () {
+                    var html = "<tr><td>" + name + "<td><tr>";
+                    $("#contacts-grid").append(html);
+                    $("#new-contact-name").val("");
+                });
+            });
+        });
+    </script>
+}
+<div>
+    <input type="text" id="new-contact-name" />
+    <button id="new-contact">Add</button>
+</div>
+<div>
+    <table id="contacts-grid">
+    </table>
+</div>

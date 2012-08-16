@@ -1,4 +1,6 @@
-# Sakura
+# Bootstrapper
+
+NOTE: New version is being planned with support for RTM version of ASP.NET MVC 4 and WebApi
 
 Generic bootstrapper for rapidly building applications. 
 
