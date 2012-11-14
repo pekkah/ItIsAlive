@@ -1,10 +1,8 @@
 namespace ItIsAlive.Composition.Conventions
 {
     using System;
-
     using Autofac;
     using Autofac.Builder;
-
     using Markers;
 
     public class AsSelfConvention : IRegistrationConvention
@@ -28,7 +26,7 @@ namespace ItIsAlive.Composition.Conventions
 
         public bool IsMatch(Type type)
         {
-            return typeof(IAsSelf).IsAssignableFrom(type);
+            return typeof (IAsSelf).IsAssignableFrom(type);
         }
     }
 }

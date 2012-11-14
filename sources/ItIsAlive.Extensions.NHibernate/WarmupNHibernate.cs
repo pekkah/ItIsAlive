@@ -1,11 +1,9 @@
 namespace ItIsAlive.Extensions.NHibernate
 {
     using Autofac;
-
-    using Bootstrapping.Tasks;
-
     using Composition.Discovery;
     using Composition.Markers;
+    using Tasks;
 
     [Hidden]
     public class WarmupNHibernate : IInitializationTask, ISingleInstanceDependency

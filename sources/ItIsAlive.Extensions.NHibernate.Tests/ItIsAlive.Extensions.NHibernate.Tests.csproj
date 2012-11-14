@@ -154,7 +154,7 @@
     <Compile Include="DatabaseModel\AbstractEntity.cs" />
     <Compile Include="DatabaseModel\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ConfigureBootstrapperExtensionsFacts.cs" />
+    <Compile Include="ItFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ItIsAlive.Extensions.NHibernate\ItIsAlive.Extensions.NHibernate.csproj">

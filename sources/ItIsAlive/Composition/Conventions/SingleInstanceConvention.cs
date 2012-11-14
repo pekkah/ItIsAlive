@@ -2,11 +2,8 @@ namespace ItIsAlive.Composition.Conventions
 {
     using System;
     using System.Linq;
-
     using Autofac.Builder;
-
     using ExtensionMethods;
-
     using Markers;
 
     public class SingleInstanceConvention : IRegistrationConvention
@@ -26,7 +23,8 @@ namespace ItIsAlive.Composition.Conventions
             }
 
             foreach (
-                var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(ISingleInstanceDependency))))
+                Type itf in
+                    dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof (ISingleInstanceDependency))))
             {
                 registration.As(itf).SingleInstance();
             }
@@ -34,7 +32,7 @@ namespace ItIsAlive.Composition.Conventions
 
         public bool IsMatch(Type type)
         {
-            return typeof(ISingleInstanceDependency).IsAssignableFrom(type);
+            return typeof (ISingleInstanceDependency).IsAssignableFrom(type);
         }
     }
 }

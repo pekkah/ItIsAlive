@@ -6,8 +6,6 @@ namespace ItIsAlive.Framework.Tests.Composition
     using Autofac;
     using Autofac.Builder;
     using Autofac.Core;
-
-    using ItIsAlive.Bootstrapping.Tasks;
     using ItIsAlive.Composition;
     using ItIsAlive.Composition.Discovery;
 
@@ -16,7 +14,7 @@ namespace ItIsAlive.Framework.Tests.Composition
     using NSubstitute;
 
     using StaticMocks;
-
+    using Tasks;
     using Xunit;
 
     public class DependencyDiscoveryTaskFacts

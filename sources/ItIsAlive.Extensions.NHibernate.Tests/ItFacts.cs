@@ -1,0 +1,115 @@
+﻿namespace ItIsAlive.Extensions.NHibernate.Tests
+{
+    using System.Linq;
+    using Autofac;
+    using Autofac.Core;
+    using Autofac.Core.Lifetime;
+    using DatabaseModel;
+    using FluentAssertions;
+    using Xunit;
+    using global::NHibernate;
+    using global::NHibernate.Cfg;
+    using global::NHibernate.Dialect;
+    using global::NHibernate.Driver;
+    using global::NHibernate.Mapping.ByCode;
+
+    public class ItFacts
+    {
+        private static IContainer _container;
+
+        private readonly IIt _configure;
+
+        public ItFacts()
+        {
+            _configure = It.Is.Composed(d => d.AssemblyOf<RegisterNHibernate>()).ExposeContainer(
+                exposed => _container = exposed).ConfigureNHibernate(ConfigureNHibernate);
+        }
+
+        [Fact]
+        public void should_add_warmup_task()
+        {
+            var bootstrapper = _configure.WarmupNHibernate().Alive();
+            bootstrapper.Sequence.Should().Contain(t => t.GetType() == typeof (WarmupNHibernate));
+        }
+
+        [Fact]
+        public void should_configure_session_factory()
+        {
+            _configure.Alive();
+
+            var sessionFactory = _container.Resolve<ISessionFactory>();
+
+            sessionFactory.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void should_register_session_as_current_lifetime_scope()
+        {
+            _configure.Alive();
+
+            var registration =
+                _container.ComponentRegistry.RegistrationsFor(new TypedService(typeof (ISession))).SingleOrDefault();
+
+            registration.Should().NotBeNull();
+            registration.Lifetime.Should().BeOfType<CurrentScopeLifetime>();
+        }
+
+        [Fact]
+        public void should_register_session_factory()
+        {
+            _configure.Alive();
+
+            var registration =
+                _container.ComponentRegistry.RegistrationsFor(new TypedService(typeof (ISessionFactory)))
+                         .SingleOrDefault(
+                    );
+
+            registration.Should().NotBeNull();
+            registration.Lifetime.Should().BeOfType<RootScopeLifetime>();
+        }
+
+        private Configuration ConfigureNHibernate()
+        {
+            var config = new Configuration();
+
+            config.DataBaseIntegration(
+                db =>
+                    {
+                        db.Dialect<SQLiteDialect>();
+                        db.Driver<SQLite20Driver>();
+                        db.SchemaAction = SchemaAutoAction.Recreate;
+                        db.ConnectionString = "Data Source=:memory:;Version=3;New=True;";
+                    }).SetProperty(Environment.CurrentSessionContextClass, "thread_static");
+
+            var mapper = new ConventionModelMapper();
+
+            // filter entities
+            var baseEntityType = typeof (AbstractEntity);
+            mapper.IsEntity(
+                (t, declared) => baseEntityType.IsAssignableFrom(t) && baseEntityType != t && !t.IsInterface);
+            mapper.IsRootEntity((t, declared) => baseEntityType == t.BaseType);
+
+            // override base properties
+            mapper.Class<AbstractEntity>(map => map.Id(x => x.Id, m => m.Generator(Generators.GuidComb)));
+
+            mapper.BeforeMapProperty += (modelinspector, member, propertycustomizer) =>
+                                            {
+                                                if (member.LocalMember.Name == "Name")
+                                                {
+                                                    propertycustomizer.Unique(true);
+                                                }
+                                            };
+
+            // compile
+            var mapping =
+                mapper.CompileMappingFor(
+                    typeof (Person).Assembly.GetExportedTypes().Where(
+                        type => typeof (AbstractEntity).IsAssignableFrom(type)));
+
+            // use mappings
+            config.AddMapping(mapping);
+
+            return config;
+        }
+    }
+}

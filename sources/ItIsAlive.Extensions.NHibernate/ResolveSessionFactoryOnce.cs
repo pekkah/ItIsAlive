@@ -2,11 +2,8 @@ namespace ItIsAlive.Extensions.NHibernate
 {
     using System;
     using System.Diagnostics;
-
-    using Bootstrapping.Tasks;
-
     using Composition.Discovery;
-
+    using Tasks;
     using global::NHibernate;
 
     [Hidden]

@@ -1,7 +1,6 @@
 namespace ItIsAlive.Composition
 {
     using System;
-
     using Autofac.Builder;
 
     public interface IRegistrationConvention

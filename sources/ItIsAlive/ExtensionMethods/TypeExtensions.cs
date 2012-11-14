@@ -17,7 +17,7 @@
                 throw new ArgumentNullException("interfaceType");
             }
 
-            var interfaces = type.GetInterfaces();
+            Type[] interfaces = type.GetInterfaces();
 
             if (interfaceType.IsGenericType)
             {

@@ -1,18 +1,14 @@
 ﻿namespace ItIsAlive.Extensions.NHibernate
 {
     using System;
-
     using Autofac.Builder;
-
-    using Bootstrapping;
-
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
     public static class ConfigureBootstrapperExtensions
     {
-        public static IConfigureBootstrapper ConfigureNHibernate(
-            this IConfigureBootstrapper configureBootstrapper,
+        public static IIt ConfigureNHibernate(
+            this IIt it,
             Func<Configuration> configure,
             Action<IRegistrationBuilder<ISession, SimpleActivatorData, SingleRegistrationStyle>>
                 modifySessionRegistration = null)
@@ -20,7 +16,7 @@
             var initializationTask = new RegisterNHibernate(configure);
             var registerSession = new RegisterSession(modifySessionRegistration);
 
-            return configureBootstrapper.Dependencies(d => d.AssemblyOf<RegisterNHibernate>()).Sequence(
+            return it.Composed(d => d.AssemblyOf<RegisterNHibernate>()).Sequence(
                 tasks =>
                     {
                         tasks.Add(initializationTask);
@@ -28,7 +24,7 @@
                     });
         }
 
-        public static IConfigureBootstrapper WarmupNHibernate(this IConfigureBootstrapper configure)
+        public static IIt WarmupNHibernate(this IIt configure)
         {
             return configure.Sequence(manager => manager.Add(new WarmupNHibernate()));
         }

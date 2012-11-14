@@ -2,29 +2,25 @@ namespace ItIsAlive.Extensions.NHibernate
 {
     using System;
     using System.Diagnostics;
-
     using Autofac;
-
-    using Bootstrapping.Tasks;
-
     using Composition.Discovery;
-
+    using Tasks;
     using global::NHibernate;
     using global::NHibernate.Cfg;
 
     [Hidden]
     public class RegisterNHibernate : IInitializationTask
     {
-        private readonly Func<Configuration> configure;
+        private readonly Func<Configuration> _configure;
 
         public RegisterNHibernate(Func<Configuration> configure)
         {
-            this.configure = configure;
+            this._configure = configure;
         }
 
         public void Execute(InitializationTaskContext context)
         {
-            var builder = context.Builder;
+            ContainerBuilder builder = context.Builder;
 
             // register session factory as singleton
             builder.Register(CreateSessionFactory).As<ISessionFactory>().SingleInstance().OnActivated(
@@ -38,7 +34,7 @@ namespace ItIsAlive.Extensions.NHibernate
 
         private ISessionFactory CreateSessionFactory(IComponentContext componentContext)
         {
-            return configure().BuildSessionFactory();
+            return _configure().BuildSessionFactory();
         }
 
         private IStatelessSession GetStatelessSession(IComponentContext componentContext)

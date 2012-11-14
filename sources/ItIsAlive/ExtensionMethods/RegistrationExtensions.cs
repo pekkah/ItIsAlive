@@ -1,9 +1,7 @@
 namespace ItIsAlive.ExtensionMethods
 {
     using System;
-
     using Autofac.Builder;
-
     using Composition.Discovery;
 
     public static class RegistrationExtensions
@@ -23,10 +21,10 @@ namespace ItIsAlive.ExtensionMethods
             }
 
             var priorityAttribute =
-                (PriorityAttribute)Attribute.GetCustomAttribute(dependencyType, typeof(PriorityAttribute));
+                (PriorityAttribute) Attribute.GetCustomAttribute(dependencyType, typeof (PriorityAttribute));
 
             // default priority is
-            var priority = 100;
+            int priority = 100;
 
             if (priorityAttribute != null)
             {

@@ -9,8 +9,6 @@
     using Autofac;
     using Autofac.Integration.Mvc;
     using Autofac.Integration.WebApi;
-    using Bootstrapping;
-    using Bootstrapping.Tasks;
     using Controllers;
     using Database.Entities;
     using Database.Schema;
@@ -20,33 +18,34 @@
     using NHibernate.Dialect;
     using NHibernate.Driver;
     using NHibernate.Mapping.ByCode;
+    using Tasks;
 
     public class Life
     {
-        private static Bootstrapper _bootstrapper;
+        private static TheThing _theThing;
 
         public static void Shutdown()
         {
-            _bootstrapper.Shutdown();
+            _theThing.Shutdown();
         }
 
         public static void Start()
         {
-            _bootstrapper = new ItIs().Dependencies(
+            _theThing = It.Is.Composed(
                 from =>
                     {
                         from.AssemblyOf<AccountController>();
                         from.AssemblyOf<User>();
                     })
-                                      .ConfigureNHibernate(ConfigureNHibernate)
-                                      .WarmupNHibernate().Sequence(
-                                          tasks =>
-                                              {
-                                                  tasks.Add(new ActionTask(ConfigureApis));
-                                                  tasks.Add(new ActionTask(ConfigureRoutes));
-                                              })
-                                      .ExposeContainer(ConfigureResolvers)
-                                      .Alive();
+                                  .ConfigureNHibernate(ConfigureNHibernate)
+                                  .WarmupNHibernate().Sequence(
+                                      tasks =>
+                                          {
+                                              tasks.Add(new ActionTask(ConfigureApis));
+                                              tasks.Add(new ActionTask(ConfigureRoutes));
+                                          })
+                                  .ExposeContainer(ConfigureResolvers)
+                                  .Alive();
         }
 
         private static void ConfigureResolvers(IContainer container)

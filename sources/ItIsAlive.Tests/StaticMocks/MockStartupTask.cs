@@ -1,6 +1,6 @@
 namespace ItIsAlive.Framework.Tests.StaticMocks
 {
-    using ItIsAlive.Bootstrapping.Tasks;
+    using Tasks;
 
     public class MockStartupTask : IStartupTask
     {

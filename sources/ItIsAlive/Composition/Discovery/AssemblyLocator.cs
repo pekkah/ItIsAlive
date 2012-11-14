@@ -34,7 +34,7 @@ namespace ItIsAlive.Composition.Discovery
         private static bool IsDependency(Type dependencyType, IEnumerable<IRegistrationConvention> policies)
         {
             // skip non discoverable dependencies
-            if (Attribute.IsDefined(dependencyType, typeof(HiddenAttribute)))
+            if (Attribute.IsDefined(dependencyType, typeof (HiddenAttribute)))
             {
                 return false;
             }

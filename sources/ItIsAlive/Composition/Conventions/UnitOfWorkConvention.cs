@@ -2,11 +2,8 @@ namespace ItIsAlive.Composition.Conventions
 {
     using System;
     using System.Linq;
-
     using Autofac.Builder;
-
     using ExtensionMethods;
-
     using Markers;
 
     public class UnitOfWorkConvention : IRegistrationConvention
@@ -25,7 +22,8 @@ namespace ItIsAlive.Composition.Conventions
                 throw new ArgumentNullException("dependencyType");
             }
 
-            foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(IUnitOfWorkDependency)))
+            foreach (
+                Type itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof (IUnitOfWorkDependency)))
                 )
             {
                 registration.As(itf).InstancePerMatchingLifetimeScope("unitOfWork");
@@ -44,7 +42,7 @@ namespace ItIsAlive.Composition.Conventions
                 return false;
             }
 
-            return typeof(IUnitOfWorkDependency).IsAssignableFrom(type);
+            return typeof (IUnitOfWorkDependency).IsAssignableFrom(type);
         }
     }
 }

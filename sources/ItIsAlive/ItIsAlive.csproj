@@ -137,8 +137,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapping\Bootstrapper.cs" />
-    <Compile Include="Bootstrapping\Tasks\ActionTask.cs" />
+    <Compile Include="TheThing.cs" />
+    <Compile Include="Tasks\ActionTask.cs" />
     <Compile Include="Composition\Conventions\AsSelfConvention.cs" />
     <Compile Include="Composition\Discovery\DefaultDependencyDiscoveryTask.cs" />
     <Compile Include="Composition\Discovery\PriorityAttribute.cs" />
@@ -150,22 +150,22 @@
     <Compile Include="Composition\Discovery\IPriorityMetadata.cs" />
     <Compile Include="Composition\Discovery\ListLocator.cs" />
     <Compile Include="Composition\Discovery\HiddenAttribute.cs" />
-    <Compile Include="Bootstrapping\IConfigureDependencies.cs" />
+    <Compile Include="IConfigureDependencies.cs" />
     <Compile Include="Composition\IRegistrationConvention.cs" />
     <Compile Include="Composition\Conventions\SingleInstanceConvention.cs" />
     <Compile Include="Composition\Conventions\TransientConvention.cs" />
-    <Compile Include="Bootstrapping\ItIs.cs" />
+    <Compile Include="It.cs" />
     <Compile Include="Composition\Discovery\AssemblyLocator.cs" />
     <Compile Include="Composition\Discovery\IDependencyLocator.cs" />
     <Compile Include="Composition\Markers\ISingleInstanceDependency.cs" />
     <Compile Include="Composition\Markers\ITransientDependency.cs" />
     <Compile Include="ExtensionMethods\TypeExtensions.cs" />
-    <Compile Include="Bootstrapping\IConfigureBootstrapper.cs" />
+    <Compile Include="IIt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Bootstrapping\ConfigureDependencies.cs" />
-    <Compile Include="Bootstrapping\Tasks\IInitializationTask.cs" />
-    <Compile Include="Bootstrapping\Tasks\IStartupTask.cs" />
-    <Compile Include="Bootstrapping\Tasks\InitializationTaskContext.cs" />
+    <Compile Include="ConfigureDependencies.cs" />
+    <Compile Include="Tasks\IInitializationTask.cs" />
+    <Compile Include="Tasks\IStartupTask.cs" />
+    <Compile Include="Tasks\InitializationTaskContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

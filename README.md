@@ -8,7 +8,7 @@ _NuGet packages are not ready for publishing yet! You can still download and bui
 Install-Package ItIsAlive
 
 ```csharp
-var bootstrapper = new ItIs().Dependencies(from => from.AssemblyOf<YourDependency>()).Alive();
+var bootstrapper = It.Is.Composed(from => from.AssemblyOf<YourDependency>()).Alive();
 ```
 
 ### NHibernate Extension
@@ -16,7 +16,7 @@ var bootstrapper = new ItIs().Dependencies(from => from.AssemblyOf<YourDependenc
 Install-Package ItIsAlive.Extensions.NHibernate
 
 ```csharp
-var bootstrapper = new ItIs().ConfigureNHibernate(() => 
+var bootstrapper = It.Is.ConfigureNHibernate(() => 
 { 
 	var configuration = new Configuration();
 	// todo configure database, mappings etc.

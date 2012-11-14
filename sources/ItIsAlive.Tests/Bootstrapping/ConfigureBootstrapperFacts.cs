@@ -1,29 +1,22 @@
 ﻿namespace ItIsAlive.Framework.Tests.Bootstrapping
 {
     using System;
-
     using Autofac;
     using Autofac.Builder;
-
-    using ItIsAlive.Bootstrapping;
-    using ItIsAlive.Bootstrapping.Tasks;
-    using ItIsAlive.Composition;
-
     using FluentAssertions;
-
+    using ItIsAlive.Composition;
     using NSubstitute;
-
     using StaticMocks;
-
+    using Tasks;
     using Xunit;
 
     public class ConfigureBootstrapperFacts
     {
-        private readonly ItIs _itIs;
+        private readonly IIt _itIs;
 
         public ConfigureBootstrapperFacts()
         {
-            _itIs = new ItIs();
+            _itIs = It.Is;
         }
 
         [Fact]
@@ -51,7 +44,7 @@
         public void should_register_dependencies_from_assembly()
         {
             IContainer container = null;
-            _itIs.Dependencies(from => from.AssemblyOf<MockTransientDependency>());
+            _itIs.Composed(from => from.AssemblyOf<MockTransientDependency>());
             _itIs.ExposeContainer(exposed => container = exposed).Alive();
 
             var mockTransientDependency = container.ResolveOptional<IMockTransientDependency>();
@@ -63,7 +56,7 @@
         public void should_register_dependencies_from_list_of_types()
         {
             IContainer container = null;
-            _itIs.Dependencies(from => from.Types(typeof(MockTransientDependency)));
+            _itIs.Composed(from => from.Types(typeof (MockTransientDependency)));
             _itIs.ExposeContainer(exposed => container = exposed).Alive();
 
             var mockTransientDependency = container.ResolveOptional<IMockTransientDependency>();
@@ -77,11 +70,11 @@
             IContainer container = null;
 
             // setup custom convention
-            var convention = GetConventionForType(typeof(MockDependency), typeof(IMockDependency));
+            var convention = GetConventionForType(typeof (MockDependency), typeof (IMockDependency));
 
             // ItIs
-            _itIs.Dependencies(from => from.AssemblyOf<MockTransientDependency>());
-            _itIs.Conventions(conventions => conventions.Add(convention));
+            _itIs.Composed(from => from.AssemblyOf<MockTransientDependency>());
+            _itIs.Using(conventions => conventions.Add(convention));
             _itIs.ExposeContainer(exposed => container = exposed).Alive();
 
             // assert

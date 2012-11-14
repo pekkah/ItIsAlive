@@ -2,11 +2,8 @@
 {
     using System;
     using System.Linq;
-
     using Autofac.Builder;
-
     using ExtensionMethods;
-
     using Markers;
 
     public class TransientConvention : IRegistrationConvention
@@ -25,7 +22,8 @@
                 throw new ArgumentNullException("dependencyType");
             }
 
-            foreach (var itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof(ITransientDependency))))
+            foreach (
+                Type itf in dependencyType.GetInterfaces().Where(i => i.HasInterface(typeof (ITransientDependency))))
             {
                 registration.As(itf).InstancePerDependency();
             }
@@ -33,7 +31,7 @@
 
         public bool IsMatch(Type type)
         {
-            return typeof(ITransientDependency).IsAssignableFrom(type);
+            return typeof (ITransientDependency).IsAssignableFrom(type);
         }
     }
 }
