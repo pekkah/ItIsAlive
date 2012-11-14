@@ -9,6 +9,7 @@
     using StaticMocks;
     using Tasks;
     using Xunit;
+    using ItIsAlive.ExtensionMethods;
 
     public class ConfigureBootstrapperFacts
     {
@@ -28,6 +29,18 @@
             _itIs.Alive();
 
             task.Received().Execute(Arg.Any<InitializationTaskContext>());
+        }
+
+        [Fact]
+        public void should_add_and_execute_action_as_task()
+        {
+            bool wasExecuted = false;
+
+            _itIs.Sequence(tasks => tasks.Add(context => wasExecuted = true));
+            
+            _itIs.Alive();
+
+            wasExecuted.ShouldBeEquivalentTo(true);
         }
 
         [Fact]

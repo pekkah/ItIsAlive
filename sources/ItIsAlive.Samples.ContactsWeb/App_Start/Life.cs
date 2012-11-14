@@ -19,6 +19,7 @@
     using NHibernate.Driver;
     using NHibernate.Mapping.ByCode;
     using Tasks;
+    using ExtensionMethods;
 
     public class Life
     {
@@ -41,8 +42,8 @@
                                   .WarmupNHibernate().Sequence(
                                       tasks =>
                                           {
-                                              tasks.Add(new ActionTask(ConfigureApis));
-                                              tasks.Add(new ActionTask(ConfigureRoutes));
+                                              tasks.Add(ConfigureApis);
+                                              tasks.Add(ConfigureRoutes);
                                           })
                                   .ExposeContainer(ConfigureResolvers)
                                   .Alive();

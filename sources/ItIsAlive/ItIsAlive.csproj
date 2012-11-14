@@ -137,6 +137,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\TaskCollectionExtensions.cs" />
     <Compile Include="TheThing.cs" />
     <Compile Include="Tasks\ActionTask.cs" />
     <Compile Include="Composition\Conventions\AsSelfConvention.cs" />
