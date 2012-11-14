@@ -1,4 +1,4 @@
-﻿namespace Sakura.Samples.ContactsWeb.Controllers
+﻿namespace Bootstrapper.Samples.ContactsWeb.Controllers
 {
     using System.Web.Mvc;
 

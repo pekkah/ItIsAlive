@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Tests", "2. Tests", "{B3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Samples", "3. Samples", "{A1DCE8CB-6EEF-4958-8209-CAFFE78C17A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura", "Sakura\Sakura.csproj", "{CE544CB7-A422-49BC-A4E0-25414E817A0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper", "Bootstrapper\Bootstrapper.csproj", "{CE544CB7-A422-49BC-A4E0-25414E817A0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Tests", "Sakura.Tests\Sakura.Tests.csproj", "{A63C9ACA-F316-448E-B673-5F5F0843EBB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Tests", "Bootstrapper.Tests\Bootstrapper.Tests.csproj", "{A63C9ACA-F316-448E-B673-5F5F0843EBB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernate", "Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj", "{8384A054-56A2-4079-81AB-82BAAD29AC1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Extensions.NHibernate", "Bootstrapper.Extensions.NHibernate\Bootstrapper.Extensions.NHibernate.csproj", "{8384A054-56A2-4079-81AB-82BAAD29AC1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakura.Extensions.NHibernate.Tests", "Sakura.Extensions.NHibernate.Tests\Sakura.Extensions.NHibernate.Tests.csproj", "{87A36C5E-1AA8-4750-8514-3749DD4D0482}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Extensions.NHibernate.Tests", "Bootstrapper.Extensions.NHibernate.Tests\Bootstrapper.Extensions.NHibernate.Tests.csproj", "{87A36C5E-1AA8-4750-8514-3749DD4D0482}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bootstrapper.Samples.ContactsWeb", "Bootstrapper.Samples.ContactsWeb\Bootstrapper.Samples.ContactsWeb.csproj", "{9F6989BA-9803-4F93-871E-BF52A44EA603}"
 EndProject

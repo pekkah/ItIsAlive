@@ -1,8 +1,4 @@
-﻿using Bootstrapper.Samples.ContactsWeb.App_Start;
-
-using WebActivator;
-
-namespace Bootstrapper.Samples.ContactsWeb.App_Start
+﻿namespace Bootstrapper.Samples.ContactsWeb.App_Start
 {
     using System.IO;
     using System.Linq;
@@ -15,21 +11,22 @@ namespace Bootstrapper.Samples.ContactsWeb.App_Start
     using Autofac.Integration.Mvc;
     using Autofac.Integration.WebApi;
 
-    using Bootstrapper.Samples.ContactsWeb;
-    using Bootstrapper.Samples.ContactsWeb.Controllers;
-    using Bootstrapper.Samples.ContactsWeb.Database.Entities;
-    using Bootstrapper.Samples.ContactsWeb.Database.Schema;
-    using Bootstrapper.Samples.ContactsWeb.Filters;
+    using Bootstrapping;
+    using Bootstrapping.Tasks;
+
+    using Controllers;
+
+    using Database.Entities;
+    using Database.Schema;
+
+    using Extensions.NHibernate;
+
+    using Filters;
 
     using NHibernate.Cfg;
     using NHibernate.Dialect;
     using NHibernate.Driver;
     using NHibernate.Mapping.ByCode;
-
-    using Sakura.Bootstrapping;
-    using Sakura.Bootstrapping.Tasks;
-    using Sakura.Extensions.NHibernate;
-    using Sakura.Samples.ContactsWeb.Apis;
 
     public class Boot
     {
@@ -60,8 +57,8 @@ namespace Bootstrapper.Samples.ContactsWeb.App_Start
                                                       tasks.Add(new ActionTask(ConfigureApis));
                                                       tasks.Add(new ActionTask(ConfigureRoutes));
                                                   })
-                                                  .ExposeContainer(ConfigureResolvers)
-                                                  .Start();
+                                          .ExposeContainer(ConfigureResolvers)
+                                          .Start();
         }
 
         private static void ConfigureResolvers(IContainer container)
@@ -71,12 +68,12 @@ namespace Bootstrapper.Samples.ContactsWeb.App_Start
         }
 
         private static void ConfigureUnitOfWork(InitializationTaskContext context)
-        {          
+        {
         }
 
         private static void ConfigureApis(InitializationTaskContext initializationTaskContext)
         {
-            var configuration = GlobalConfiguration.Configuration;       
+            var configuration = GlobalConfiguration.Configuration;
             configuration.MessageHandlers.Insert(0, new WebApiUnitOfWorkHandler());
 
             configuration.Routes.MapHttpRoute("contacts", "api/contacts", new { controller = "Contacts" });

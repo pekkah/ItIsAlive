@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Bootstrapper.Extensions.NHibernate</id>
+    <version>{Version}</version>
+    <title>NHibernate extension for Bootstrapper</title>
+    <authors>Pekka Heikura</authors>
+    <owners>Pekka Heikura</owners>
+    <projectUrl>http://github.com/pekkah/bootstrapper/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NHibernate bootstrapping extensions for Bootstrapper</description>
+    <releaseNotes>First release. Might contain bugs. You have been warned.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Bootstrapping Dependencies Autofac NHibernate Sakura</tags>
+    <dependencies>
+      <dependency id="Autofac" version="2.5.2.830" />
+      <dependency id="NHibernate" version="3.2.0.4000" />
+      <dependency id="Bootstrapper" version="{Version}" />
+    </dependencies>
+  </metadata>
+</package>

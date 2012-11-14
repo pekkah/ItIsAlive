@@ -1,4 +1,4 @@
-namespace Sakura.Samples.ContactsWeb.Models
+namespace Bootstrapper.Samples.ContactsWeb.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;

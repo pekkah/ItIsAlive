@@ -1,4 +1,4 @@
-﻿namespace Sakura.Samples.ContactsWeb.Apis
+﻿namespace Bootstrapper.Samples.ContactsWeb.Apis
 {
     using System.Collections.Generic;
     using System.Linq;

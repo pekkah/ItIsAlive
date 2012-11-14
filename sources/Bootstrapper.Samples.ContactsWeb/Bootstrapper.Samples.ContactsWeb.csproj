@@ -341,13 +341,13 @@
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate.csproj">
+    <ProjectReference Include="..\Bootstrapper.Extensions.NHibernate\Bootstrapper.Extensions.NHibernate.csproj">
       <Project>{8384a054-56a2-4079-81ab-82baad29ac1e}</Project>
-      <Name>Sakura.Extensions.NHibernate</Name>
+      <Name>Bootstrapper.Extensions.NHibernate</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakura\Sakura.csproj">
+    <ProjectReference Include="..\Bootstrapper\Bootstrapper.csproj">
       <Project>{ce544cb7-a422-49bc-a4e0-25414e817a0c}</Project>
-      <Name>Sakura</Name>
+      <Name>Bootstrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

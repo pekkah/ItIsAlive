@@ -1,4 +1,4 @@
-namespace Sakura.Samples.ContactsWeb.Apis
+namespace Bootstrapper.Samples.ContactsWeb.Apis
 {
     public class ContactDto
     {
