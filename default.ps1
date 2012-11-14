@@ -10,8 +10,6 @@ Properties {
 	$version = (git describe --tags --candidates 1).split('-')[0]
 }
 
-$framework='4.0';
-
 FormatTaskName (("-"*25) + "[{0}]" + ("-"*25))
 
 Task Default -Depends PackAll
@@ -26,8 +24,6 @@ Task Build -Depends Clean {
 Task PackAll -Depends BuildSolution {
 	Pack "$pack_dir\Sakura\Sakura-Template.nuspec" "$build_artifacts_bin_dir\Sakura.dll" $build_artifacts_dir
 	Pack "$pack_dir\Sakura.Extensions.NHibernate\Sakura.Extensions.NHibernate-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.NHibernate.dll" $build_artifacts_dir
-	Pack "$pack_dir\Sakura.Extensions.Web\Sakura.Extensions.Web-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.Web.dll" $build_artifacts_dir
-    Pack "$pack_dir\Sakura.Extensions.NHibernateWeb\Sakura.Extensions.NHibernateWeb-Template.nuspec" "$build_artifacts_bin_dir\Sakura.Extensions.NHibernateWeb.dll" $build_artifacts_dir
 }
 
 Task Clean {
