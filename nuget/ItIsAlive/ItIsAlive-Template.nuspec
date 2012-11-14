@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ItIsAlive</id>
+    <version>{Version}-beta</version>
+    <title>ItIsAlive</title>
+    <authors>Pekka Heikura</authors>
+    <owners>Pekka Heikura</owners>
+    <projectUrl>http://github.com/pekkah/ItIsAlive/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easy bootstrapping</description>
+    <releaseNotes>First release. Might contain bugs. You have been warned.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Bootstrapping Dependencies Autofac</tags>
+    <dependencies>
+      <dependency id="Autofac" version="3.0.0-beta" />
+    </dependencies>
+  </metadata>
+</package>
