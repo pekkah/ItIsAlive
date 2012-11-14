@@ -4,7 +4,7 @@ Properties {
 	$build_artifacts_dir = "$build_dir\build-artifacts\"
 	$build_artifacts_bin_dir="$build_artifacts_dir\binaries\"
 	$code_dir = "$build_dir\sources"
-	$solution = "Bootstrapper.sln"
+	$solution = "ItIsAlive.sln"
 	$config = "Release"
 	$pack_dir= "$build_dir\nuget"
 	$version = (git describe --tags --candidates 1).split('-')[0]
@@ -22,8 +22,8 @@ Task Build -Depends Clean {
 }
 
 Task PackAll -Depends BuildSolution {
-	Pack "$pack_dir\Bootstrapper\Bootstrapper-Template.nuspec" "$build_artifacts_bin_dir\Bootstrapper.dll" $build_artifacts_dir
-	Pack "$pack_dir\Bootstrapper.Extensions.NHibernate\Bootstrapper.Extensions.NHibernate-Template.nuspec" "$build_artifacts_bin_dir\Bootstrapper.Extensions.NHibernate.dll" $build_artifacts_dir
+	Pack "$pack_dir\ItIsAlive\ItIsAlive-Template.nuspec" "$build_artifacts_bin_dir\ItIsAlive.dll" $build_artifacts_dir
+	Pack "$pack_dir\ItIsAlive.Extensions.NHibernate\ItIsAlive.Extensions.NHibernate-Template.nuspec" "$build_artifacts_bin_dir\ItIsAlive.Extensions.NHibernate.dll" $build_artifacts_dir
 }
 
 Task Clean {

@@ -1,1 +1,0 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Bootstrapper.Samples.ContactsWeb.MvcApplication" Language="C#" %>

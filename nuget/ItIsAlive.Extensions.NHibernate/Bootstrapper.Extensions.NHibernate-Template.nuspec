@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ItIsAlive.Extensions.NHibernate</id>
+    <version>{Version}</version>
+    <title>NHibernate extension for ItIsAlive</title>
+    <authors>Pekka Heikura</authors>
+    <owners>Pekka Heikura</owners>
+    <projectUrl>http://github.com/pekkah/ItIsAlive/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NHibernate bootstrapping extensions for ItIsAlive</description>
+    <releaseNotes>First release. Might contain bugs. You have been warned.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>Bootstrapping Dependencies Autofac NHibernate Sakura</tags>
+    <dependencies>
+      <dependency id="Autofac" version="2.5.2.830" />
+      <dependency id="NHibernate" version="3.2.0.4000" />
+      <dependency id="ItIsAlive" version="{Version}" />
+    </dependencies>
+  </metadata>
+</package>
